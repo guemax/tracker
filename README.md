@@ -1,2 +1,3 @@
-# tracker
-A tool to track your computer usage time
+# Tracker
+
+A command-line tool to track your computer usage time.
