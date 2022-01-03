@@ -1,35 +1,26 @@
 import logging
 import sys
-import os
+
+from Tracker import Tracker
 
 
-def create_tracker_file(filename: str) -> None:
-    with open(filename, "w") as f:
-        pass
-
-
-def file_exists(filename: str) -> bool:
-    return os.path.isfile(filename)
-
-
-def init():
-    filename = "tracker.csv"
-    if file_exists(filename):
-        return
-    else:
-        create_tracker_file(filename)
+def enable_logging_in_console():
+    logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 
 if __name__ == "__main__":
-    # Log also in console
-    # logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
     # Set up logging
     logging.basicConfig(
         level=logging.INFO,
-        filename="tracker.log",
+        filename="files/tracker.log",
         filemode="w",
         format='%(asctime)s - %(levelname)s - %(message)s',
         datefmt='%d-%b-%y %H:%M:%S'
     )
-    logging.info("Initializing Tracker")
-    init()
+    debug = True
+    if debug:
+        enable_logging_in_console()
+
+    # Set up tracker
+    tracker = Tracker()
+    tracker.init()
