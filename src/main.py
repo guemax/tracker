@@ -1,3 +1,5 @@
+import logging
+import sys
 import os
 
 
@@ -19,4 +21,15 @@ def init():
 
 
 if __name__ == "__main__":
+    # Log also in console
+    # logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+    # Set up logging
+    logging.basicConfig(
+        level=logging.INFO,
+        filename="tracker.log",
+        filemode="w",
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%d-%b-%y %H:%M:%S'
+    )
+    logging.info("Initializing Tracker")
     init()
