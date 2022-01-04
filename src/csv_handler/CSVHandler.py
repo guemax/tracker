@@ -7,6 +7,7 @@ import logging
 
 class CSVHandler:
     def __init__(self):
+        self.tracker_folder = "src/files"
         self.tracker_file = "src/files/tracker.csv"
         self.fieldnames = ["start_time", "stop_time", "message"]
 
@@ -20,17 +21,14 @@ class CSVHandler:
     def create_tracker_file(self) -> None:
         logging.debug("Create tracker CSV file")
 
-        self.create_files_folder()
+        self.create_files_folder_if_not_exists()
         with open(self.tracker_file, "w") as f:
             writer = csv.DictWriter(f, fieldnames=self.fieldnames)
             writer.writeheader()
 
-    @staticmethod
-    def create_files_folder():
-        if os.path.isdir("src/files"):
-            return
-        else:
-            os.mkdir("src/files")
+    def create_files_folder_if_not_exists(self):
+        if not os.path.isdir(self.tracker_folder):
+            os.mkdir(self.tracker_folder)
 
     def tracker_file_exists(self) -> bool:
         return os.path.isfile(self.tracker_file)
