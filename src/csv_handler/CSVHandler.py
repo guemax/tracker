@@ -19,6 +19,7 @@ class CSVHandler:
 
     def create_tracker_file(self) -> None:
         logging.debug("Create tracker CSV file")
+        print(os.getcwd())
         with open(self.tracker_file, "w") as f:
             writer = csv.DictWriter(f, fieldnames=self.fieldnames)
             writer.writeheader()

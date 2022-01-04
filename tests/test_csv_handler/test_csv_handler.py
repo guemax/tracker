@@ -45,14 +45,8 @@ class TestCSVHandler(unittest.TestCase):
             pass
 
     def clean_and_init_tracker_file(self):
-        try:
-            self.remove_tracker_file()
-            self.csv_handler.init_tracker_csv_file()
-        except FileNotFoundError:
-            if os.access(self.csv_handler.tracker_file, os.R_OK):
-                pass
-            else:
-                raise NotAllowed
+        self.remove_tracker_file()
+        self.csv_handler.init_tracker_csv_file()
 
     def get_contents_of_tracker_file(self) -> str:
         with open(self.csv_handler.tracker_file, "r") as f:
