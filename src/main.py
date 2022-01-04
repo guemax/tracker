@@ -19,13 +19,13 @@ def cli():
 if __name__ == "__main__":
     # Set up logging
     logging.basicConfig(
-        level=logging.WARN,
+        level=logging.INFO,
         filename="src/files/tracker.log",
         filemode="w",
         format='%(asctime)s - %(levelname)s - %(message)s',
         datefmt='%d-%b-%y %H:%M:%S'
     )
-    debug = True
+    debug = False
     if debug:
         enable_logging_in_console()
 
