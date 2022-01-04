@@ -1,18 +1,26 @@
 import logging
 import sys
 
-from Tracker import Tracker
+import click
+
+from .Tracker import Tracker
+from .status import status
 
 
 def enable_logging_in_console():
     logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 
+@click.group(help="A command-line tool to track your computer usage time.")
+def cli():
+    pass
+
+
 if __name__ == "__main__":
     # Set up logging
     logging.basicConfig(
-        level=logging.INFO,
-        filename="files/tracker.log",
+        level=logging.WARN,
+        filename="src/files/tracker.log",
         filemode="w",
         format='%(asctime)s - %(levelname)s - %(message)s',
         datefmt='%d-%b-%y %H:%M:%S'
@@ -24,3 +32,9 @@ if __name__ == "__main__":
     # Set up tracker
     tracker = Tracker()
     tracker.init()
+
+    # Add subcommands
+    cli.add_command(status.status)
+
+    # Start click
+    cli()

@@ -4,7 +4,7 @@ import os
 
 class Tracker:
     def __init__(self):
-        self.tracker_file = "files/tracker.csv"
+        self.tracker_file = "src/files/tracker.csv"
 
     def init(self):
         logging.info("Initializing Tracker")
