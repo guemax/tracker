@@ -19,10 +19,18 @@ class CSVHandler:
 
     def create_tracker_file(self) -> None:
         logging.debug("Create tracker CSV file")
-        print(os.listdir())
+
+        self.create_files_folder()
         with open(self.tracker_file, "w") as f:
             writer = csv.DictWriter(f, fieldnames=self.fieldnames)
             writer.writeheader()
+
+    @staticmethod
+    def create_files_folder():
+        if os.path.isdir("src/files"):
+            return
+        else:
+            os.mkdir("src/files")
 
     def tracker_file_exists(self) -> bool:
         return os.path.isfile(self.tracker_file)
