@@ -5,6 +5,7 @@ import click
 
 from .Tracker import Tracker
 from .status import status
+from .start import start
 
 
 def enable_logging_in_console():
@@ -22,7 +23,7 @@ if __name__ == "__main__":
         level=logging.INFO,
         filename="src/files/tracker.log",
         filemode="w",
-        format='%(asctime)s - %(levelname)s - %(message)s',
+        format='%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s',
         datefmt='%d-%b-%y %H:%M:%S'
     )
     debug = False
@@ -35,6 +36,7 @@ if __name__ == "__main__":
 
     # Add subcommands
     cli.add_command(status.status)
+    cli.add_command(start.start)
 
     # Start click
     cli()
