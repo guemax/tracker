@@ -1,3 +1,5 @@
+import logging
+
 import click
 
 from ..csv_handler import CSVHandler
@@ -9,5 +11,6 @@ def start():
     csv_handler = CSVHandler.CSVHandler()
     time = csv_handler.create_new_entry()
 
+    logging.info(f"New timer started")
     print(f"New timer started at {time}")
     print("OK")
