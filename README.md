@@ -15,15 +15,15 @@ A command-line tool to track your computer usage time.
 
 P1
 
-- Start timer
-- Stop timer
-- Add description of done work
+- [X] Start timer
+- [ ] Stop timer
+- [ ] Add description of done work
 
 P2
 
-- Show old entries
+- [ ] Show old entries
 
 P3
 
-- Show summary of a day
-- Show number of hours per day/week
+- [ ] Show summary of a day
+- [ ] Show number of hours per day/week
