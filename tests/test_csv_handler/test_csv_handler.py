@@ -1,5 +1,5 @@
-import os
 import unittest
+import os
 import re
 
 from src.csv_handler import CSVHandler

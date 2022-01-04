@@ -12,5 +12,4 @@ def start():
     time = csv_handler.create_new_entry()
 
     logging.info(f"New timer started")
-    print(f"New timer started at {time}")
-    print("OK")
+    print(f"New timer started at {time}\nOK")
