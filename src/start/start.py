@@ -7,4 +7,7 @@ from ..csv_handler import CSVHandler
 def start():
     """Start a new timer"""
     csv_handler = CSVHandler.CSVHandler()
-    csv_handler.create_new_entry()
+    time = csv_handler.create_new_entry()
+
+    print(f"New timer started at {time}")
+    print("OK")
