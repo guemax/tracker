@@ -28,7 +28,7 @@ class CSVHandler:
 
     def create_new_entry(self) -> str:
         current_time = datetime.datetime.now()
-        current_time = current_time.strftime("%b, %d %Y at %I:%M:%S")
+        current_time = current_time.strftime("%b, %d %Y at %H:%M:%S")
 
         with open(self.tracker_file, "a") as f:
             writer = csv.DictWriter(f, fieldnames=self.fieldnames)
