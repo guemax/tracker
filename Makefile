@@ -1,5 +1,12 @@
+all:
+	@echo "Running Tracker"
+	@python3 -m src.main
 clean:
-	rm src/files/tracker.csv
-	rm src/files/tracker.log
+	@echo "Cleaning up Tracker files"
+	@-rm src/files/*
 log:
-	cat src/files/tracker.log
+	@echo "Showing Tracker log file"
+	@cat src/files/tracker.log
+test: clean
+	@echo "Running tests"
+	@python3 -m unittest discover
