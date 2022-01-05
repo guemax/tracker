@@ -37,10 +37,19 @@ class TestCSVHandler(unittest.TestCase):
         self.assertEqual(file["stop_time"][0], "")
         self.assertEqual(file["message"][0], "")
 
-    def test_finishing_a_created_entry(self) -> None:
+    def test_finishing_a_created_entry_with_empty_message(self) -> None:
+        message = ""
+        self.finishing_a_created_entry(message)
+
+    def test_finishing_a_created_entry_with_message(self) -> None:
+        message = "Developed new feature for Tracker"
+        self.finishing_a_created_entry(message)
+
+    def finishing_a_created_entry(self, message: str) -> None:
         self.clean_and_init_tracker_file()
+
         start_time = self.csv_handler.create_new_entry()
-        stop_time = self.csv_handler.finish_created_entry()
+        stop_time = self.csv_handler.finish_created_entry(message)
 
         # Check for the column names
         self.assertTrue(self.columns_names_are_correct())
@@ -54,7 +63,7 @@ class TestCSVHandler(unittest.TestCase):
 
         self.assertEqual(file["start_time"][0], start_time)
         self.assertEqual(file["stop_time"][0], stop_time)
-        self.assertEqual(file["message"][0], "")
+        self.assertEqual(file["message"][0], message)
 
     def test_checking_if_tracker_file_exists(self) -> None:
         self.remove_tracker_file()
