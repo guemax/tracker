@@ -6,6 +6,7 @@ import click
 from .Tracker import Tracker
 from .status import status
 from .start import start
+from .stop import stop
 
 
 def enable_logging_in_console():
@@ -37,6 +38,7 @@ if __name__ == "__main__":
     # Add subcommands
     cli.add_command(status.status)
     cli.add_command(start.start)
+    cli.add_command(stop.stop)
 
     # Start click
     cli()

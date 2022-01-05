@@ -42,3 +42,17 @@ class CSVHandler:
             data.to_csv(f, header=False, index=False)
 
         return current_time
+
+    def finish_created_entry(self) -> str:
+        stop_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
+
+        data = pandas.read_csv(self.tracker_file, dtype=str)
+
+        index = len(data) - 1
+        data.at[index, "stop_time"] = stop_time
+        # TODO: Add message
+        # data["message"][0] = ""
+
+        data.to_csv(self.tracker_file, index=False)
+
+        return stop_time
