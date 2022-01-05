@@ -1,9 +1,10 @@
 from datetime import datetime
+import logging
 import os
 
-import logging
-
 import pandas
+
+from ..exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 class CSVHandler:
@@ -34,7 +35,24 @@ class CSVHandler:
     def tracker_file_exists(self) -> bool:
         return os.path.isfile(self.tracker_file)
 
+    def unfinished_entry_present(self) -> bool:
+        data = pandas.read_csv(self.tracker_file, dtype=str)
+        data = data.fillna("")
+
+        if len(data) == 0:
+            return False
+
+        index = len(data) - 1
+
+        if data.at[index, "start_time"] != "" and data.at[index, "stop_time"] == "":
+            return True
+
+        return False
+
     def create_new_entry(self) -> str:
+        if self.unfinished_entry_present():
+            raise InvalidTimerModification()
+
         current_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
 
         with open(self.tracker_file, "a") as f:
@@ -44,6 +62,9 @@ class CSVHandler:
         return current_time
 
     def finish_created_entry(self, message: str) -> str:
+        if not self.unfinished_entry_present():
+            raise InvalidTimerModification()
+
         stop_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
 
         data = pandas.read_csv(self.tracker_file, dtype=str)

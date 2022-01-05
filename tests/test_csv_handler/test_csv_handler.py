@@ -5,6 +5,7 @@ import re
 import pandas
 
 from src.csv_handler import CSVHandler
+from src.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 class TestCSVHandler(unittest.TestCase):
@@ -65,12 +66,51 @@ class TestCSVHandler(unittest.TestCase):
         self.assertEqual(file["stop_time"][0], stop_time)
         self.assertEqual(file["message"][0], message)
 
+    def test_unfinished_entry_present(self):
+        self.clean_and_init_tracker_file()
+
+        self.assertFalse(self.csv_handler.unfinished_entry_present())
+
+        self.csv_handler.create_new_entry()
+        self.assertTrue(self.csv_handler.unfinished_entry_present())
+
+        self.csv_handler.finish_created_entry(message="")
+        self.assertFalse(self.csv_handler.unfinished_entry_present())
+
     def test_checking_if_tracker_file_exists(self) -> None:
         self.remove_tracker_file()
         self.assertFalse(self.csv_handler.tracker_file_exists())
 
         self.csv_handler.create_tracker_file()
         self.assertTrue(self.csv_handler.tracker_file_exists())
+
+    def test_starting_timer_when_one_already_exists(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        # Should not throw an exception
+        self.csv_handler.create_new_entry()
+
+        # There is already an existing timer!
+        self.assertRaises(InvalidTimerModification, self.csv_handler.create_new_entry)
+
+        # That should not work either if you try it again ;-)
+        self.assertRaises(InvalidTimerModification, self.csv_handler.create_new_entry)
+
+    def test_stopping_timer_when_noone_already_exists(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        # There is no timer yet, throws an exception
+        self.assertRaises(InvalidTimerModification, self.csv_handler.finish_created_entry, "")
+
+        # Should not throw an exception
+        self.csv_handler.create_new_entry()
+        self.csv_handler.finish_created_entry(message="")
+
+        # Timer has already been stopped
+        self.assertRaises(InvalidTimerModification, self.csv_handler.finish_created_entry, "")
+
+        # That should not work either if you try it again ;-)
+        self.assertRaises(InvalidTimerModification, self.csv_handler.finish_created_entry, "")
 
     def remove_tracker_file(self) -> None:
         try:
