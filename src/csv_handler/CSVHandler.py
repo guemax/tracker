@@ -1,8 +1,9 @@
-import csv
-import datetime
+from datetime import datetime
 import os
 
 import logging
+
+import pandas
 
 
 class CSVHandler:
@@ -22,9 +23,9 @@ class CSVHandler:
         logging.debug("Create tracker CSV file")
 
         self.create_files_folder_if_not_exists()
-        with open(self.tracker_file, "w", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=self.fieldnames)
-            writer.writeheader()
+
+        file = pandas.DataFrame(columns=self.fieldnames)
+        file.to_csv(self.tracker_file, index=False)
 
     def create_files_folder_if_not_exists(self):
         if not os.path.isdir(self.tracker_folder):
@@ -34,11 +35,10 @@ class CSVHandler:
         return os.path.isfile(self.tracker_file)
 
     def create_new_entry(self) -> str:
-        current_time = datetime.datetime.now()
-        current_time = current_time.strftime("%b, %d %Y at %H:%M:%S")
+        current_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
 
-        with open(self.tracker_file, "a", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=self.fieldnames)
-            writer.writerow({"start_time": current_time, "stop_time": "", "message": ""})
+        with open(self.tracker_file, "a") as f:
+            data = pandas.DataFrame({"start_time": current_time, "stop_time": None, "message": None}, index=[0])
+            data.to_csv(f, header=False, index=False)
 
         return current_time
