@@ -65,6 +65,17 @@ class TestCSVHandler(unittest.TestCase):
         self.assertEqual(file["stop_time"][0], stop_time)
         self.assertEqual(file["message"][0], message)
 
+    def test_unfinished_entry_present(self):
+        self.clean_and_init_tracker_file()
+
+        self.assertFalse(self.csv_handler.unfinished_entry_present())
+
+        self.csv_handler.create_new_entry()
+        self.assertTrue(self.csv_handler.unfinished_entry_present())
+
+        self.csv_handler.finish_created_entry(message="")
+        self.assertFalse(self.csv_handler.unfinished_entry_present())
+
     def test_checking_if_tracker_file_exists(self) -> None:
         self.remove_tracker_file()
         self.assertFalse(self.csv_handler.tracker_file_exists())

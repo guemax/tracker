@@ -34,6 +34,20 @@ class CSVHandler:
     def tracker_file_exists(self) -> bool:
         return os.path.isfile(self.tracker_file)
 
+    def unfinished_entry_present(self) -> bool:
+        data = pandas.read_csv(self.tracker_file, dtype=str)
+        data = data.fillna("")
+
+        if len(data) == 0:
+            return False
+
+        index = len(data) - 1
+
+        if data.at[index, "start_time"] != "" and data.at[index, "stop_time"] == "":
+            return True
+
+        return False
+
     def create_new_entry(self) -> str:
         current_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
 
