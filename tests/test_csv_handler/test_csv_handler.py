@@ -5,6 +5,7 @@ import re
 import pandas
 
 from src.csv_handler import CSVHandler
+from src.exceptions.UnfinishedEntryPresentException import UnfinishedEntryPresentException
 
 
 class TestCSVHandler(unittest.TestCase):
@@ -82,6 +83,18 @@ class TestCSVHandler(unittest.TestCase):
 
         self.csv_handler.create_tracker_file()
         self.assertTrue(self.csv_handler.tracker_file_exists())
+
+    def test_starting_timer_when_one_already_exists(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        # Should not throw an exception
+        self.csv_handler.create_new_entry()
+
+        # There is already an existing timer!
+        self.assertRaises(UnfinishedEntryPresentException, self.csv_handler.create_new_entry)
+
+        # That should not work either if you try it again ;-)
+        self.assertRaises(UnfinishedEntryPresentException, self.csv_handler.create_new_entry)
 
     def remove_tracker_file(self) -> None:
         try:
