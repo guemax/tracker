@@ -1,9 +1,10 @@
 from datetime import datetime
+import logging
 import os
 
-import logging
-
 import pandas
+
+from ..exceptions.UnfinishedEntryPresentException import UnfinishedEntryPresentException
 
 
 class CSVHandler:
@@ -49,6 +50,9 @@ class CSVHandler:
         return False
 
     def create_new_entry(self) -> str:
+        if self.unfinished_entry_present():
+            raise UnfinishedEntryPresentException()
+
         current_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
 
         with open(self.tracker_file, "a") as f:
@@ -58,6 +62,9 @@ class CSVHandler:
         return current_time
 
     def finish_created_entry(self, message: str) -> str:
+        if not self.unfinished_entry_present():
+            raise UnfinishedEntryPresentException()
+
         stop_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
 
         data = pandas.read_csv(self.tracker_file, dtype=str)
