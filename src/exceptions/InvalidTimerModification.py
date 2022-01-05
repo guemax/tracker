@@ -1,0 +1,2 @@
+class InvalidTimerModification(Exception):
+    pass

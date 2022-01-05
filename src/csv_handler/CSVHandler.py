@@ -4,7 +4,7 @@ import os
 
 import pandas
 
-from ..exceptions.UnfinishedEntryPresentException import UnfinishedEntryPresentException
+from ..exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 class CSVHandler:
@@ -51,7 +51,7 @@ class CSVHandler:
 
     def create_new_entry(self) -> str:
         if self.unfinished_entry_present():
-            raise UnfinishedEntryPresentException()
+            raise InvalidTimerModification()
 
         current_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
 
@@ -63,7 +63,7 @@ class CSVHandler:
 
     def finish_created_entry(self, message: str) -> str:
         if not self.unfinished_entry_present():
-            raise UnfinishedEntryPresentException()
+            raise InvalidTimerModification()
 
         stop_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
 

@@ -5,7 +5,7 @@ import re
 import pandas
 
 from src.csv_handler import CSVHandler
-from src.exceptions.UnfinishedEntryPresentException import UnfinishedEntryPresentException
+from src.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 class TestCSVHandler(unittest.TestCase):
@@ -91,26 +91,26 @@ class TestCSVHandler(unittest.TestCase):
         self.csv_handler.create_new_entry()
 
         # There is already an existing timer!
-        self.assertRaises(UnfinishedEntryPresentException, self.csv_handler.create_new_entry)
+        self.assertRaises(InvalidTimerModification, self.csv_handler.create_new_entry)
 
         # That should not work either if you try it again ;-)
-        self.assertRaises(UnfinishedEntryPresentException, self.csv_handler.create_new_entry)
+        self.assertRaises(InvalidTimerModification, self.csv_handler.create_new_entry)
 
     def test_stopping_timer_when_noone_already_exists(self) -> None:
         self.clean_and_init_tracker_file()
 
         # There is no timer yet, throws an exception
-        self.assertRaises(UnfinishedEntryPresentException, self.csv_handler.finish_created_entry, "")
+        self.assertRaises(InvalidTimerModification, self.csv_handler.finish_created_entry, "")
 
         # Should not throw an exception
         self.csv_handler.create_new_entry()
         self.csv_handler.finish_created_entry(message="")
 
         # Timer has already been stopped
-        self.assertRaises(UnfinishedEntryPresentException, self.csv_handler.finish_created_entry, "")
+        self.assertRaises(InvalidTimerModification, self.csv_handler.finish_created_entry, "")
 
         # That should not work either if you try it again ;-)
-        self.assertRaises(UnfinishedEntryPresentException, self.csv_handler.finish_created_entry, "")
+        self.assertRaises(InvalidTimerModification, self.csv_handler.finish_created_entry, "")
 
     def remove_tracker_file(self) -> None:
         try:
