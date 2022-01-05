@@ -1,0 +1,2 @@
+class UnfinishedEntryPresentException(Exception):
+    pass
