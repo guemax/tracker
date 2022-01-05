@@ -22,7 +22,7 @@ class CSVHandler:
         logging.debug("Create tracker CSV file")
 
         self.create_files_folder_if_not_exists()
-        with open(self.tracker_file, "w") as f:
+        with open(self.tracker_file, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=self.fieldnames)
             writer.writeheader()
 
@@ -37,7 +37,7 @@ class CSVHandler:
         current_time = datetime.datetime.now()
         current_time = current_time.strftime("%b, %d %Y at %H:%M:%S")
 
-        with open(self.tracker_file, "a") as f:
+        with open(self.tracker_file, "a", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=self.fieldnames)
             writer.writerow({"start_time": current_time, "stop_time": "", "message": ""})
 

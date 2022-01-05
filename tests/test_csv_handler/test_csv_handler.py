@@ -2,33 +2,40 @@ import unittest
 import os
 import re
 
+import pandas
+
 from src.csv_handler import CSVHandler
-
-
-class NotAllowed(Exception):
-    pass
 
 
 class TestCSVHandler(unittest.TestCase):
     def setUp(self) -> None:
         self.csv_handler = CSVHandler.CSVHandler()
-        self.pattern_new_entry = re.compile(
-            "start_time,stop_time,message\n\"\w{3}, \d{2} \d{4} at (\d{2}:){2}\d{2}\",,"
+        self.datetime_pattern = re.compile(
+            "\w{3}, \d{2} \d{4} at (\d{2}:){2}\d{2}"
         )
 
     def test_inititalizing_tracker_file(self):
         self.clean_and_init_tracker_file()
+        self.assertTrue(self.columns_names_are_correct())
 
-        file = self.get_contents_of_tracker_file()
-        self.assertEqual(file, "start_time,stop_time,message")
+    def columns_names_are_correct(self) -> bool:
+        column_names = self.get_column_names()
+        return column_names == ["start_time", "stop_time", "message"]
 
     def test_creating_a_new_entry(self):
         self.clean_and_init_tracker_file()
-
         self.csv_handler.create_new_entry()
 
+        # Check for the column names
+        self.assertTrue(self.columns_names_are_correct())
+
         file = self.get_contents_of_tracker_file()
-        self.assertTrue(self.pattern_new_entry.match(file))
+        # Replace pandas 'nan' with an empty string for simple assertions
+        file = file.fillna("")
+
+        self.assertTrue(self.datetime_pattern.match(file["start_time"][0]))
+        self.assertEqual(file["stop_time"][0], "")
+        self.assertEqual(file["message"][0], "")
 
     def test_checking_if_tracker_file_exists(self):
         self.remove_tracker_file()
@@ -48,12 +55,13 @@ class TestCSVHandler(unittest.TestCase):
         self.remove_tracker_file()
         self.csv_handler.init_tracker_csv_file()
 
-    def get_contents_of_tracker_file(self) -> str:
-        with open(self.csv_handler.tracker_file, "r") as f:
-            file = f.read()
-            file = file.strip()
+    def get_column_names(self) -> list:
+        data_frame = pandas.read_csv(self.csv_handler.tracker_file)
+        return list(data_frame.columns)
 
-        return file
+    def get_contents_of_tracker_file(self) -> pandas.DataFrame:
+        data_frame = pandas.read_csv(self.csv_handler.tracker_file)
+        return data_frame
 
 
 if __name__ == "__main__":
