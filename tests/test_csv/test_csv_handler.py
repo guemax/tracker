@@ -4,7 +4,7 @@ import re
 
 import pandas
 
-from src.csv_handler import CSVHandler
+from src.csv import CSVHandler
 
 
 class TestCSVHandler(unittest.TestCase):

@@ -2,8 +2,8 @@ from datetime import datetime
 
 import pandas
 
-from .CSVAttributes import CSVAttributes
-from ..exceptions.InvalidTimerModification import InvalidTimerModification
+from src.csv.CSVAttributes import CSVAttributes
+from src.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 class TimerHandler(CSVAttributes):

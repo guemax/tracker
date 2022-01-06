@@ -2,7 +2,7 @@ import logging
 
 import click
 
-from ..csv_handler import TimerHandler
+from ..timer_handler import TimerHandler
 from ..exceptions.InvalidTimerModification import InvalidTimerModification
 
 

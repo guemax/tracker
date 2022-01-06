@@ -1,10 +1,10 @@
 import unittest
 import re
 
-from src.csv_handler.TimerHandler import TimerHandler
+from src.timer_handler.TimerHandler import TimerHandler
 from src.exceptions.InvalidTimerModification import InvalidTimerModification
 
-from .CSVBaseTestingClass import CSVBaseTestingClass
+from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
 
 class TestTimerHandler(CSVBaseTestingClass):

@@ -1,4 +1,4 @@
-from .csv_handler import CSVHandler
+from .csv import CSVHandler
 
 
 class Tracker:

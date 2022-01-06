@@ -3,7 +3,7 @@ import os
 
 import pandas
 
-from src.csv_handler.CSVHandler import CSVHandler
+from src.csv.CSVHandler import CSVHandler
 
 
 class CSVBaseTestingClass(unittest.TestCase):
