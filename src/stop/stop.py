@@ -2,7 +2,7 @@ import logging
 
 import click
 
-from ..csv_handler import CSVHandler
+from ..csv_handler import TimerHandler
 from ..exceptions.InvalidTimerModification import InvalidTimerModification
 
 
@@ -10,9 +10,9 @@ from ..exceptions.InvalidTimerModification import InvalidTimerModification
 @click.option("--message", "-m", default="", type=str)
 def stop(message: str) -> None:
     """Stop an exisiting timer"""
-    csv_handler = CSVHandler.CSVHandler()
+    timer_handler = TimerHandler.TimerHandler()
     try:
-        time = csv_handler.finish_created_entry(message)
+        time = timer_handler.stop_timer(message)
     except InvalidTimerModification:
         logging.info("Stopping timer aborted due to a missing created timer")
         print("No timer exists yet.\n"

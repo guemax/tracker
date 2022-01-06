@@ -1,17 +1,14 @@
-from datetime import datetime
 import logging
 import os
 
 import pandas
 
-from ..exceptions.InvalidTimerModification import InvalidTimerModification
+from .CSVAttributes import CSVAttributes
 
 
-class CSVHandler:
+class CSVHandler(CSVAttributes):
     def __init__(self):
-        self.tracker_folder = "src/files"
-        self.tracker_file = "src/files/tracker.csv"
-        self.fieldnames = ["start_time", "stop_time", "message"]
+        super(CSVHandler, self).__init__()
 
     def init_tracker_csv_file(self) -> None:
         logging.info("Initializing Tracker CSV file")
@@ -34,45 +31,3 @@ class CSVHandler:
 
     def tracker_file_exists(self) -> bool:
         return os.path.isfile(self.tracker_file)
-
-    def unfinished_entry_present(self) -> bool:
-        data = pandas.read_csv(self.tracker_file, dtype=str)
-        data = data.fillna("")
-
-        if len(data) == 0:
-            return False
-
-        index = len(data) - 1
-
-        if data.at[index, "start_time"] != "" and data.at[index, "stop_time"] == "":
-            return True
-
-        return False
-
-    def create_new_entry(self) -> str:
-        if self.unfinished_entry_present():
-            raise InvalidTimerModification()
-
-        current_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
-
-        with open(self.tracker_file, "a") as f:
-            data = pandas.DataFrame({"start_time": current_time, "stop_time": None, "message": None}, index=[0])
-            data.to_csv(f, header=False, index=False)
-
-        return current_time
-
-    def finish_created_entry(self, message: str) -> str:
-        if not self.unfinished_entry_present():
-            raise InvalidTimerModification()
-
-        stop_time = datetime.now().strftime("%b, %d %Y at %H:%M:%S")
-
-        data = pandas.read_csv(self.tracker_file, dtype=str)
-
-        index = len(data) - 1
-        data.at[index, "stop_time"] = stop_time
-        data.at[index, "message"] = message
-
-        data.to_csv(self.tracker_file, index=False)
-
-        return stop_time
