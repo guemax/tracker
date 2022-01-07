@@ -16,8 +16,8 @@ A command-line tool to track your computer usage time.
 P1
 
 - [X] Start timer
-- [ ] Stop timer
-- [ ] Add description of done work
+- [X] Stop timer
+- [X] Add description of done work
 
 P2
 
