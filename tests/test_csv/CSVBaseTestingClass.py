@@ -12,7 +12,7 @@ class CSVBaseTestingClass(unittest.TestCase):
 
     def columns_names_are_correct(self) -> bool:
         column_names = self.get_column_names()
-        return column_names == ["start_time", "stop_time", "message"]
+        return column_names == ["start_date", "start_time", "stop_date", "stop_time", "message"]
 
     def check_for_correct_column_names(self) -> None:
         self.assertTrue(self.columns_names_are_correct())

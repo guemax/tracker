@@ -12,20 +12,24 @@ class TestTimerHandler(CSVBaseTestingClass):
         super(TestTimerHandler, self).setUp()
 
         self.timer_handler = TimerHandler()
-        self.datetime_pattern = re.compile(
-            "\w{3}, \d{2} \d{4} at (\d{2}:){2}\d{2}"
-        )
+        self.date_pattern = re.compile("\w{3}, \d{2} \d{4}")
+        self.time_pattern = re.compile("(\d{2}:){2}\d{2}")
     
     def test_starting_a_new_timer(self) -> None:
         self.clean_and_init_tracker_file()
-        start_time = self.timer_handler.start_timer()
+
+        time = self.timer_handler.start_timer()
+        start_date = time[0]
+        start_time = time[1]
 
         self.check_for_correct_column_names()
 
         file = self.get_contents_of_tracker_file_with_replaced_nans()
 
-        self.assertTrue(self.datetime_pattern.match(file["start_time"][0]))
+        self.assertTrue(self.date_pattern.match(file["start_date"][0]))
+        self.assertTrue(self.time_pattern.match(file["start_time"][0]))
 
+        self.assertEqual(file["start_date"][0], start_date)
         self.assertEqual(file["start_time"][0], start_time)
         self.assertEqual(file["stop_time"][0], "")
         self.assertEqual(file["message"][0], "")
@@ -41,17 +45,26 @@ class TestTimerHandler(CSVBaseTestingClass):
     def stop_created_timer(self, message: str) -> None:
         self.clean_and_init_tracker_file()
 
-        start_time = self.timer_handler.start_timer()
-        stop_time = self.timer_handler.stop_timer(message)
+        time_1 = self.timer_handler.start_timer()
+        time_2 = self.timer_handler.stop_timer(message)
+
+        start_date = time_1[0]
+        start_time = time_1[1]
+        stop_date = time_2[0]
+        stop_time = time_2[1]
 
         self.check_for_correct_column_names()
 
         file = self.get_contents_of_tracker_file_with_replaced_nans()
 
-        self.assertTrue(self.datetime_pattern.match(file["start_time"][0]))
-        self.assertTrue(self.datetime_pattern.match(file["stop_time"][0]))
+        self.assertTrue(self.date_pattern.match(file["start_date"][0]))
+        self.assertTrue(self.date_pattern.match(file["stop_date"][0]))
+        self.assertTrue(self.time_pattern.match(file["start_time"][0]))
+        self.assertTrue(self.time_pattern.match(file["stop_time"][0]))
 
+        self.assertEqual(file["start_date"][0], start_date)
         self.assertEqual(file["start_time"][0], start_time)
+        self.assertEqual(file["stop_date"][0], stop_date)
         self.assertEqual(file["stop_time"][0], stop_time)
         self.assertEqual(file["message"][0], message)
 

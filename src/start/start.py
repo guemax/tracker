@@ -12,6 +12,7 @@ def start():
     timer_handler = TimerHandler.TimerHandler()
     try:
         time = timer_handler.start_timer()
+        time = " at ".join(time)
     except InvalidTimerModification:
         logging.info("Starting a new timer aborted due to an exisiting timer")
         print("A timer already exists which has not been stopped yet.\n"

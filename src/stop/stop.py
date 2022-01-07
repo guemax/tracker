@@ -13,6 +13,7 @@ def stop(message: str) -> None:
     timer_handler = TimerHandler.TimerHandler()
     try:
         time = timer_handler.stop_timer(message)
+        time = " at ".join(time)
     except InvalidTimerModification:
         logging.info("Stopping timer aborted due to a missing created timer")
         print("No timer exists yet.\n"
