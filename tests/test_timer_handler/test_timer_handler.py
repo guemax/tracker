@@ -115,5 +115,5 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.assertRaises(InvalidTimerModification, self.timer_handler.stop_timer, "")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main()

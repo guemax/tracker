@@ -20,5 +20,5 @@ class TestCSVHandler(CSVBaseTestingClass):
         self.assertTrue(self.csv_handler.tracker_file_exists())
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main()
