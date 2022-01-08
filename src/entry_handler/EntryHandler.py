@@ -25,6 +25,10 @@ class EntryHandler(CSVAttributes):
                                 "individual_entries": "Individual entries"
                             }
                     )
+        data_grouped_by_day.index.name = "ID"
+        data_grouped_by_day.index += 1
+        # Reorder the DataFrame to go from the latest entry down to the oldest one
+        data_grouped_by_day = data_grouped_by_day.iloc[::-1]
 
         return data_grouped_by_day
 
