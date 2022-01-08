@@ -3,7 +3,7 @@ import os
 
 from click.testing import CliRunner
 
-from src.main import cli, setup_cli
+from src.main import cli, add_subcommands_to_cli
 from src.csv.CSVHandler import CSVHandler
 
 
@@ -14,7 +14,7 @@ class CommandBaseTestingClass(unittest.TestCase):
 
         self.csv_handler = CSVHandler()
 
-        setup_cli()
+        add_subcommands_to_cli()
 
     def run_cli(self, options: list) -> None:
         self.result = self.runner.invoke(cli, options)

@@ -19,7 +19,7 @@ def cli():
     pass
 
 
-def setup_cli():
+def add_subcommands_to_cli():
     cli.add_command(status.status)
     cli.add_command(start.start)
     cli.add_command(stop.stop)
@@ -43,12 +43,7 @@ if __name__ == "__main__":  # pragma: no cover
     tracker = Tracker()
     tracker.init()
 
-    # Add subcommands
-    setup_cli()
-    # cli.add_command(status.status)
-    # cli.add_command(start.start)
-    # cli.add_command(stop.stop)
-    # cli.add_command(log.log)
+    add_subcommands_to_cli()
 
     # Start click
     cli()
