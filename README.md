@@ -1,5 +1,12 @@
 # Tracker
 
+![GitHub issues](https://img.shields.io/github/issues/guemax/tracker)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/guemax/tracker)
+![Code coverage](./docs/coverage-badge/coverage.svg)
+![GitHub](https://img.shields.io/github/license/guemax/tracker)
+
+<!-- ![GitHub release (latest by date)](https://img.shields.io/github/v/release/guemax/tracker) -->
+
 A command-line tool to track your computer usage time.
 
 ## Upcoming features
