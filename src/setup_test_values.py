@@ -14,5 +14,5 @@ def setup_test_values():
                 )
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     setup_test_values()

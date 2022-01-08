@@ -27,11 +27,8 @@ class TestCSVHandler(CSVBaseTestingClass):
         self.assertTrue(os.path.isdir(self.csv_handler.tracker_folder))
 
     def remove_files_folder(self):
-        try:
-            shutil.rmtree(self.csv_handler.tracker_folder)
-        except FileNotFoundError:
-            # File (folder) is not existing, that's good, nothing to do for us.
-            pass
+        # Ignore errors, so it won't raise an exception if the folder does not exist.
+        shutil.rmtree(self.csv_handler.tracker_folder, ignore_errors=True)
 
     def test_checking_if_tracker_file_exists(self) -> None:
         self.remove_tracker_file()
