@@ -21,7 +21,7 @@ P1
 
 P2
 
-- [ ] Show old entries
+- [X] Show old entries
 
 P3
 
