@@ -16,6 +16,17 @@ class TestStart(CommandBaseTestingClass):
         self.assertIn("New timer started", self.result.output)
         self.assertIn("OK", self.result.output)
 
+    def test_starting_a_timer_when_one_already_exists(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        self.run_cli(["start"])
+        self.assertEqual(self.result.exit_code, 0)
+
+        self.run_cli(["start"])
+        self.assertEqual(self.result.exit_code, 0)
+
+        self.assertIn("A timer already exists", self.result.output)
+
     def test_starting_a_timer_with_invalid_option(self) -> None:
         self.clean_and_init_tracker_file()
 
