@@ -19,6 +19,13 @@ def cli():
     pass
 
 
+def setup_cli():
+    cli.add_command(status.status)
+    cli.add_command(start.start)
+    cli.add_command(stop.stop)
+    cli.add_command(log.log)
+
+
 if __name__ == "__main__":
     # Set up logging
     logging.basicConfig(
@@ -37,10 +44,11 @@ if __name__ == "__main__":
     tracker.init()
 
     # Add subcommands
-    cli.add_command(status.status)
-    cli.add_command(start.start)
-    cli.add_command(stop.stop)
-    cli.add_command(log.log)
+    setup_cli()
+    # cli.add_command(status.status)
+    # cli.add_command(start.start)
+    # cli.add_command(stop.stop)
+    # cli.add_command(log.log)
 
     # Start click
     cli()
