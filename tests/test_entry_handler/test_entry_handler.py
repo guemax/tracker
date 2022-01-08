@@ -34,7 +34,7 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.assertEqual(self.get_length_of_entries(), 1)
 
     def get_length_of_entries(self) -> int:
-        return len(self.entry_handler.get_entries())
+        return len(self.entry_handler.get_entries_grouped_by_date())
 
     def add_new_entry(self):
         self.timer_handler.start_timer()

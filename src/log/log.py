@@ -7,7 +7,7 @@ from ..entry_handler import EntryHandler
 def log():
     """Show old entries grouped by date"""
     entry_handler = EntryHandler.EntryHandler()
-    entries_grouped_by_date = entry_handler.get_entries()
+    entries_grouped_by_date = entry_handler.get_entries_grouped_by_date()
     number_of_grouped_entries = len(entries_grouped_by_date)
 
     if number_of_grouped_entries == 0:
