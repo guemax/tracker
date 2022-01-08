@@ -10,3 +10,6 @@ log:
 test: clean
 	@echo "Running tests"
 	@python3 -m unittest discover
+setup: clean
+	@echo "Setting up test values"
+	@python3 -m src.setup_test_values
