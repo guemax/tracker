@@ -12,6 +12,8 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.entry_handler = EntryHandler()
         self.timer_handler = TimerHandler()
 
+        self.column_names = ["Date", "Total work time", "Individual entries"]
+
     def test_logging_without_any_entries(self) -> None:
         self.clean_and_init_tracker_file()
         self.assertEqual(self.get_length_of_entries(), 0)
@@ -32,6 +34,18 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.add_new_entry()
         self.add_new_entry()
         self.assertEqual(self.get_length_of_entries(), 1)
+
+    def test_column_names(self):
+        self.clean_and_init_tracker_file()
+        self.add_new_entry()
+
+        column_names = list(self.entry_handler.get_entries_grouped_by_date().columns)
+        self.assertEqual(column_names, self.column_names)
+
+        index_name = self.entry_handler.get_entries_grouped_by_date().index.name
+        self.assertEqual(index_name, "ID")
+
+
 
     def get_length_of_entries(self) -> int:
         return len(self.entry_handler.get_entries_grouped_by_date())
