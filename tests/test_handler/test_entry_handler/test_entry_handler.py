@@ -1,7 +1,7 @@
 import unittest
 
-from src.entry_handler.EntryHandler import EntryHandler
-from src.timer_handler.TimerHandler import TimerHandler
+from src.handler.entry_handler.EntryHandler import EntryHandler
+from src.handler.timer_handler.TimerHandler import TimerHandler
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
@@ -44,8 +44,6 @@ class TestEntryHandler(CSVBaseTestingClass):
 
         index_name = self.entry_handler.get_entries_grouped_by_date().index.name
         self.assertEqual(index_name, "ID")
-
-
 
     def get_length_of_entries(self) -> int:
         return len(self.entry_handler.get_entries_grouped_by_date())
