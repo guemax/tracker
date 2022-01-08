@@ -10,7 +10,7 @@ from src.commands.stop import stop
 from src.commands.log import log
 
 
-def enable_logging_in_console():
+def enable_logging_in_console():    # pragma: no cover
     logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 
@@ -26,7 +26,7 @@ def setup_cli():
     cli.add_command(log.log)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     # Set up logging
     logging.basicConfig(
         level=logging.INFO,
