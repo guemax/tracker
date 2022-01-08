@@ -10,3 +10,12 @@ log:
 test: clean
 	@echo "Running tests"
 	@python3 -m unittest discover
+setup: clean
+	@echo "Setting up test values"
+	@python3 -m src.setup_test_values
+coverage: clean
+	@python3 -m coverage run --omit=/usr/*,*__init__.py -m unittest discover
+	@python3 -m coverage report
+	@python3 -m coverage html
+badge: coverage
+	@coverage-badge -o ./docs/coverage-badge/coverage.svg -f

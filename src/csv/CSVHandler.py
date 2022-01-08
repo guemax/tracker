@@ -22,7 +22,7 @@ class CSVHandler(CSVAttributes):
 
         self.create_files_folder_if_not_exists()
 
-        file = pandas.DataFrame(columns=self.fieldnames)
+        file = pandas.DataFrame(columns=self.column_names)
         file.to_csv(self.tracker_file, index=False)
 
     def create_files_folder_if_not_exists(self):
@@ -31,3 +31,6 @@ class CSVHandler(CSVAttributes):
 
     def tracker_file_exists(self) -> bool:
         return os.path.isfile(self.tracker_file)
+
+    def get_column_names(self) -> list:
+        return self.column_names
