@@ -45,8 +45,6 @@ class TestEntryHandler(CSVBaseTestingClass):
         index_name = self.entry_handler.get_entries_grouped_by_date().index.name
         self.assertEqual(index_name, "ID")
 
-
-
     def get_length_of_entries(self) -> int:
         return len(self.entry_handler.get_entries_grouped_by_date())
 
