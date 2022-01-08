@@ -1,7 +1,7 @@
 import unittest
 
-from src.entry_handler.EntryHandler import EntryHandler
-from src.timer_handler.TimerHandler import TimerHandler
+from src.handler.entry_handler.EntryHandler import EntryHandler
+from src.handler.timer_handler.TimerHandler import TimerHandler
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 

@@ -1,6 +1,6 @@
 import pandas
 
-from ..csv.CSVAttributes import CSVAttributes
+from src.csv.CSVAttributes import CSVAttributes
 
 
 class EntryHandler(CSVAttributes):

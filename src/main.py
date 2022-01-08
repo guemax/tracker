@@ -4,10 +4,10 @@ import sys
 import click
 
 from .Tracker import Tracker
-from .status import status
-from .start import start
-from .stop import stop
-from .log import log
+from src.commands.status import status
+from src.commands.start import start
+from src.commands.stop import stop
+from src.commands.log import log
 
 
 def enable_logging_in_console():

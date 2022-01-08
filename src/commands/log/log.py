@@ -1,6 +1,6 @@
 import click
 
-from ..entry_handler import EntryHandler
+from src.handler.entry_handler import EntryHandler
 
 
 @click.command()

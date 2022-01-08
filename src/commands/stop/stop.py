@@ -2,8 +2,8 @@ import logging
 
 import click
 
-from ..timer_handler import TimerHandler
-from ..exceptions.InvalidTimerModification import InvalidTimerModification
+from src.handler.timer_handler import TimerHandler
+from src.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 @click.command()
