@@ -15,8 +15,10 @@ def start():
         time = " at ".join(time)
     except InvalidTimerModification:
         logging.info("Starting a new timer aborted due to an exisiting timer")
-        print("A timer already exists which has not been stopped yet.\n"
-              "Please stop it by typing 'tracker stop'.")
+        print("Warning: A timer already exists which has not been stopped yet.\n"
+              "Please stop it first by typing \"tracker stop\".\n"
+              "EXIT")
     else:
         logging.info(f"New timer started")
-        print(f"New timer started at {time}\nOK")
+        print(f"New timer started at {time}\n"
+              f"OK")
