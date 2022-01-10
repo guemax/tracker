@@ -2,6 +2,7 @@ import logging
 
 import click
 
+from src.console_logger.console_logger import info, warn
 from src.handler.timer_handler import TimerHandler
 from src.exceptions.InvalidTimerModification import InvalidTimerModification
 
@@ -15,10 +16,10 @@ def start():
         time = " at ".join(time)
     except InvalidTimerModification:
         logging.info("Starting a new timer aborted due to an exisiting timer")
-        print("Warning: A timer already exists which has not been stopped yet.\n"
-              "Please stop it first by typing \"tracker stop\".\n"
-              "EXIT")
+        warn("Warning: A timer already exists which has not been stopped yet.\n"
+             "Please stop it first by typing \"tracker stop\".\n"
+             "EXIT")
     else:
         logging.info(f"New timer started")
-        print(f"New timer started at {time}\n"
-              f"OK")
+        info(f"New timer started at {time}\n"
+             f"OK")
