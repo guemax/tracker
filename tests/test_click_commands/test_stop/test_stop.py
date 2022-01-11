@@ -27,7 +27,7 @@ class TestStop(CommandBaseTestingClass):
         self.assertEqual(self.result.exit_code, 0)
 
         self.assertIn("Existing timer stopped", self.result.output)
-        self.assertIn(f"Adding message", self.result.output)
+        self.assertIn(f"Added message", self.result.output)
         self.assertIn(message, self.result.output)
         self.assertIn("OK", self.result.output)
 
