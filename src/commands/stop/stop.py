@@ -22,9 +22,9 @@ def stop(message: str) -> None:
     else:
         logging.info("Existing timer stopped")
         if message:
-            info(f"Existing timer stopped at {time[0]} at {time[1]} (running {time[2]}).\n"
-                 f"Adding message \"{message}\" to Tracker file.\n"
+            info(f"Existing timer stopped at {time[0]} at {time[1]}. (running {time[2]})\n"
+                 f"Added message \"{message}\" to Tracker file.\n"
                  f"OK")
         else:
-            info(f"Existing timer stopped at {time[0]} at {time[1]} (running {time[2]})\n"
+            info(f"Existing timer stopped at {time[0]} at {time[1]}. (running {time[2]})\n"
                  f"OK")
