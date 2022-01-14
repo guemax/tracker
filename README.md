@@ -1,27 +1,34 @@
 # Tracker
 
+<a href="https://github.com/guemax/tracker/issues" alt="Issues"><img src="https://img.shields.io/github/issues/guemax/tracker"></a>
+<a href="https://github.com/guemax/tracker/pulls" alt="Pull requests"><img src="https://img.shields.io/github/issues-pr/guemax/tracker"><a>
+<a href="https://github.com/guemax/tracker" alt="Code coverage"><img src="./docs/coverage-badge/coverage.svg"></a>
+<a href="https://github.com/guemax/tracker/blob/main/LICENSE" alt="License"><img src="https://img.shields.io/github/license/guemax/tracker"></a>
+
+<!-- ![GitHub release (latest by date)](https://img.shields.io/github/v/release/guemax/tracker) -->
+
 A command-line tool to track your computer usage time.
 
 ## Upcoming features
 
-- Show old entries
+- _~~Start timer~~_ [2022-01-04]
+- _~~Stop timer~~_ [2022-01-05]
+- _~~Show old entries~~_ [2022-01-08]
+- _~~Add description of done work when stopping the timer~~_ [2022-01-05]
 - Show summary of a day
 - Show number of hours per day/week
-- Start timer
-- Stop timer
-- Add description of done work when stopping the timer
 
 ## Priority of features
 
 P1
 
-- [X] Start timer
-- [X] Stop timer
-- [X] Add description of done work
+- [x] Start timer
+- [x] Stop timer
+- [x] Add description of done work
 
 P2
 
-- [X] Show old entries
+- [x] Show old entries
 
 P3
 
