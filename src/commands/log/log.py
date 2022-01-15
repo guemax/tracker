@@ -26,12 +26,8 @@ def log(id_of_date: int):
 
         number_of_entries = len(entries_of_specific_date)
 
-        if number_of_entries == 0:
-            info("Nothing to see yet.\n"
-                 "Start creating entries by typing \"tracker start\" and finish them by typing \"tracker stop\".")
-        else:
-            info(f"Showing all entries of {date}. ({number_of_entries} in total).\n")
-            info(f"{entries_of_specific_date}\n")
+        info(f"Showing all entries of {date}. ({number_of_entries} in total).\n")
+        info(f"{entries_of_specific_date}\n")
     else:
         entry_handler = EntryHandler.EntryHandler()
         entries_grouped_by_date = entry_handler.get_entries_grouped_by_date()

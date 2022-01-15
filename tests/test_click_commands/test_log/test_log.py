@@ -8,6 +8,36 @@ class TestLog(CommandBaseTestingClass):
     def setUp(self) -> None:
         super(TestLog, self).setUp()
 
+    def test_logging_a_specific_entry(self) -> None:
+        self.clean_and_init_tracker_file()
+        setup_test_values()
+
+        self.run_cli(["log", "-i 1"])
+
+        self.assertIn("Showing all entries of", self.result.output)
+
+    def test_logging_a_sepcific_entry_with_unknown_id(self) -> None:
+        self.clean_and_init_tracker_file()
+        setup_test_values()
+
+        id_of_date = -1
+        self.run_cli(["log", f"-i {id_of_date}"])
+
+        self.assertIn(f"We couldn't find a date matching the ID {id_of_date}.", self.result.output)
+        self.assertIn("EXIT", self.result.output)
+
+        id_of_date = 0
+        self.run_cli(["log", f"-i {id_of_date}"])
+
+        self.assertIn(f"We couldn't find a date matching the ID {id_of_date}.", self.result.output)
+        self.assertIn("EXIT", self.result.output)
+
+        id_of_date = 100
+        self.run_cli(["log", f"-i {id_of_date}"])
+
+        self.assertIn(f"We couldn't find a date matching the ID {id_of_date}.", self.result.output)
+        self.assertIn("EXIT", self.result.output)
+
     def test_logging_without_any_entries_existing(self) -> None:
         self.clean_and_init_tracker_file()
 
