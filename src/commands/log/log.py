@@ -28,7 +28,8 @@ def log(id_of_date: int):
         number_of_entries = len(entries_of_specific_date)
 
         info(f"Showing all entries of {date}. ({number_of_entries} in total).\n")
-        info(f"{entries_of_specific_date}\n")
+        info(f"{entries_of_specific_date}\n"
+             f"\nOK")
     else:
         entry_handler = GroupedEntryHandler.GroupedEntryHandler()
         entries_grouped_by_date = entry_handler.get_entries_grouped_by_date()
@@ -40,4 +41,5 @@ def log(id_of_date: int):
         else:
             info(f"Showing all entries grouped by date. ({number_of_grouped_entries} in total).\n"
                  f"Use \"tracker log <ID>\" to show all entries of the date with the ID <ID>.\n")
-            info(f"{entries_grouped_by_date}\n")
+            info(f"{entries_grouped_by_date}\n"
+                 f"\nOK")
