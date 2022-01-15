@@ -1,7 +1,11 @@
 import unittest
 
+import pandas
+
+from src.setup_test_values import setup_test_values
 from src.handler.entry_handler.EntryHandler import EntryHandler
 from src.handler.timer_handler.TimerHandler import TimerHandler
+from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
@@ -13,6 +17,25 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.timer_handler = TimerHandler()
 
         self.column_names = ["Date", "Total work time", "Individual entries"]
+
+    def test_logging_entries_of_specific_date(self) -> None:
+        self.clean_and_init_tracker_file()
+        setup_test_values()
+
+        entries = self.entry_handler.get_entries_of_specific_date(1)
+
+        self.assertEqual(type(entries[0]), str)
+        self.assertEqual(type(entries[1]), pandas.DataFrame)
+
+        self.assertIn(entries[0], entries[1].at[1, "Start"])
+
+    def test_logging_entries_of_soecific_date_with_unknown_id(self) -> None:
+        self.clean_and_init_tracker_file()
+        setup_test_values()
+
+        self.assertRaises(InvalidIDOfDateException, self.entry_handler.get_entries_of_specific_date, 0)
+        self.assertRaises(InvalidIDOfDateException, self.entry_handler.get_entries_of_specific_date, 100)
+        self.assertRaises(InvalidIDOfDateException, self.entry_handler.get_entries_of_specific_date, -1)
 
     def test_logging_without_any_entries(self) -> None:
         self.clean_and_init_tracker_file()

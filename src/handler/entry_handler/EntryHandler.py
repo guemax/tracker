@@ -1,6 +1,7 @@
 import pandas
 
 from src.csv.CSVAttributes import CSVAttributes
+from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
 
 class EntryHandler(CSVAttributes):
@@ -11,7 +12,10 @@ class EntryHandler(CSVAttributes):
 
     def get_entries_of_specific_date(self, id_of_date: int) -> list:
         entries_grouped_by_date = self.get_entries_grouped_by_date()
-        date = entries_grouped_by_date.at[id_of_date, "Date"]
+        try:
+            date = entries_grouped_by_date.at[id_of_date, "Date"]
+        except KeyError:
+            raise InvalidIDOfDateException
 
         self.data = self.get_data()
         self.data = self.group_entries_by_date()
