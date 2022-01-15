@@ -9,6 +9,34 @@ class EntryHandler(CSVAttributes):
 
         self.data = None
 
+    def get_entries_of_specific_date(self, id_of_date: int) -> list:
+        entries_grouped_by_date = self.get_entries_grouped_by_date()
+        date = entries_grouped_by_date.at[id_of_date, "Date"]
+
+        self.data = self.get_data()
+        self.data = self.group_entries_by_date()
+
+        entries_of_date_at_index: pandas.DataFrame = self.data.get_group(date)
+        entries_of_date_at_index.reset_index()
+        entries_of_date_at_index.index += 1
+
+        entries_of_date_at_index = entries_of_date_at_index \
+            .rename(columns={
+                                "start_date": "Start Date", "start_time": "Start Time",
+                                "stop_date": "Stop Date", "stop_time": "Stop Time",
+                                "work_hours": "Work hours", "message": "Message"
+                            }
+                    )
+        entries_of_date_at_index["Start"] = entries_of_date_at_index[["Start Date", "Start Time"]].apply(lambda x: " at ".join(x), axis=1)
+        entries_of_date_at_index["Stop"] = entries_of_date_at_index[["Stop Date", "Stop Time"]].apply(lambda x: " at ".join(x), axis=1)
+
+        entries_of_date_at_index = entries_of_date_at_index.drop(columns=["Start Date", "Start Time", "Stop Date", "Stop Time"])
+        entries_of_date_at_index = entries_of_date_at_index[["Start", "Stop", "Work hours", "Message"]]
+
+        pandas.set_option("display.max_colwidth", None)
+
+        return [date, entries_of_date_at_index]
+
     def get_entries_grouped_by_date(self) -> pandas.DataFrame:
         self.data = self.get_data()
 
