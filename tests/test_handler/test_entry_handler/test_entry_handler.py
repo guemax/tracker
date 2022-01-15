@@ -3,6 +3,7 @@ import unittest
 import pandas
 
 from src.setup_test_values import setup_test_values
+from src.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
 from src.handler.entry_handler.EntryHandler import EntryHandler
 from src.handler.timer_handler.TimerHandler import TimerHandler
 from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
@@ -13,6 +14,7 @@ from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 class TestEntryHandler(CSVBaseTestingClass):
     def setUp(self) -> None:
         super(TestEntryHandler, self).setUp()
+        self.grouped_entry_handler = GroupedEntryHandler()
         self.entry_handler = EntryHandler()
         self.timer_handler = TimerHandler()
 
@@ -41,7 +43,7 @@ class TestEntryHandler(CSVBaseTestingClass):
     def check_for_invalid_id_of_date_exception(self, id_of_date: int) -> None:
         self.assertRaises(InvalidIDOfDateException, self.entry_handler.get_entries_of_specific_date, id_of_date)
 
-    def test_logging_entries_of_soecific_date_with_unknown_id(self) -> None:
+    def test_logging_entries_of_specific_date_with_unknown_id(self) -> None:
         self.clean_and_init_tracker_file()
         setup_test_values()
 
@@ -54,7 +56,7 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.assertEqual(self.get_length_of_grouped_entries(), 0)
 
     def get_length_of_grouped_entries(self) -> int:
-        return len(self.entry_handler.get_entries_grouped_by_date())
+        return len(self.grouped_entry_handler.get_entries_grouped_by_date())
 
     def test_logging_with_more_grouped_entries(self) -> None:
         self.clean_and_init_tracker_file()
@@ -81,10 +83,10 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.clean_and_init_tracker_file()
         self.add_new_entry()
 
-        column_names = list(self.entry_handler.get_entries_grouped_by_date().columns)
+        column_names = list(self.grouped_entry_handler.get_entries_grouped_by_date().columns)
         self.assertEqual(column_names, self.column_names)
 
-        index_name = self.entry_handler.get_entries_grouped_by_date().index.name
+        index_name = self.grouped_entry_handler.get_entries_grouped_by_date().index.name
         self.assertEqual(index_name, "ID")
 
 

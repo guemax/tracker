@@ -3,6 +3,7 @@ import sys
 import click
 
 from src.console_logger.console_logger import info, warn
+from src.handler.entry_handler import GroupedEntryHandler
 from src.handler.entry_handler import EntryHandler
 from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
@@ -29,7 +30,7 @@ def log(id_of_date: int):
         info(f"Showing all entries of {date}. ({number_of_entries} in total).\n")
         info(f"{entries_of_specific_date}\n")
     else:
-        entry_handler = EntryHandler.EntryHandler()
+        entry_handler = GroupedEntryHandler.GroupedEntryHandler()
         entries_grouped_by_date = entry_handler.get_entries_grouped_by_date()
         number_of_grouped_entries = len(entries_grouped_by_date)
 
