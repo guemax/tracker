@@ -1,0 +1,2 @@
+class InvalidIDOfDateException(Exception):
+    pass
