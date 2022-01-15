@@ -7,8 +7,6 @@ class GroupedEntryHandler(BaseEntryHandlerClass):
     def __init__(self):
         super(GroupedEntryHandler, self).__init__()
 
-        self.data = None
-
     def get_entries_grouped_by_date(self) -> pandas.DataFrame:
         self.data = self.get_data()
 
@@ -45,6 +43,9 @@ class GroupedEntryHandler(BaseEntryHandlerClass):
 
     def name_index_column(self) -> None:
         self.data.index.name = "ID"
+
+    def boost_index(self) -> None:
+        self.data.index += 1
 
     def reorder_entries_from_the_latest_down_to_the_oldest_one(self) -> pandas.DataFrame:
         reordered_data = self.data.iloc[::-1]

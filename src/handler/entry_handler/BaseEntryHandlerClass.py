@@ -20,6 +20,3 @@ class BaseEntryHandlerClass(CSVAttributes):
     def group_entries_by_date(self) -> pandas.DataFrame:
         data_grouped_by_date = self.data.groupby("start_date", as_index=False)
         return data_grouped_by_date
-
-    def boost_index(self) -> None:
-        self.data.index += 1
