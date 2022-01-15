@@ -1,16 +1,25 @@
+import sys
+
 import click
 
-from src.console_logger.console_logger import info
+from src.console_logger.console_logger import info, warn
 from src.handler.entry_handler import EntryHandler
+from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
 
 @click.command()
 @click.option("-i", "--id", "id_of_date", help="ID of a specific day", type=int)
 def log(id_of_date: int):
     """Show old entries grouped by date"""
-    if id_of_date:
+    if id_of_date is not None:
         entry_handler = EntryHandler.EntryHandler()
-        entries_of_specific_date = entry_handler.get_entries_of_specific_date(id_of_date)
+        try:
+            entries_of_specific_date = entry_handler.get_entries_of_specific_date(id_of_date)
+        except InvalidIDOfDateException:
+            warn(f"We couldn't find a date matching the ID {id_of_date}.\n"
+                 f"Please double check if this was the ID you meant.\n"
+                 f"EXIT")
+            sys.exit(-1)
 
         date = entries_of_specific_date[0]
         entries_of_specific_date = entries_of_specific_date[1]
