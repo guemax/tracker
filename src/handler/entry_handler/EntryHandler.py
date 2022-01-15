@@ -22,8 +22,8 @@ class EntryHandler(BaseEntryHandlerClass):
         self.data = self.group_entries_by_date()
 
         self.entries = self.data.get_group(date)
-        self.change_index()
 
+        self.change_index()
         self.merge_date_and_time_columns()
 
         self.remove_start_and_stop_date_and_start_and_stop_time_columns()
