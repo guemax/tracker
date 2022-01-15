@@ -31,7 +31,7 @@ class TestEntryHandler(CSVBaseTestingClass):
 
         self.assertIn(date, entries_of_date.at[1, "Start"])
 
-    def test_logging_entries_of_specific_date_without_any_entries(self) -> None:
+    def test_logging_entries_of_specific_date_without_any_entries_existing(self) -> None:
         self.clean_and_init_tracker_file()
 
         self.check_for_invalid_id_of_date_exception(0)
