@@ -1,9 +1,9 @@
 import pandas
 
-from src.csv.CSVAttributes import CSVAttributes
+from src.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
 
 
-class GroupedEntryHandler(CSVAttributes):
+class GroupedEntryHandler(BaseEntryHandlerClass):
     def __init__(self):
         super(GroupedEntryHandler, self).__init__()
 
@@ -21,18 +21,6 @@ class GroupedEntryHandler(CSVAttributes):
         self.data = self.reorder_entries_from_the_latest_down_to_the_oldest_one()
 
         return self.data
-
-    def get_data(self) -> pandas.DataFrame:
-        data = pandas.read_csv(self.tracker_file, header=0)
-
-        # Change this column to a time type for allowing summing up the total work hours later
-        data["work_hours"] = pandas.to_timedelta(data.work_hours)
-
-        return data.fillna("")
-
-    def group_entries_by_date(self) -> pandas.DataFrame:
-        data_grouped_by_date = self.data.groupby("start_date", as_index=False)
-        return data_grouped_by_date
 
     def sum_work_hours_up(self) -> pandas.DataFrame:
         data_with_sum_of_work_hours = self.data \
@@ -57,9 +45,6 @@ class GroupedEntryHandler(CSVAttributes):
 
     def name_index_column(self) -> None:
         self.data.index.name = "ID"
-
-    def boost_index(self) -> None:
-        self.data.index += 1
 
     def reorder_entries_from_the_latest_down_to_the_oldest_one(self) -> pandas.DataFrame:
         reordered_data = self.data.iloc[::-1]
