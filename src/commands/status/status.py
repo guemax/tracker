@@ -9,7 +9,6 @@ from src.handler.entry_handler.EntryHandler import EntryHandler
 @click.command()
 def status():   # pragma: no cover
     """Provide information about the current tracking process"""
-    # TODO: Add real information
     timer_handler = TimerHandler()
     entry_handler = EntryHandler()
 
