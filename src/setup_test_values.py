@@ -68,6 +68,10 @@ class SetupTestValues:
         return f"{start_date},{start_time},{stop_date},{stop_time},{work_hours},{message}\n"
 
 
-if __name__ == "__main__":  # pragma: no cover
+def setup_test_values():
     set_upper = SetupTestValues()
     set_upper.setup()
+
+
+if __name__ == "__main__":  # pragma: no cover
+    setup_test_values()
