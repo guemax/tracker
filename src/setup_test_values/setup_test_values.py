@@ -16,7 +16,7 @@ class SetupTestValues:
             "Fixing bugs", "Adding tests", "Refactoring"
         ]
 
-        self.entry = Entry()
+        self.__entry = Entry()
 
     def set_number_of_entries(self, new_number: int):
         if new_number < 0:
@@ -42,4 +42,4 @@ class SetupTestValues:
 
     def __build_entry(self, number: int) -> str:
         message = random.choice(self.__messages)
-        return self.entry.build(message, number)
+        return self.__entry.build(message, number)
