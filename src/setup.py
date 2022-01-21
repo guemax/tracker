@@ -7,40 +7,40 @@ from src.setup_test_values.setup_test_values import SetupTestValues
 
 class SetupTestValuesForConsole:
     def __init__(self):
-        self.set_upper = SetupTestValues()
+        self.__set_upper = SetupTestValues()
 
-        self.number_of_entries = 0
-        self.number_of_entries_as_word = ""
+        self.__number_of_entries = 0
+        self.__number_of_entries_as_word = ""
 
     def setup(self, number_of_entries: int):
-        self.number_of_entries = number_of_entries
-        self.try_to_set_new_number_of_entries()
+        self.__number_of_entries = number_of_entries
+        self.__try_to_set_new_number_of_entries()
 
-        self.set_upper.setup()
+        self.__set_upper.setup()
 
-        self.convert_number_of_entries_into_word()
-        self.print_success_message()
+        self.__convert_number_of_entries_into_word()
+        self.__print_success_message()
 
-    def try_to_set_new_number_of_entries(self) -> None:
+    def __try_to_set_new_number_of_entries(self) -> None:
         try:
-            self.set_upper.set_number_of_entries(self.number_of_entries)
+            self.__set_upper.set_number_of_entries(self.__number_of_entries)
         except ValueError:
-            self.handle_invalid_number_of_entries()
+            self.__handle_invalid_number_of_entries()
 
-    def handle_invalid_number_of_entries(self) -> None:
-        warn(f"The number of entries cannot be negative (was {self.number_of_entries}). "
+    def __handle_invalid_number_of_entries(self) -> None:
+        warn(f"The number of entries cannot be negative (was {self.__number_of_entries}). "
              f"Please specify a value greater than or equal zero.\n"
              "EXIT")
         exit(-1)
 
-    def convert_number_of_entries_into_word(self):
-        self.number_of_entries_as_word = num2words.num2words(self.number_of_entries)
+    def __convert_number_of_entries_into_word(self):
+        self.__number_of_entries_as_word = num2words.num2words(self.__number_of_entries)
 
-    def print_success_message(self) -> None:
-        if self.number_of_entries == 1:
+    def __print_success_message(self) -> None:
+        if self.__number_of_entries == 1:
             message_of_created_entries = "one entry"
         else:
-            message_of_created_entries = f"{self.number_of_entries_as_word} entries"
+            message_of_created_entries = f"{self.__number_of_entries_as_word} entries"
 
         info(f"\nSuccesfully setup {message_of_created_entries}.\n"
              f"OK")
