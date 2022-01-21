@@ -14,18 +14,12 @@ class Entry:
 
         self.message = ""
 
-        self.line = ""
         self.number = 0
 
         self.month = "Jan"
         self.year = "2022"
 
-    def create_start_date(self) -> None:
-        # Just leave it as it is
-        max_hours = 23
-        max_minutes = 58
-        max_seconds = 58
-
+    def create_datetime(self) -> None:
         # CREATE HOURS
         start_hour = random.randint(0, 11)
         stop_hour = random.randint(start_hour, 12)
@@ -34,6 +28,10 @@ class Entry:
             # Second entry of day
             start_hour += 11
             stop_hour += 11
+
+        # Just leave them as they are
+        max_minutes = 58
+        max_seconds = 58
 
         # CREATE MINUTES
         start_minutes = random.randint(0, max_minutes)
@@ -59,15 +57,20 @@ class Entry:
     def build(self, messages: list, number: int) -> str:
         self.number = number
 
-        self.create_start_date()
-
-        # BUILD WORK HOURS
-        date_format = "%H:%M:%S"
-        self.work_hours = datetime.strptime(self.stop_time, date_format) - datetime.strptime(self.start_time, date_format)
-
+        self.create_datetime()
+        self.create_work_hours()
         # BUILD MESSAGE
         self.message = random.choice(messages)
 
         # BUILD FINAL ENTRY
-        self.line = f"{self.start_date},{self.start_time},{self.stop_date},{self.stop_time},{self.work_hours},{self.message}\n"
-        return self.line
+        line = f"{self.start_date},{self.start_time},{self.stop_date},{self.stop_time},{self.work_hours},{self.message}\n"
+        return line
+
+    def create_work_hours(self) -> None:
+        time_format = "%H:%M:%S"
+
+        start_time = datetime.strptime(self.start_time, time_format)
+        stop_time = datetime.strptime(self.stop_time, time_format)
+
+        time_delta = stop_time - start_time
+        self.work_hours = time_delta
