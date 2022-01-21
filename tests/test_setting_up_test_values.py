@@ -33,7 +33,7 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
 
             # Remove the line for the header
             number_of_entries = number_of_lines - 1
-            self.assertEqual(self.set_upper.number_of_entries, number_of_entries)
+            self.assertEqual(self.set_upper._number_of_entries, number_of_entries)
 
     def test_creating_no_entries(self):
         self.clean_and_init_tracker_file()
