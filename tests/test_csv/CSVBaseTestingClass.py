@@ -4,11 +4,13 @@ import os
 import pandas
 
 from src.csv.CSVHandler import CSVHandler
+from src.setup_test_values import SetupTestValues
 
 
 class CSVBaseTestingClass(unittest.TestCase):
     def setUp(self) -> None:
         self.csv_handler = CSVHandler()
+        self.set_upper = SetupTestValues()
 
     def check_for_correct_column_names(self) -> None:
         self.assertTrue(self.columns_names_are_correct())
@@ -41,3 +43,6 @@ class CSVBaseTestingClass(unittest.TestCase):
     def get_contents_of_tracker_file(self) -> pandas.DataFrame:
         data_frame = pandas.read_csv(self.csv_handler.tracker_file)
         return data_frame
+
+    def setup_test_values(self) -> None:
+        self.set_upper.setup()

@@ -2,7 +2,6 @@ import unittest
 
 import pandas
 
-from src.setup_test_values import setup_test_values
 from src.csv.CSVAttributes import CSVAttributes
 from src.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
 
@@ -24,7 +23,7 @@ class TestBaseEntryHandlerClass(CSVBaseTestingClass):
 
     def test_getting_filled_data(self) -> None:
         self.clean_and_init_tracker_file()
-        setup_test_values()
+        self.setup_test_values()
 
         self.data = self.base_entry_handler.get_data()
 
@@ -43,7 +42,7 @@ class TestBaseEntryHandlerClass(CSVBaseTestingClass):
 
     def test_grouping_entries_by_date_with_filled_data(self) -> None:
         self.clean_and_init_tracker_file()
-        setup_test_values()
+        self.setup_test_values()
 
         self.base_entry_handler.data = self.base_entry_handler.get_data()
         entries_grouped_by_date = self.base_entry_handler.group_entries_by_date()

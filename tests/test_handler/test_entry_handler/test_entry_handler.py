@@ -2,8 +2,6 @@ import unittest
 
 import pandas
 
-from src.setup_test_values import setup_test_values
-
 from src.handler.entry_handler.EntryHandler import EntryHandler
 from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
@@ -18,7 +16,7 @@ class TestEntryHandler(CSVBaseTestingClass):
 
     def test_logging_entries_of_specific_date(self) -> None:
         self.clean_and_init_tracker_file()
-        setup_test_values()
+        self.setup_test_values()
 
         entries = self.entry_handler.get_entries_of_specific_date(1)
         date = entries[0]
@@ -41,7 +39,7 @@ class TestEntryHandler(CSVBaseTestingClass):
 
     def test_logging_entries_of_specific_date_with_unknown_id(self) -> None:
         self.clean_and_init_tracker_file()
-        setup_test_values()
+        self.setup_test_values()
 
         self.check_for_invalid_id_of_date_exception(0)
         self.check_for_invalid_id_of_date_exception(-1)
