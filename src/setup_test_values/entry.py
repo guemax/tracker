@@ -50,8 +50,6 @@ class Entry:
             # 4 -> 2
             # 6 -> 3
             number = self._number / 2
-        else:
-            number = 0
 
         date = int(number / 2)
 

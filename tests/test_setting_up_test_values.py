@@ -61,5 +61,5 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
         self.assertRaises(ValueError, self.set_upper.set_number_of_entries, -1)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main()
