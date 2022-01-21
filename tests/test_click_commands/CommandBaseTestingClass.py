@@ -5,6 +5,7 @@ from click.testing import CliRunner
 
 from src.main import cli, add_subcommands_to_cli
 from src.csv.CSVHandler import CSVHandler
+from src.setup_test_values.setup_test_values import SetupTestValues
 
 
 class CommandBaseTestingClass(unittest.TestCase):
@@ -13,6 +14,7 @@ class CommandBaseTestingClass(unittest.TestCase):
         self.result = None
 
         self.csv_handler = CSVHandler()
+        self.set_upper = SetupTestValues()
 
         add_subcommands_to_cli()
 
@@ -29,3 +31,6 @@ class CommandBaseTestingClass(unittest.TestCase):
         except FileNotFoundError:
             # File is not existing, that's good, nothing to do for us.
             pass
+
+    def setup_test_values(self) -> None:
+        self.set_upper.setup()

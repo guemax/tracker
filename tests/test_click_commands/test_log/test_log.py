@@ -1,7 +1,6 @@
 import unittest
 
 from ..CommandBaseTestingClass import CommandBaseTestingClass
-from src.setup_test_values import setup_test_values
 
 
 class TestLog(CommandBaseTestingClass):
@@ -10,7 +9,7 @@ class TestLog(CommandBaseTestingClass):
 
     def test_logging_a_specific_entry(self) -> None:
         self.clean_and_init_tracker_file()
-        setup_test_values()
+        self.setup_test_values()
 
         self.run_cli(["log", "-i 1"])
 
@@ -18,7 +17,7 @@ class TestLog(CommandBaseTestingClass):
 
     def test_logging_a_sepcific_entry_with_unknown_id(self) -> None:
         self.clean_and_init_tracker_file()
-        setup_test_values()
+        self.setup_test_values()
 
         self.check_for_not_matching_id_of_date(-1)
         self.check_for_not_matching_id_of_date(0)
@@ -57,7 +56,7 @@ class TestLog(CommandBaseTestingClass):
     def test_logging_with_multiple_grouped_entries(self) -> None:
         self.clean_and_init_tracker_file()
 
-        setup_test_values()
+        self.setup_test_values()
 
         total_dates = 2
         self.check_for_log_message(total_dates)
