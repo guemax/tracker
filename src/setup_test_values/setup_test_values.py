@@ -1,7 +1,5 @@
-from datetime import datetime
-import random
-
 from src.csv import CSVHandler
+from .entry import Entry
 
 
 class SetupTestValues:
@@ -11,13 +9,12 @@ class SetupTestValues:
 
         self.number_of_entries = 4
 
-        self.month = "Jan"
-        self.year = "2022"
-
         self.messages = [
             "", "Working on Tracker", "Developing new features",
             "Fixing bugs", "Adding tests", "Refactoring"
         ]
+
+        self.entry = Entry()
 
     def set_number_of_entries(self, new_number: int):
         if new_number < 0:
@@ -42,43 +39,4 @@ class SetupTestValues:
         return entries
 
     def build_entry(self, number: int) -> str:
-        # CREATE HOURS
-        start_hour = number
-        stop_hour = number + random.choice([0, 1])
-
-        # Just leave it as it is
-        max_start_minutes = 58
-        # Just leave it as it is
-        max_start_seconds = 58
-
-        # CREATE MINUTES
-        start_minutes = random.randint(0, max_start_minutes)
-        stop_minutes = start_minutes + random.randint(1, 59 - start_minutes)
-
-        # CREATE SECONDS
-        start_seconds = random.randint(0, max_start_seconds)
-        stop_seconds = start_seconds + random.randint(1, 59 - start_seconds)
-
-        # CREATE DAY NUMBER
-        if number % 2 == 0:
-            date = int(number / 2)
-        else:
-            date = int((number + 1) / 2)
-
-        # BUILD FULL DATE/TIME
-        start_date = f"\"{self.month}, {date} {self.year}\""
-        start_time = f"{start_hour:02d}:{start_minutes:02d}:{start_seconds:02d}"
-
-        stop_date = start_date
-        stop_time = f"{stop_hour:02d}:{stop_minutes:02d}:{stop_seconds:02d}"
-
-        # BUILD WORK HOURS
-        date_format = "%H:%M:%S"
-        work_hours = datetime.strptime(stop_time, date_format) - datetime.strptime(start_time, date_format)
-
-        # BUILD MESSAGE
-        message = random.choice(self.messages)
-
-        # BUILD FINAL ENTRY
-        line = f"{start_date},{start_time},{stop_date},{stop_time},{work_hours},{message}\n"
-        return line
+        return self.entry.build(self.messages, number)
