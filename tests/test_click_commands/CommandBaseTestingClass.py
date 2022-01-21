@@ -5,7 +5,7 @@ from click.testing import CliRunner
 
 from src.main import cli, add_subcommands_to_cli
 from src.csv.CSVHandler import CSVHandler
-from src.setup_test_values import SetupTestValues
+from src.setup_test_values.setup_test_values import SetupTestValues
 
 
 class CommandBaseTestingClass(unittest.TestCase):

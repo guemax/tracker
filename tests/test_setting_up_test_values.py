@@ -1,6 +1,6 @@
 import unittest
 
-from src.setup_test_values import SetupTestValues
+from src.setup_test_values.setup_test_values import SetupTestValues
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
