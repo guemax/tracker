@@ -1,7 +1,11 @@
 from datetime import datetime
 import random
 
+import click
+import num2words
+
 from .csv import CSVHandler
+from src.console_logger.console_logger import info, warn
 
 
 class SetupTestValues:
@@ -18,6 +22,12 @@ class SetupTestValues:
             "", "Working on Tracker", "Developing new features",
             "Fixing bugs", "Adding tests", "Refactoring"
         ]
+
+    def set_number_of_entries(self, new_number: int):
+        if new_number < 0:
+            raise ValueError("The number of entries to create cannot be negative.")
+
+        self.number_of_entries = new_number
 
     def setup(self) -> None:
         with open(self.csv_handler.tracker_file, "w") as f:
@@ -60,17 +70,39 @@ class SetupTestValues:
         stop_time = f"{stop_hour:02d}:{stop_minutes:02d}:{stop_seconds:02d}"
 
         date_format = "%H:%M:%S"
-
         work_hours = datetime.strptime(stop_time, date_format) - datetime.strptime(start_time, date_format)
 
         message = random.choice(self.messages)
 
-        return f"{start_date},{start_time},{stop_date},{stop_time},{work_hours},{message}\n"
+        line = f"{start_date},{start_time},{stop_date},{stop_time},{work_hours},{message}\n"
+        return line
 
 
-def setup_test_values():
+def handler_invalid_number_of_entries() -> None:
+    warn("The number of entries cannot be negative. Please specify a value greater than or equal zero.\n"
+         "EXIT")
+    exit(-1)
+
+
+@click.command()
+@click.option("-e", "--entries", help="Number of entries to create", type=int, default=4)
+def setup_test_values(entries: int) -> None:
     set_upper = SetupTestValues()
+
+    try:
+        set_upper.set_number_of_entries(entries)
+    except ValueError:
+        handler_invalid_number_of_entries()
+
     set_upper.setup()
+
+    entries_as_word = num2words.num2words(entries)
+    message = "\nSuccesfully setup"
+    if entries == 1:
+        info(f"{message} one entry.")
+    else:
+        info(f"{message} {entries_as_word} entries.")
+    info("OK")
 
 
 if __name__ == "__main__":  # pragma: no cover
