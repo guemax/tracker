@@ -13,7 +13,6 @@ class Entry:
         self.work_hours = ""
         self.message = ""
 
-        self.messages = []
         self.number = 0
 
         self.month = "Jan"
@@ -23,13 +22,12 @@ class Entry:
         self.minutes = {}
         self.seconds = {}
 
-    def build(self, messages: list, number: int) -> str:
+    def build(self, message: str, number: int) -> str:
         self.number = number
-        self.messages = messages
+        self.message = message
 
         self.create_datetime()
         self.create_work_hours()
-        self.create_message()
 
         line = f"{self.start_date},{self.start_time}," \
                f"{self.stop_date},{self.stop_time}," \
@@ -124,6 +122,3 @@ class Entry:
 
         time_delta = stop_time - start_time
         self.work_hours = time_delta
-
-    def create_message(self) -> None:
-        self.message = random.choice(self.messages)

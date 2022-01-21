@@ -1,3 +1,5 @@
+import random
+
 from src.csv import CSVHandler
 from .entry import Entry
 
@@ -39,4 +41,5 @@ class SetupTestValues:
         return entries
 
     def build_entry(self, number: int) -> str:
-        return self.entry.build(self.messages, number)
+        message = random.choice(self.messages)
+        return self.entry.build(message, number)
