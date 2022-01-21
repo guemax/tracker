@@ -5,10 +5,12 @@ from datetime import datetime, time
 class Entry:
     def __init__(self) -> None:
         self.start_date = ""
-        self.start_time = None
-
         self.stop_date = ""
+
+        self.start_time = None
         self.stop_time = None
+        self.start_time_dict = {}
+        self.stop_time_dict = {}
 
         self.work_hours = ""
         self.message = ""
@@ -17,10 +19,6 @@ class Entry:
 
         self.month = "Jan"
         self.year = "2022"
-
-        self.hours = {}
-        self.minutes = {}
-        self.seconds = {}
 
     def build(self, message: str, number: int) -> str:
         self.number = number
@@ -41,8 +39,6 @@ class Entry:
         self.create_time()
 
     def create_date(self) -> None:
-        number = 0
-
         # Count the date in double steps, makes two entries per day
         if self.is_first_entry_of_day():
             # 1 -> 1 + 1 / 2 = 1
@@ -54,6 +50,8 @@ class Entry:
             # 4 -> 2
             # 6 -> 3
             number = self.number / 2
+        else:
+           number = 0
 
         date = int(number / 2)
 
@@ -67,23 +65,32 @@ class Entry:
         return self.number % 2 == 0
 
     def create_time(self) -> None:
-        # CREATE HOURS
+        self.create_time_dict()
+
+        self.start_time = time(**self.start_time_dict)
+        self.stop_time = time(**self.stop_time_dict)
+
+    def create_time_dict(self) -> None:
         hours = self.calculate_hours()
-        start_hour = hours["start"]
-        stop_hour = hours["stop"]
-
-        # CREATE MINUTES
         minutes = self.calculate_minutes()
-        start_minutes = minutes["start"]
-        stop_minutes = minutes["stop"]
-
-        # CREATE SECONDS
         seconds = self.calculate_seconds()
+
+        self.create_start_time_dict(hours, minutes, seconds)
+        self.create_stop_time_dict(hours, minutes, seconds)
+
+    def create_start_time_dict(self, hours: dict, minutes: dict, seconds: dict) -> None:
+        start_hour = hours["start"]
+        start_minutes = minutes["start"]
         start_seconds = seconds["start"]
+
+        self.start_time_dict = {"hour": start_hour, "minute": start_minutes, "second": start_seconds}
+
+    def create_stop_time_dict(self, hours: dict, minutes: dict, seconds: dict) -> None:
+        stop_hour = hours["stop"]
+        stop_minutes = minutes["stop"]
         stop_seconds = seconds["stop"]
 
-        self.start_time = time(start_hour, start_minutes, start_seconds)
-        self.stop_time = time(stop_hour, stop_minutes, stop_seconds)
+        self.stop_time_dict = {"hour": stop_hour, "minute": stop_minutes, "second": stop_seconds}
 
     def calculate_hours(self) -> dict:
         start_hour = random.randint(0, 11)
