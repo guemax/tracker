@@ -38,14 +38,39 @@ class SetupTestValues:
 
     def __entries(self) -> str:
         entries = ""
-        number_of_entries = self._number_of_entries
+        number_of_entries = self.get_number_of_entries_to_create()
 
-        if number_of_entries % 2 != 0:
-            number_of_entries += 1
+        # Number of days in the past
+        today = datetime.datetime.now()
+        n_days_ago = today - datetime.timedelta(days=number_of_entries / 2)
 
-        # Two entries per date, so two times fewer dates
-        number_of_entries /= 2
+        # Generate dates
+        dates = pandas.date_range(n_days_ago, today - datetime.timedelta(days=1), freq="d").to_pydatetime()
 
+        # Duplicate the dates
+        dates = numpy.repeat(dates, 2)
+
+        # dates = self.get_dates_to_create(number_of_entries)
+        # print(dates)
+
+        for i in range(0, number_of_entries):
+            entries += self.__build_entry(dates[i], i)
+
+        if self._number_of_entries % 2 != 0:
+            entries = "\n".join(entries.split("\n")[:-2])
+            entries += "\n"
+
+        return entries
+
+    def get_number_of_entries_to_create(self) -> int:
+        if self._number_of_entries % 2 == 0:
+            return self._number_of_entries
+        else:
+            # Because we create two entries per date, we need an even number of entries to divide them by two
+            # We remove the last entry before writing them to the tracker.csv file later
+            return self._number_of_entries + 1
+
+    def get_dates_to_create(self, number_of_entries: int) -> list:
         # Number of days in the past
         today = datetime.datetime.now()
         n_days_ago = today - datetime.timedelta(days=number_of_entries)
@@ -56,14 +81,7 @@ class SetupTestValues:
         # Duplicate the dates
         dates = numpy.repeat(dates, 2)
 
-        for i in range(0, len(dates)):
-            entries += self.__build_entry(dates[i], i)
-
-        if self._number_of_entries % 2 != 0:
-            entries = "\n".join(entries.split("\n")[:-2])
-            entries += "\n"
-
-        return entries
+        return dates
 
     def __build_entry(self, date: datetime.datetime, number: int) -> str:
         message = random.choice(self.__messages)
