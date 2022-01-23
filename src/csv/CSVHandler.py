@@ -11,10 +11,10 @@ class CSVHandler(CSVAttributes):
         super(CSVHandler, self).__init__()
 
     def init_tracker_csv_file(self) -> None:
-        logging.info("Initializing Tracker CSV file")
         if self.tracker_file_exists():
             return
         else:
+            logging.info("Initializing Tracker CSV file")
             self.create_tracker_file()
 
     def create_tracker_file(self) -> None:
