@@ -1,7 +1,6 @@
 import unittest
 
-from src.setup_test_values import SetupTestValues
-
+from src.setup_test_values.setup_test_values import SetupTestValues
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
 
@@ -33,7 +32,8 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
 
             # Remove the line for the header
             number_of_entries = number_of_lines - 1
-            self.assertEqual(self.set_upper.number_of_entries, number_of_entries)
+
+            self.assertEqual(self.set_upper._number_of_entries, number_of_entries)
 
     def test_creating_no_entries(self):
         self.clean_and_init_tracker_file()
@@ -61,5 +61,5 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
         self.assertRaises(ValueError, self.set_upper.set_number_of_entries, -1)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     unittest.main()
