@@ -3,6 +3,7 @@ import random
 
 import numpy
 import pandas
+from numpy import ndarray
 
 from src.csv import CSVHandler
 from .entry import Entry
@@ -38,27 +39,18 @@ class SetupTestValues:
 
     def __entries(self) -> str:
         entries = ""
+
         number_of_entries = self.get_number_of_entries_to_create()
-
-        # Number of days in the past
-        today = datetime.datetime.now()
-        n_days_ago = today - datetime.timedelta(days=number_of_entries / 2)
-
-        # Generate dates
-        dates = pandas.date_range(n_days_ago, today - datetime.timedelta(days=1), freq="d").to_pydatetime()
-
-        # Duplicate the dates
-        dates = numpy.repeat(dates, 2)
-
-        # dates = self.get_dates_to_create(number_of_entries)
-        # print(dates)
+        dates = self.get_dates_to_create(number_of_entries)
 
         for i in range(0, number_of_entries):
             entries += self.__build_entry(dates[i], i)
 
+        # Remove last entry of entries if we need an odd number of entries
         if self._number_of_entries % 2 != 0:
-            entries = "\n".join(entries.split("\n")[:-2])
-            entries += "\n"
+            list_of_entries = entries.split("\n")
+            entries_without_last_one = list_of_entries[:-2] + list_of_entries[-1:]
+            entries = "\n".join(entries_without_last_one)
 
         return entries
 
@@ -70,15 +62,16 @@ class SetupTestValues:
             # We remove the last entry before writing them to the tracker.csv file later
             return self._number_of_entries + 1
 
-    def get_dates_to_create(self, number_of_entries: int) -> list:
-        # Number of days in the past
+    @staticmethod
+    def get_dates_to_create(number_of_entries: int) -> ndarray:
+        # Calculate how may days we need to generate
         today = datetime.datetime.now()
         n_days_ago = today - datetime.timedelta(days=number_of_entries)
 
         # Generate dates
         dates = pandas.date_range(n_days_ago, today - datetime.timedelta(days=1), freq="d").to_pydatetime()
 
-        # Duplicate the dates
+        # Duplicate the dates for making two entries per day
         dates = numpy.repeat(dates, 2)
 
         return dates
