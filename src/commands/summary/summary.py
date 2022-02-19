@@ -1,5 +1,7 @@
 import datetime
 import calendar
+import logging
+
 import click
 
 from src.handler.summary_handler.summary_handler import SummaryHandler
@@ -12,8 +14,6 @@ from src.console_logger.console_logger import info, warn
 @click.option("-ly", "--last-year", "summary_range", help="Range: last year", flag_value="last-year", required=True)
 def summary(summary_range: str) -> None:
     """Show the summary of work hours per day in a given range"""
-    print(summary_range)
-
     nth_day_ago: int = 0
     if summary_range == "last-week":
         nth_day_ago = 7
@@ -24,4 +24,11 @@ def summary(summary_range: str) -> None:
         today = datetime.datetime.now()
         nth_day_ago = 366 if calendar.isleap(today.year) else 365
 
-    # summary_handler = SummaryHandler(nth_day_ago)
+    summary_handler = SummaryHandler(nth_day_ago)
+    entries_as_summary = summary_handler.summary()
+
+    logging.info("Showing summary...")
+    info(f"Showing entries as summary ({len(entries_as_summary)} in total).\n"
+         f"Range is \"{summary_range}\".\n")
+    info(f"{entries_as_summary}\n"
+         f"\nOK")
