@@ -43,8 +43,6 @@ class SetupTestValues:
         number_of_entries = self.get_number_of_entries_to_create()
         dates = self.get_dates_to_create(number_of_entries)
 
-        print(dates)
-
         for i in range(0, number_of_entries):
             entries += self.__build_entry(dates[i], i)
 
