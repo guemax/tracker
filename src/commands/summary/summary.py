@@ -1,6 +1,7 @@
 import datetime
 import calendar
 import logging
+import sys
 
 import click
 
@@ -9,22 +10,22 @@ from src.console_logger.console_logger import info, warn
 
 
 @click.command()
-@click.option("-lw", "--last-week", "summary_range", help="Range: last week", flag_value="last-week", required=True)
-@click.option("-lm", "--last-month", "summary_range", help="Range: last month", flag_value="last-month", required=True)
-@click.option("-ly", "--last-year", "summary_range", help="Range: last year", flag_value="last-year", required=True)
+@click.option("-tw", "--this-week", "summary_range", help="Range: this week", flag_value="this-week", required=True)
+@click.option("-tm", "--this-month", "summary_range", help="Range: this month", flag_value="this-month", required=True)
+@click.option("-ty", "--this-year", "summary_range", help="Range: this year", flag_value="this-year", required=True)
 def summary(summary_range: str) -> None:
     """Show the summary of work hours per day in a given range"""
-    nth_day_ago: int = 0
-    if summary_range == "last-week":
-        nth_day_ago = 7
-    elif summary_range == "last-month":
-        today = datetime.datetime.now()
-        nth_day_ago = calendar.monthrange(today.year, today.month)[1]
+    if summary_range == "this-week":
+        # Add column for the week number to filter for this week's number
+        pass
+    elif summary_range == "this-month":
+        # Filter for the current month of this year
+        raise NotImplementedError
     else:
-        today = datetime.datetime.now()
-        nth_day_ago = 366 if calendar.isleap(today.year) else 365
+        # Filter all entries for the ones created in this year
+        raise NotImplementedError
 
-    summary_handler = SummaryHandler(nth_day_ago)
+    summary_handler = SummaryHandler()
     entries_as_summary = summary_handler.summary()
 
     logging.info("Showing summary...")
