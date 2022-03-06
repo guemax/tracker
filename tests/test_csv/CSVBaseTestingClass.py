@@ -44,5 +44,6 @@ class CSVBaseTestingClass(unittest.TestCase):
         data_frame = pandas.read_csv(self.csv_handler.tracker_file)
         return data_frame
 
-    def setup_test_values(self) -> None:
+    def setup_test_values(self, number_of_entries: int = 4) -> None:
+        self.set_upper.set_number_of_entries(number_of_entries)
         self.set_upper.setup()
