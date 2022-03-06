@@ -7,11 +7,9 @@ from src.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
 
 
 class SummaryHandler:
-    def __init__(self, nth_days_ago: int) -> None:
+    def __init__(self) -> None:
         self.__entry_handler = EntryHandler()
         self.__grouped_entry_handler = GroupedEntryHandler()
-
-        self.__nth_days_ago = nth_days_ago
 
     def summary(self) -> pandas.DataFrame:
         entries = self.__entry_handler.get_data()
