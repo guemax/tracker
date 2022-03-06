@@ -43,6 +43,8 @@ class SetupTestValues:
         number_of_entries = self.get_number_of_entries_to_create()
         dates = self.get_dates_to_create(number_of_entries)
 
+        print(dates)
+
         for i in range(0, number_of_entries):
             entries += self.__build_entry(dates[i], i)
 
@@ -65,8 +67,12 @@ class SetupTestValues:
     @staticmethod
     def get_dates_to_create(number_of_entries: int) -> ndarray:
         # Calculate how may days we need to generate
-        today = datetime.datetime.now()
-        n_days_ago = today - datetime.timedelta(days=number_of_entries)
+
+        # Need to add one day to make sure our dates start today and not yesterday
+        today = datetime.datetime.now() + datetime.timedelta(days=1)
+
+        # Divide by two because we double the entries later do get 'number_of_entries'
+        n_days_ago = today - datetime.timedelta(days=number_of_entries / 2)
 
         # Generate dates
         dates = pandas.date_range(n_days_ago, today - datetime.timedelta(days=1), freq="d").to_pydatetime()
