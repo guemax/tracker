@@ -1,11 +1,8 @@
-import datetime
-import calendar
 import logging
-import sys
 
 import click
 
-from src.handler.summary_handler.summary_handler import SummaryHandler
+from src.handler.summary_handler.week_summary_handler import WeekSummaryHandler
 from src.console_logger.console_logger import info, warn
 
 
@@ -17,6 +14,7 @@ def summary(summary_range: str) -> None:
     """Show the summary of work hours per day in a given range"""
     if summary_range == "this-week":
         # Add column for the week number to filter for this week's number
+        summary_handler = WeekSummaryHandler()
         pass
     elif summary_range == "this-month":
         # Filter for the current month of this year
@@ -25,7 +23,6 @@ def summary(summary_range: str) -> None:
         # Filter all entries for the ones created in this year
         raise NotImplementedError
 
-    summary_handler = SummaryHandler()
     entries_as_summary = summary_handler.summary()
 
     logging.info("Showing summary...")

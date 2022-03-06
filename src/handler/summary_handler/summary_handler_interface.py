@@ -6,8 +6,8 @@ from src.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
 
 class SummaryHandlerInterface:
     def __init__(self) -> None:
-        self.__grouped_entry_handler = GroupedEntryHandler()
-        self.__entry_handler = EntryHandler()
+        self._grouped_entry_handler = GroupedEntryHandler()
+        self._entry_handler = EntryHandler()
 
     def summary(self) -> pandas.DataFrame:
         pass
