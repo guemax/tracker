@@ -63,7 +63,7 @@ class EntryHandler(BaseEntryHandlerClass):
         return entries_with_renamed_columns
 
     def merge_date_and_time_columns(self) -> None:
-        # Below is just work around for pandas' error: pandas.core.common.SettingWithCopyError
+        # TODO: Below is just work around for pandas' error: pandas.core.common.SettingWithCopyError
         pandas.set_option("mode.chained_assignment", None)
 
         self.merge_start_date_and_start_time()

@@ -16,11 +16,10 @@ class Entry:
         self._message = ""
 
         self._number = 0
+        self._date = datetime.min
 
-        self._month = "Jan"
-        self._year = "2022"
-
-    def build(self, message: str, number: int) -> str:
+    def build(self, date: datetime, message: str, number: int) -> str:
+        self._date = date
         self._number = number
         self._message = message
 
@@ -39,25 +38,8 @@ class Entry:
         self.__create_time()
 
     def __create_date(self) -> None:
-        # Count the date in double steps, makes two entries per day
-        if self.__is_first_entry_of_day():
-            # 1 -> 1 + 1 / 2 = 1
-            # 3 -> 3 + 1 / 2 = 2
-            # 5 -> 5 + 1 / 2 = 3
-            number = (self._number + 1) / 2
-        elif self.__is_second_entry_of_day():
-            # 2 -> 1
-            # 4 -> 2
-            # 6 -> 3
-            number = self._number / 2
-
-        date = int(number / 2)
-
-        self._start_date = f"\"{self._month}, {date} {self._year}\""
+        self._start_date = datetime.strftime(self._date, "\"%b, %d %Y\"")
         self._stop_date = self._start_date
-
-    def __is_first_entry_of_day(self) -> bool:
-        return not self.__is_second_entry_of_day()
 
     def __is_second_entry_of_day(self) -> bool:
         return self._number % 2 == 0
