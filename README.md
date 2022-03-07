@@ -13,9 +13,8 @@ A command-line tool to track your computer usage time.
 
 - _~~Start timer~~_ [2022-01-04]
 - _~~Stop timer~~_ [2022-01-05]
+- _~~Show old entries~~_ [2022-01-08]
 - _~~Add description of done work when stopping the timer~~_ [2022-01-05]
-- _~~Show old entries grouped by date~~_ [2022-01-08]
-- _~~Show old entries of a specific day~~_ [2022-01-15]
 - Show summary of a day
 - Show number of hours per day/week
 
@@ -29,8 +28,7 @@ P1
 
 P2
 
-- [x] Show old entries grouped by date
-- [X] Show old entries of a specific day
+- [x] Show old entries
 
 P3
 
