@@ -4,6 +4,8 @@ import sys
 import click
 
 from src.handler.summary_handler.week_summary_handler import WeekSummaryHandler
+from src.handler.summary_handler.month_summary_handler import MonthSummaryHandler
+
 from src.console_logger.console_logger import info, warn
 
 
@@ -16,8 +18,7 @@ def summary(summary_range: str) -> None:
     if summary_range == "this-week":
         summary_handler = WeekSummaryHandler()
     elif summary_range == "this-month":
-        # Filter for the current month of this year
-        raise NotImplementedError
+        summary_handler = MonthSummaryHandler()
     else:
         # Filter all entries for the ones created in this year
         raise NotImplementedError
