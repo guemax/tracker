@@ -1,66 +1,84 @@
 import pandas
 
-from src.csv.CSVAttributes import CSVAttributes
+from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
+from src.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
+from src.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
 
 
-class EntryHandler(CSVAttributes):
+class EntryHandler(BaseEntryHandlerClass):
     def __init__(self):
         super(EntryHandler, self).__init__()
 
-        self.data = None
+        self.entries = None
+        self.grouped_entry_handler = GroupedEntryHandler()
 
-    def get_entries_grouped_by_date(self) -> pandas.DataFrame:
+    def get_entries_of_specific_date(self, id_of_date: int) -> list:
+        try:
+            date = self.get_string_of_date_by_id(id_of_date)
+        except KeyError:
+            raise InvalidIDOfDateException
+
         self.data = self.get_data()
-
         self.data = self.group_entries_by_date()
-        self.data = self.sum_work_hours_up()
-        self.data = self.rename_columns()
+
+        self.entries = self.data.get_group(date)
 
         self.change_index()
+        self.merge_date_and_time_columns()
 
-        self.data = self.reorder_entries_from_the_latest_down_to_the_oldest_one()
+        self.remove_start_and_stop_date_and_start_and_stop_time_columns()
+        self.reorder_columns()
 
-        return self.data
+        self.entries = self.rename_columns()
 
-    def get_data(self) -> pandas.DataFrame:
-        data = pandas.read_csv(self.tracker_file, header=0)
+        # Make pandas print a message over more than one line in the console
+        pandas.set_option("display.max_colwidth", None)
 
-        # Change this column to a time type for allowing summing up the total work hours later
-        data["work_hours"] = pandas.to_timedelta(data.work_hours)
+        return [date, self.entries]
 
-        return data.fillna("")
+    def get_string_of_date_by_id(self, id_of_date: int) -> str:
+        entries_grouped_by_date = self.grouped_entry_handler.get_entries_grouped_by_date()
 
-    def group_entries_by_date(self) -> pandas.DataFrame:
-        data_grouped_by_date = self.data.groupby("start_date", as_index=False)
-        return data_grouped_by_date
-
-    def sum_work_hours_up(self) -> pandas.DataFrame:
-        data_with_sum_of_work_hours = self.data \
-            .agg(
-                    work_hours=pandas.NamedAgg(column="work_hours", aggfunc="sum"),
-                    individual_entries=pandas.NamedAgg(column="start_date", aggfunc="size")
-                )
-        return data_with_sum_of_work_hours
-
-    def rename_columns(self) -> pandas.DataFrame:
-        data_with_renamed_columns = self.data \
-            .rename(columns={
-                                "start_date": "Date", "work_hours": "Total work time",
-                                "individual_entries": "Individual entries"
-                            }
-                    )
-        return data_with_renamed_columns
+        date = entries_grouped_by_date.at[id_of_date, "Date"]
+        return date
 
     def change_index(self) -> None:
-        self.name_index_column()
+        self.reset_index()
         self.boost_index()
 
-    def name_index_column(self) -> None:
-        self.data.index.name = "ID"
+    def reset_index(self) -> None:
+        self.entries.reset_index()
 
     def boost_index(self) -> None:
-        self.data.index += 1
+        self.entries.index += 1
 
-    def reorder_entries_from_the_latest_down_to_the_oldest_one(self) -> pandas.DataFrame:
-        reordered_data = self.data.iloc[::-1]
-        return reordered_data
+    def rename_columns(self) -> pandas.DataFrame:
+        entries_with_renamed_columns = self.entries \
+            .rename(columns={
+                                "start": "Start",
+                                "stop": "Stop",
+                                "work_hours": "Work hours", "message": "Message"
+                            }
+                    )
+        return entries_with_renamed_columns
+
+    def merge_date_and_time_columns(self) -> None:
+        # TODO: Below is just work around for pandas' error: pandas.core.common.SettingWithCopyError
+        pandas.set_option("mode.chained_assignment", None)
+
+        self.merge_start_date_and_start_time()
+        self.merge_stop_date_and_stop_time()
+
+        pandas.set_option("mode.chained_assignment", "warn")
+
+    def merge_start_date_and_start_time(self) -> None:
+        self.entries.loc[:, "start"] = self.entries["start_date"] + " at " + self.entries["start_time"]
+
+    def merge_stop_date_and_stop_time(self) -> None:
+        self.entries.loc[:, "stop"] = self.entries["stop_date"] + " at " + self.entries["stop_time"]
+
+    def remove_start_and_stop_date_and_start_and_stop_time_columns(self) -> None:
+        self.entries = self.entries.drop(columns=["start_date", "start_time", "stop_date", "stop_time"])
+
+    def reorder_columns(self) -> None:
+        self.entries = self.entries[["start", "stop", "work_hours", "message"]]
