@@ -6,9 +6,9 @@ from src.handler.summary_handler.week_summary_handler import WeekSummaryHandler
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
 
-class TestTimerHandler(CSVBaseTestingClass):
+class TestWeekSummaryHandler(CSVBaseTestingClass):
     def setUp(self) -> None:
-        super(TestTimerHandler, self).setUp()
+        super(TestWeekSummaryHandler, self).setUp()
 
         self.week_summary_handler = WeekSummaryHandler()
 
