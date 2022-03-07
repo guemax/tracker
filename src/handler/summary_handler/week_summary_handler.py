@@ -13,7 +13,7 @@ class WeekSummaryHandler(SummaryHandlerInterface):
     def summary(self) -> pandas.DataFrame:
         self._data = self._entry_handler.get_data()
 
-        self._data = self.add_column_for_day_of_week()
+        self._data = self.add_column_for_week_number()
         self._data = self.drop_rows_with_entries_not_created_this_week()
 
         self._data = self.group_entries_by_day_of_week()
@@ -25,7 +25,7 @@ class WeekSummaryHandler(SummaryHandlerInterface):
 
         return self._data
 
-    def add_column_for_day_of_week(self) -> pandas.DataFrame:
+    def add_column_for_week_number(self) -> pandas.DataFrame:
         data = self._data
         data["week_number"] = self._data["start_date"].map(self.__get_week_number)
 
