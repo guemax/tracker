@@ -9,5 +9,7 @@ class SummaryHandlerInterface:
         self._grouped_entry_handler = GroupedEntryHandler()
         self._entry_handler = EntryHandler()
 
+        self._data = None
+
     def summary(self) -> pandas.DataFrame:  # pragma: no cover
         pass
