@@ -5,6 +5,7 @@ import click
 
 from src.handler.summary_handler.week_summary_handler import WeekSummaryHandler
 from src.handler.summary_handler.month_summary_handler import MonthSummaryHandler
+from src.handler.summary_handler.year_summary_handler import YearSummaryHandler
 
 from src.console_logger.console_logger import info, warn
 
@@ -20,8 +21,7 @@ def summary(summary_range: str) -> None:
     elif summary_range == "month":
         summary_handler = MonthSummaryHandler()
     else:
-        # Filter all entries for the ones created in this year
-        raise NotImplementedError
+        summary_handler = YearSummaryHandler()
 
     entries_as_summary = summary_handler.summary()
 
