@@ -1,2 +1,0 @@
-class InvalidIDOfDateException(Exception):
-    pass

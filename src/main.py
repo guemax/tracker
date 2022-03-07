@@ -4,8 +4,6 @@ import sys
 import click
 
 from .Tracker import Tracker
-
-from src.commands.summary import summary
 from src.commands.status import status
 from src.commands.start import start
 from src.commands.stop import stop
@@ -22,7 +20,6 @@ def cli():
 
 
 def add_subcommands_to_cli():
-    cli.add_command(summary.summary)
     cli.add_command(status.status)
     cli.add_command(start.start)
     cli.add_command(stop.stop)

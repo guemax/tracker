@@ -1,5 +1,3 @@
-entries ?= 4
-
 all:
 	@echo "Running Tracker"
 	@python3 -m src.main
@@ -14,7 +12,7 @@ test: clean
 	@python3 -m unittest discover
 setup: clean
 	@echo "Setting up test values"
-	@python3 -m src.setup -e ${entries}
+	@python3 -m src.setup_test_values
 coverage: clean
 	@python3 -m coverage run --omit=/usr/*,*__init__.py -m unittest discover
 	@python3 -m coverage report
