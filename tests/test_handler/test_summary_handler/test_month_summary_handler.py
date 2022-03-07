@@ -27,7 +27,7 @@ class TestMonthSummaryHandler(CSVBaseTestingClass):
         self.assertFalse(summarized_entries.empty)
         self.assertEqual(1, len(summarized_entries))
 
-    def test_summary_with_multiple_entries_created_this_week(self) -> None:
+    def test_summary_with_multiple_entries_created_this_month(self) -> None:
         self.clean_and_init_tracker_file()
 
         # Set up two entries per day (40 grouped entries)
