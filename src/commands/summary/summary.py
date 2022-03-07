@@ -1,4 +1,5 @@
 import logging
+import sys
 
 import click
 
@@ -23,6 +24,15 @@ def summary(summary_range: str) -> None:
 
     entries_as_summary = summary_handler.summary()
 
+    if len(entries_as_summary) == 0:
+        logging.info("Showing summary: No entries created this week.")
+
+        info(f"Nothing to show yet. There have been no entries created this week.\n"
+             f"Create one using \"tracker start\".\n"
+             f"\nOK")
+        sys.exit(0)
+
+    # Else: There have been some entries created this week
     logging.info("Showing summary...")
     info(f"Showing entries as summary ({len(entries_as_summary)} in total).\n"
          f"Range is \"{summary_range}\".\n")
