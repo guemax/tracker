@@ -25,8 +25,6 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.assertEqual(type(date), str)
         self.assertEqual(type(entries_of_date), pandas.DataFrame)
 
-        self.assertIn(date, entries_of_date.at[1, "Start"])
-
     def test_logging_entries_of_specific_date_without_any_entries_existing(self) -> None:
         self.clean_and_init_tracker_file()
 

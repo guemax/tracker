@@ -24,9 +24,8 @@ class EntryHandler(BaseEntryHandlerClass):
         self.entries = self.data.get_group(date)
 
         self.change_index()
-        self.merge_date_and_time_columns()
 
-        self.remove_start_and_stop_date_and_start_and_stop_time_columns()
+        self.remove_start_and_stop_date_columns()
         self.reorder_columns()
 
         self.entries = self.rename_columns()
@@ -55,30 +54,15 @@ class EntryHandler(BaseEntryHandlerClass):
     def rename_columns(self) -> pandas.DataFrame:
         entries_with_renamed_columns = self.entries \
             .rename(columns={
-                                "start": "Start",
-                                "stop": "Stop",
+                                "start_time": "Start time",
+                                "stop_time": "Stop time",
                                 "work_hours": "Work hours", "message": "Message"
                             }
                     )
         return entries_with_renamed_columns
 
-    def merge_date_and_time_columns(self) -> None:
-        # TODO: Below is just work around for pandas' error: pandas.core.common.SettingWithCopyError
-        pandas.set_option("mode.chained_assignment", None)
-
-        self.merge_start_date_and_start_time()
-        self.merge_stop_date_and_stop_time()
-
-        pandas.set_option("mode.chained_assignment", "warn")
-
-    def merge_start_date_and_start_time(self) -> None:
-        self.entries.loc[:, "start"] = self.entries["start_date"] + " at " + self.entries["start_time"]
-
-    def merge_stop_date_and_stop_time(self) -> None:
-        self.entries.loc[:, "stop"] = self.entries["stop_date"] + " at " + self.entries["stop_time"]
-
-    def remove_start_and_stop_date_and_start_and_stop_time_columns(self) -> None:
-        self.entries = self.entries.drop(columns=["start_date", "start_time", "stop_date", "stop_time"])
+    def remove_start_and_stop_date_columns(self) -> None:
+        self.entries = self.entries.drop(columns=["start_date", "stop_date"])
 
     def reorder_columns(self) -> None:
-        self.entries = self.entries[["start", "stop", "work_hours", "message"]]
+        self.entries = self.entries[["start_time", "stop_time", "work_hours", "message"]]
