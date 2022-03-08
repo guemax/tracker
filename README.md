@@ -16,7 +16,7 @@ A command-line tool to track your computer usage time.
 - _~~Add description of done work when stopping the timer~~_ [2022-01-05]
 - _~~Show old entries grouped by date~~_ [2022-01-08]
 - _~~Show old entries of a specific day~~_ [2022-01-15]
-- Show number of hours per day/week
+- _~~Show number of hours per day/week~~_ [2022-03-07]
 
 ## Priority of features
 
@@ -33,8 +33,7 @@ P2
 
 P3
 
-- [ ] Show number of hours per day/week
-
+- [X] Show number of work hours per day in a given range
 ## Contributing
 
 Downlaod the source code and move into the root directory of the project. Use `python3 -m src.main` to run Tracker. Append the command you would like to execute, for example `python3 -m src.main start` to start a timer.
