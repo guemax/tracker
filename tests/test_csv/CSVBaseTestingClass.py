@@ -19,8 +19,8 @@ import os
 
 import pandas
 
-from src.csv.CSVHandler import CSVHandler
-from src.setup_test_values.setup_test_values import SetupTestValues
+from tracker.csv.CSVHandler import CSVHandler
+from tracker.setup_test_values.setup_test_values import SetupTestValues
 
 
 class CSVBaseTestingClass(unittest.TestCase):

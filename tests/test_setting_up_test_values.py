@@ -16,7 +16,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from src.setup_test_values.setup_test_values import SetupTestValues
+from tracker.setup_test_values.setup_test_values import SetupTestValues
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
 

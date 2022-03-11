@@ -20,7 +20,7 @@ import unittest
 
 import click.testing
 
-from src.console_logger.console_logger import *
+from tracker.console_logger.console_logger import *
 
 
 class TestConsoleLogger(unittest.TestCase):

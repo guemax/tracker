@@ -17,8 +17,8 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 import unittest
 import re
 
-from src.handler.timer_handler.TimerHandler import TimerHandler
-from src.exceptions.InvalidTimerModification import InvalidTimerModification
+from tracker.handler.timer_handler.TimerHandler import TimerHandler
+from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
