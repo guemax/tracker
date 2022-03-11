@@ -2,7 +2,7 @@ import logging
 import sys
 
 
-def setup_logging():
+def setup_logging(debug: bool = False):
     logging.basicConfig(
         level=logging.INFO,
         filename="src/files/tracker.log",
@@ -10,6 +10,7 @@ def setup_logging():
         format='%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s',
         datefmt='%d-%b-%y %H:%M:%S'
     )
+    set_debug(debug)
 
 
 def set_debug(debug: bool = False):
