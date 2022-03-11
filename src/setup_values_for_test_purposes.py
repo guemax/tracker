@@ -49,6 +49,7 @@ class SetupTestValuesForConsole:
 @click.command()
 @click.option("-e", "--entries", "number_of_entries", help="Number of entries to create", type=int, default=4)
 def main(number_of_entries: int) -> None:
+    """This script sets up test values. It fills the Tracker file with the given number of entries."""
     console_set_upper = SetupTestValuesForConsole()
     console_set_upper.setup(number_of_entries)
 
