@@ -16,12 +16,12 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from ..CommandBaseTestingClass import CommandBaseTestingClass
+from ..CliRunnerForTesting import CliRunnerForTesting
 
 
-class TestLog(CommandBaseTestingClass):
+class TestLogCommand(CliRunnerForTesting):
     def setUp(self) -> None:
-        super(TestLog, self).setUp()
+        super(TestLogCommand, self).setUp()
 
     def test_logging_a_specific_entry(self) -> None:
         self.clean_and_init_tracker_file()

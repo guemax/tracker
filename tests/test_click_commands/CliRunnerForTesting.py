@@ -25,7 +25,7 @@ from tracker.csv.CSVHandler import CSVHandler
 from tracker.setup_test_values.setup_test_values import SetupTestValues
 
 
-class CommandBaseTestingClass(unittest.TestCase):
+class CliRunnerForTesting(unittest.TestCase):
     def setUp(self) -> None:
         self.runner = CliRunner()
         self.result = None

@@ -16,44 +16,40 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from ..CommandBaseTestingClass import CommandBaseTestingClass
+from ..CliRunnerForTesting import CliRunnerForTesting
 
 
-class TestStop(CommandBaseTestingClass):
+class TestStartCommand(CliRunnerForTesting):
     def setUp(self) -> None:
-        super(TestStop, self).setUp()
+        super(TestStartCommand, self).setUp()
 
-    def test_stopping_a_timer_without_message(self) -> None:
+    def test_starting_a_timer(self) -> None:
         self.clean_and_init_tracker_file()
 
         self.run_cli(["start"])
-        self.run_cli(["stop"])
         self.assertEqual(self.result.exit_code, 0)
 
-        self.assertIn("Existing timer stopped", self.result.output)
+        self.assertIn("New timer started", self.result.output)
         self.assertIn("OK", self.result.output)
 
-    def test_starting_a_timer_with_message(self) -> None:
+    def test_starting_a_timer_when_one_already_exists(self) -> None:
         self.clean_and_init_tracker_file()
-
-        message = "my personal message"
 
         self.run_cli(["start"])
-        self.run_cli(["stop", f"-m {message}"])
         self.assertEqual(self.result.exit_code, 0)
 
-        self.assertIn("Existing timer stopped", self.result.output)
-        self.assertIn(f"Added message", self.result.output)
-        self.assertIn(message, self.result.output)
-        self.assertIn("OK", self.result.output)
+        self.run_cli(["start"])
+        self.assertEqual(self.result.exit_code, 0)
 
-    def test_stopping_a_timer_when_no_one_exists(self) -> None:
+        self.assertIn("A timer already exists", self.result.output)
+
+    def test_starting_a_timer_with_invalid_option(self) -> None:
         self.clean_and_init_tracker_file()
 
-        self.run_cli(["stop"])
-        self.assertEqual(self.result.exit_code, 0)
+        self.run_cli(["start", "--unknown-option"])
+        self.assertEqual(self.result.exit_code, 2)
 
-        self.assertIn("No timer exists yet", self.result.output)
+        self.assertIn("Error", self.result.output)
 
 
 if __name__ == "__main__":  # pragma: no cover
