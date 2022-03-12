@@ -16,12 +16,12 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from ..CliRunnerForTesting import CliRunnerForTesting
+from ..CommandBaseTestingClass import CommandBaseTestingClass
 
 
-class TestStatusCommand(CliRunnerForTesting):
+class TestStatus(CommandBaseTestingClass):
     def setUp(self) -> None:
-        super(TestStatusCommand, self).setUp()
+        super(TestStatus, self).setUp()
 
     def test_showing_the_status_with_no_entries_present(self) -> None:
         self.clean_and_init_tracker_file()

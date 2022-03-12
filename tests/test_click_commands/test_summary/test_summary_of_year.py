@@ -16,30 +16,30 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from ..CliRunnerForTesting import CliRunnerForTesting
+from ..CommandBaseTestingClass import CommandBaseTestingClass
 
 
-class TestSummaryOfWeekCommand(CliRunnerForTesting):
+class TestSummaryOfYear(CommandBaseTestingClass):
     def setUp(self) -> None:
-        super(TestSummaryOfWeekCommand, self).setUp()
+        super(TestSummaryOfYear, self).setUp()
 
-    def test_summary_without_any_entries_created_this_week(self) -> None:
+    def test_summary_without_any_entries_created_this_year(self) -> None:
         self.clean_and_init_tracker_file()
 
-        self.run_cli(["summary", "-tw"])
+        self.run_cli(["summary", "-ty"])
 
-        self.assertIn("Nothing to show yet. There have been no entries created this week.\n"
+        self.assertIn("Nothing to show yet. There have been no entries created this year.\n"
                       "Create one using \"tracker start\".", self.result.output)
         self.assertIn("OK", self.result.output)
 
-    def test_summary_with_some_entries_created_this_week(self) -> None:
+    def test_summary_with_one_entry_created_this_year(self) -> None:
         self.clean_and_init_tracker_file()
         self.setup_test_values(1)
 
-        self.run_cli(["summary", "-tw"])
+        self.run_cli(["summary", "-ty"])
 
         self.assertIn("Showing entries as summary (1 in total).\n"
-                      "Range is \"this-week\".", self.result.output)
+                      "Range is \"this-year\".", self.result.output)
         self.assertIn("OK", self.result.output)
 
 
