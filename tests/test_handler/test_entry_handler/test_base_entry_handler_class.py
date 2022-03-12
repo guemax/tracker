@@ -24,9 +24,9 @@ from tracker.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandler
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
 
-class TestBaseEntryHandler(CSVBaseTestingClass):
+class TestBaseEntryHandlerClass(CSVBaseTestingClass):
     def setUp(self) -> None:
-        super(TestBaseEntryHandler, self).setUp()
+        super(TestBaseEntryHandlerClass, self).setUp()
 
         self.data = None
         self.csv_attributes = CSVAttributes()
