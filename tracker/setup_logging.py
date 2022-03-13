@@ -15,10 +15,12 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import logging
+import os
 import sys
 
 
 def setup_logging(debug: bool = False):
+    print("We are here: " + os.getcwd())
     logging.basicConfig(
         level=logging.INFO,
         filename="tracker/files/tracker.log",
