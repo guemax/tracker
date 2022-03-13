@@ -56,12 +56,6 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
 
         self.check_for_changed_number_of_entries(0)
 
-    def test_changing_the_number_of_entries_to_create(self):
-        self.clean_and_init_tracker_file()
-
-        for i in range(1, 21):
-            self.check_for_changed_number_of_entries(i)
-
     def check_for_changed_number_of_entries(self, number_of_entries: int):
         self.set_upper.set_number_of_entries(number_of_entries)
         self.set_upper.setup()
@@ -70,6 +64,12 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
 
         # Reset the values for the set upper
         self.set_upper.__init__()
+
+    def test_changing_the_number_of_entries_to_create(self):
+        self.clean_and_init_tracker_file()
+
+        for i in range(1, 21):
+            self.check_for_changed_number_of_entries(i)
 
     def test_invalid_number_of_entries_to_create(self):
         self.clean_and_init_tracker_file()
