@@ -19,9 +19,9 @@ import unittest
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
 
-class TestStop(CommandBaseTestingClass):
+class TestStopCommand(CommandBaseTestingClass):
     def setUp(self) -> None:
-        super(TestStop, self).setUp()
+        super(TestStopCommand, self).setUp()
 
     def test_stopping_a_timer_without_message(self) -> None:
         self.clean_and_init_tracker_file()

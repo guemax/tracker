@@ -19,9 +19,9 @@ import unittest
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
 
-class TestSummaryOfMonth(CommandBaseTestingClass):
+class TestSummaryOfMonthCommand(CommandBaseTestingClass):
     def setUp(self) -> None:
-        super(TestSummaryOfMonth, self).setUp()
+        super(TestSummaryOfMonthCommand, self).setUp()
 
     def test_summary_without_any_entries_created_this_month(self) -> None:
         self.clean_and_init_tracker_file()

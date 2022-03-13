@@ -19,9 +19,9 @@ import unittest
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
 
-class TestSummaryOfWeek(CommandBaseTestingClass):
+class TestSummaryOfWeekCommand(CommandBaseTestingClass):
     def setUp(self) -> None:
-        super(TestSummaryOfWeek, self).setUp()
+        super(TestSummaryOfWeekCommand, self).setUp()
 
     def test_summary_without_any_entries_created_this_week(self) -> None:
         self.clean_and_init_tracker_file()

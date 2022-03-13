@@ -19,9 +19,9 @@ import unittest
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
 
-class TestStatus(CommandBaseTestingClass):
+class TestStatusCommand(CommandBaseTestingClass):
     def setUp(self) -> None:
-        super(TestStatus, self).setUp()
+        super(TestStatusCommand, self).setUp()
 
     def test_showing_the_status_with_no_entries_present(self) -> None:
         self.clean_and_init_tracker_file()

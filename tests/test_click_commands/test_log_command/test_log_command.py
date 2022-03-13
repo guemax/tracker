@@ -19,9 +19,9 @@ import unittest
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
 
-class TestLog(CommandBaseTestingClass):
+class TestLogCommand(CommandBaseTestingClass):
     def setUp(self) -> None:
-        super(TestLog, self).setUp()
+        super(TestLogCommand, self).setUp()
 
     def test_logging_a_specific_entry(self) -> None:
         self.clean_and_init_tracker_file()

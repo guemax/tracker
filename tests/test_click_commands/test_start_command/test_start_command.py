@@ -19,9 +19,9 @@ import unittest
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
 
-class TestStart(CommandBaseTestingClass):
+class TestStartCommand(CommandBaseTestingClass):
     def setUp(self) -> None:
-        super(TestStart, self).setUp()
+        super(TestStartCommand, self).setUp()
 
     def test_starting_a_timer(self) -> None:
         self.clean_and_init_tracker_file()

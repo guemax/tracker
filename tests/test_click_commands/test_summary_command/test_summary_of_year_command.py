@@ -19,9 +19,9 @@ import unittest
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
 
-class TestSummaryOfYear(CommandBaseTestingClass):
+class TestSummaryOfYearCommand(CommandBaseTestingClass):
     def setUp(self) -> None:
-        super(TestSummaryOfYear, self).setUp()
+        super(TestSummaryOfYearCommand, self).setUp()
 
     def test_summary_without_any_entries_created_this_year(self) -> None:
         self.clean_and_init_tracker_file()

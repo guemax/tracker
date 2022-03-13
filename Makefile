@@ -5,16 +5,16 @@ all:
 	@python3 -m src.main
 clean:
 	@echo "Cleaning up Tracker files"
-	@-rm src/files/*
+	@-rm tracker/files/*
 log:
 	@echo "Showing Tracker log file"
-	@cat src/files/tracker.log
+	@cat tracker/files/tracker.log
 test: clean
 	@echo "Running tests"
 	@python3 -m unittest discover
 setup: clean
 	@echo "Setting up test values"
-	@python3 -m src.setup_values_for_test_purposes -e ${entries}
+	@python3 -m tracker.setup_values_for_test_purposes -e ${entries}
 coverage: clean
 	@python3 -m coverage run --omit=/usr/*,*__init__.py -m unittest discover
 	@python3 -m coverage report
