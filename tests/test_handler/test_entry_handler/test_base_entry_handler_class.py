@@ -18,8 +18,8 @@ import unittest
 
 import pandas
 
-from tracker.csv.CSVAttributes import CSVAttributes
-from tracker.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
+from src.csv.CSVAttributes import CSVAttributes
+from src.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 

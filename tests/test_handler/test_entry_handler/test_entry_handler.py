@@ -18,8 +18,8 @@ import unittest
 
 import pandas
 
-from tracker.handler.entry_handler.EntryHandler import EntryHandler
-from tracker.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
+from src.handler.entry_handler.EntryHandler import EntryHandler
+from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 

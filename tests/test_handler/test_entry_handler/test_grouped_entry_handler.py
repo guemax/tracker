@@ -16,8 +16,8 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from tracker.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
-from tracker.handler.timer_handler.TimerHandler import TimerHandler
+from src.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
+from src.handler.timer_handler.TimerHandler import TimerHandler
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 

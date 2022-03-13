@@ -19,10 +19,10 @@ import os
 
 from click.testing import CliRunner
 
-from tracker.cli import cli
+from src.cli import cli
 
-from tracker.csv.CSVHandler import CSVHandler
-from tracker.setup_test_values.setup_test_values import SetupTestValues
+from src.csv.CSVHandler import CSVHandler
+from src.setup_test_values.setup_test_values import SetupTestValues
 
 
 class CommandBaseTestingClass(unittest.TestCase):
