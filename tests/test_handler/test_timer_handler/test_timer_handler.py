@@ -25,68 +25,117 @@ class TestTimerHandler(CSVBaseTestingClass):
         super(TestTimerHandler, self).setUp()
 
         self.timer_handler = TimerHandler()
+
         self.date_pattern = re.compile("\w{3}, \d{2} \d{4}")
         self.time_pattern = re.compile("(\d{2}:){2}\d{2}")
         self.work_hour_pattern = re.compile("(\d{1,2}:){2}\d{2}")
 
-    def test_starting_a_new_timer(self) -> None:
+    def test_starting_the_first_timer(self) -> None:
         self.clean_and_init_tracker_file()
 
-        time = self.timer_handler.start_timer()
-        start_date = time[0]
-        start_time = time[1]
+        self.check_for_started_timer()
+
+    def check_for_started_timer(self) -> None:
+        start_datetime = self.timer_handler.start_timer()
+        expected_start_date = start_datetime[0]
+        expected_start_time = start_datetime[1]
 
         self.check_for_correct_column_names()
 
-        file = self.get_contents_of_tracker_file_with_replaced_nans()
+        dataframe = self.get_contents_of_tracker_file_with_replaced_nans()
+        last_row = dataframe.iloc[-1]
 
-        self.assertTrue(self.date_pattern.match(file["start_date"][0]))
-        self.assertTrue(self.time_pattern.match(file["start_time"][0]))
+        actual_start_date = last_row["start_date"]
+        actual_start_time = last_row["start_time"]
 
-        self.assertEqual(file["start_date"][0], start_date)
-        self.assertEqual(file["start_time"][0], start_time)
-        self.assertEqual(file["stop_time"][0], "")
-        self.assertEqual(file["work_hours"][0], "")
-        self.assertEqual(file["message"][0], "")
+        actual_stop_time = last_row["stop_time"]
+        actual_work_hours = last_row["work_hours"]
+        actual_message = last_row["message"]
 
-    def test_stopping_a_timer_with_empty_message(self) -> None:
+        self.assertTrue(self.date_pattern.match(actual_start_date))
+        self.assertTrue(self.time_pattern.match(actual_start_time))
+
+        self.assertEqual(actual_start_date, expected_start_date)
+        self.assertEqual(actual_start_time, expected_start_time)
+        self.assertEqual(actual_stop_time, "")
+        self.assertEqual(actual_work_hours, "")
+        self.assertEqual(actual_message, "")
+
+    def test_starting_the_second_timer(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        self.set_upper.set_number_of_entries(1)
+        self.set_upper.setup()
+
+        self.check_for_started_timer()
+
+    def test_stopping_first_timer_with_empty_message(self) -> None:
+        self.clean_and_init_tracker_file()
+
         message = ""
-        self.stop_created_timer(message)
+        self.check_for_stopped_timer(message)
 
-    def test_stopping_a_timer_with_message(self) -> None:
-        message = "Developed new feature for Tracker"
-        self.stop_created_timer(message)
+    def check_for_stopped_timer(self, message: str) -> None:
+        start_datetime = self.timer_handler.start_timer()
+        stop_datetime = self.timer_handler.stop_timer(message)
 
-    def stop_created_timer(self, message: str) -> None:
-        self.clean_and_init_tracker_file()
-
-        time_1 = self.timer_handler.start_timer()
-        time_2 = self.timer_handler.stop_timer(message)
-
-        start_date = time_1[0]
-        start_time = time_1[1]
-        stop_date = time_2[0]
-        stop_time = time_2[1]
-
-        work_hours = time_2[2]
+        expected_start_date = start_datetime[0]
+        expected_start_time = start_datetime[1]
+        expected_stop_date = stop_datetime[0]
+        expected_stop_time = stop_datetime[1]
+        expected_work_hours = stop_datetime[2]
+        expected_message = message
 
         self.check_for_correct_column_names()
 
-        file = self.get_contents_of_tracker_file_with_replaced_nans()
+        dataframe = self.get_contents_of_tracker_file_with_replaced_nans()
+        last_row = dataframe.iloc[-1]
 
-        self.assertTrue(self.date_pattern.match(file["start_date"][0]))
-        self.assertTrue(self.date_pattern.match(file["stop_date"][0]))
+        actual_start_date = last_row["start_date"]
+        actual_start_time = last_row["start_time"]
+        actual_stop_date = last_row["stop_date"]
+        actual_stop_time = last_row["stop_time"]
+        actual_work_hours = last_row["work_hours"]
+        actual_message = last_row["message"]
 
-        self.assertTrue(self.time_pattern.match(file["start_time"][0]))
-        self.assertTrue(self.time_pattern.match(file["stop_time"][0]))
-        self.assertTrue(self.work_hour_pattern.match(file["work_hours"][0]))
+        self.assertTrue(self.date_pattern.match(actual_start_date))
+        self.assertTrue(self.date_pattern.match(actual_stop_date))
+        self.assertTrue(self.time_pattern.match(actual_start_time))
+        self.assertTrue(self.time_pattern.match(actual_stop_time))
 
-        self.assertEqual(file["start_date"][0], start_date)
-        self.assertEqual(file["start_time"][0], start_time)
-        self.assertEqual(file["stop_date"][0], stop_date)
-        self.assertEqual(file["stop_time"][0], stop_time)
-        self.assertEqual(file["work_hours"][0], work_hours)
-        self.assertEqual(file["message"][0], message)
+        self.assertTrue(self.work_hour_pattern.match(actual_work_hours))
+
+        self.assertEqual(actual_start_date, expected_start_date)
+        self.assertEqual(actual_start_time, expected_start_time)
+        self.assertEqual(actual_stop_date, expected_stop_date)
+        self.assertEqual(actual_stop_time, expected_stop_time)
+
+        self.assertEqual(actual_work_hours, expected_work_hours)
+        self.assertEqual(actual_message, expected_message)
+
+    def test_stopping_first_timer_with_message(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        message = "Developed a new feature for Tracker"
+        self.check_for_stopped_timer(message)
+
+    def test_stopping_second_timer_with_empty_message(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        self.set_upper.set_number_of_entries(1)
+        self.set_upper.setup()
+
+        message = ""
+        self.check_for_stopped_timer(message)
+
+    def test_stopping_second_timer_with_message(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        self.set_upper.set_number_of_entries(1)
+        self.set_upper.setup()
+
+        message = "Developed a new feature for Tracker"
+        self.check_for_stopped_timer(message)
 
     def test_unfinished_entry_present(self):
         self.clean_and_init_tracker_file()
