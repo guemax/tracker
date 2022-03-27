@@ -32,13 +32,13 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
 
             self.assertEqual(header_exspected, header_actual)
 
-    def test_number_of_entries_to_create(self):
+    def test_creating_default_number_of_entries(self):
         self.clean_and_init_tracker_file()
         self.set_upper.setup()
 
-        self.check_if_number_of_entries_have_been_created()
+        self.check_if_given_number_of_entries_have_been_created()
 
-    def check_if_number_of_entries_have_been_created(self):
+    def check_if_given_number_of_entries_have_been_created(self):
         with open(self.csv_handler.tracker_file, "r") as f:
             content = f.read().strip()
             number_of_lines = len(content.split("\n"))
@@ -53,20 +53,20 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
 
         self.check_for_changed_number_of_entries(0)
 
-    def test_changing_the_number_of_entries_to_create(self):
-        self.clean_and_init_tracker_file()
-
-        for i in range(1, 21):
-            self.check_for_changed_number_of_entries(i)
-
     def check_for_changed_number_of_entries(self, number_of_entries: int):
         self.set_upper.set_number_of_entries(number_of_entries)
         self.set_upper.setup()
 
-        self.check_if_number_of_entries_have_been_created()
+        self.check_if_given_number_of_entries_have_been_created()
 
         # Reset the values for the set upper
         self.set_upper.__init__()
+
+    def test_creating_many_entries(self):
+        self.clean_and_init_tracker_file()
+
+        for i in range(1, 21):
+            self.check_for_changed_number_of_entries(i)
 
     def test_invalid_number_of_entries_to_create(self):
         self.clean_and_init_tracker_file()
