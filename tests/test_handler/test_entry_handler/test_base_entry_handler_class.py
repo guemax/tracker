@@ -32,7 +32,9 @@ class TestBaseEntryHandlerClass(CSVBaseTestingClass):
     def test_getting_empty_data(self) -> None:
         self.clean_and_init_tracker_file()
         self.data = self.base_entry_handler.get_data()
+
         self.assertEqual(list(self.data.columns), self.csv_attributes.column_names)
+        self.assertTrue(self.data.empty)
 
     def test_getting_filled_data(self) -> None:
         self.clean_and_init_tracker_file()
@@ -41,7 +43,9 @@ class TestBaseEntryHandlerClass(CSVBaseTestingClass):
         self.data = self.base_entry_handler.get_data()
 
         self.assertEqual(list(self.data.columns), self.csv_attributes.column_names)
+
         self.assertTrue(len(self.data) > 0)
+        self.assertFalse(self.data.empty)
 
         self.assertTrue(self.data["work_hours"].dtypes == "timedelta64[ns]")
 
@@ -51,6 +55,7 @@ class TestBaseEntryHandlerClass(CSVBaseTestingClass):
         self.base_entry_handler.data = self.base_entry_handler.get_data()
         entries_grouped_by_date = self.base_entry_handler.group_entries_by_date()
 
+        self.assertNotEqual(type(entries_grouped_by_date), pandas.DataFrame)
         self.assertEqual(len(entries_grouped_by_date), 0)
 
     def test_grouping_entries_by_date_with_filled_data(self) -> None:
