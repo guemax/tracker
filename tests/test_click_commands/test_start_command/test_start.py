@@ -24,7 +24,7 @@ class TestStart(CommandBaseTestingClass):
         self.clean_and_init_tracker_file()
 
         self.run_cli("start")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("New timer started", self.output)
         self.assertIn("OK", self.output)
@@ -33,20 +33,36 @@ class TestStart(CommandBaseTestingClass):
         self.clean_and_init_tracker_file()
 
         self.run_cli("start")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.run_cli("start")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("A timer already exists", self.output)
+        self.assertIn("EXIT", self.output)
+
+    def test_starting_a_timer_stopping_it_and_starting_another_one(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        self.run_cli("start")
+        self.check_for_exit_code_zero()
+
+        self.run_cli("stop", "-m \"\"")
+        self.check_for_exit_code_zero()
+
+        self.run_cli("start")
+        self.check_for_exit_code_zero()
+
+        self.assertIn("New timer started", self.output)
+        self.assertIn("OK", self.output)
 
     def test_starting_a_timer_with_invalid_option(self) -> None:
         self.clean_and_init_tracker_file()
 
         self.run_cli("start", "--unknown-option")
-        self.assertEqual(self.exit_code, 2)
+        self.check_for_exit_code_two()
 
-        self.assertIn("Error", self.output)
+        self.assertIn("Error: no such option", self.output)
 
 
 if __name__ == "__main__":  # pragma: no cover

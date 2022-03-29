@@ -44,6 +44,9 @@ class CommandBaseTestingClass(unittest.TestCase):
     def check_for_exit_code_zero(self) -> None:
         self.assertEqual(self.exit_code, 0)
 
+    def check_for_exit_code_two(self) -> None:
+        self.assertEqual(self.exit_code, 2)     # Usage error, unexpected extra argument
+
     def check_for_exit_code_not_zero(self) -> None:
         self.assertNotEqual(self.exit_code, 0)
 
