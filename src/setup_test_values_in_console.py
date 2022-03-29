@@ -18,7 +18,7 @@ from src.console_logger.console_logger import info, warn
 from src.setup_test_values.setup_test_values import SetupTestValues
 
 
-class SetupTestValuesForConsole:
+class SetupTestValuesInConsole:
     def __init__(self):
         self.__set_upper = SetupTestValues()
 
@@ -62,7 +62,7 @@ class SetupTestValuesForConsole:
 @click.command()
 @click.option("-e", "--entries", "number_of_entries", help="Number of entries to create", type=int, default=4)
 def main(number_of_entries: int) -> None:
-    console_set_upper = SetupTestValuesForConsole()
+    console_set_upper = SetupTestValuesInConsole()
     console_set_upper.setup(number_of_entries)
 
 
