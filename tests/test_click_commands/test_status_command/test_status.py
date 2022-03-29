@@ -24,7 +24,7 @@ class TestStatus(CommandBaseTestingClass):
         self.clean_and_init_tracker_file()
 
         self.run_cli("status")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("Status information from Tracker", self.output)
         self.assertIn(" - No unfinished timer exists.", self.output)
@@ -34,11 +34,10 @@ class TestStatus(CommandBaseTestingClass):
 
     def test_showing_the_status_with_one_entry_present(self) -> None:
         self.clean_and_init_tracker_file()
-        self.run_cli("start")
-        self.run_cli("stop")
+        self.setup_test_values(1)
 
         self.run_cli("status")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("Status information from Tracker", self.output)
         self.assertIn(" - No unfinished timer exists.", self.output)
@@ -48,15 +47,10 @@ class TestStatus(CommandBaseTestingClass):
 
     def test_showing_the_status_with_two_entries_present(self) -> None:
         self.clean_and_init_tracker_file()
-
-        self.run_cli("start")
-        self.run_cli("stop")
-
-        self.run_cli("start")
-        self.run_cli("stop")
+        self.setup_test_values(2)
 
         self.run_cli("status")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("Status information from Tracker", self.output)
         self.assertIn(" - No unfinished timer exists.", self.output)
@@ -65,12 +59,26 @@ class TestStatus(CommandBaseTestingClass):
         self.assertIn(" - One (1) grouped entry found.", self.output)
         self.assertIn("OK", self.output)
 
+    def test_showing_the_status_with_multiple_grouped_entries_present(self) -> None:
+        self.clean_and_init_tracker_file()
+        self.setup_test_values(12)
+
+        self.run_cli("status")
+        self.check_for_exit_code_zero()
+
+        self.assertIn("Status information from Tracker", self.output)
+        self.assertIn(" - No unfinished timer exists.", self.output)
+        self.assertIn(" - Twelve (12) entries found.", self.output)
+        # Two entries per group -> six grouped entries
+        self.assertIn(" - Six (6) grouped entries found.", self.output)
+        self.assertIn("OK", self.output)
+
     def test_showing_the_status_with_unfinished_timer_exisiting(self) -> None:
         self.clean_and_init_tracker_file()
         self.run_cli("start")
 
         self.run_cli("status")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("Status information from Tracker", self.output)
         self.assertIn(" - A timer exists which has not been stopped yet.", self.output)
