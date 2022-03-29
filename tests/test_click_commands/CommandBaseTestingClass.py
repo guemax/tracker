@@ -25,7 +25,8 @@ from src.setup_test_values.setup_test_values import SetupTestValues
 class CommandBaseTestingClass(unittest.TestCase):
     def setUp(self) -> None:
         self.runner = CliRunner()
-        self.result = None
+        self.output = None
+        self.exit_code = -1
 
         self.csv_handler = CSVHandler()
         self.set_upper = SetupTestValues()
@@ -33,8 +34,12 @@ class CommandBaseTestingClass(unittest.TestCase):
         add_subcommands_to_cli()
 
     def run_cli(self, options: list) -> None:
-        self.result = self.runner.invoke(cli, options)
+        result = self.runner.invoke(cli, options)
 
+        self.output = result.output
+        self.exit_code = result.exit_code
+
+    # TODO: Duplicated code in this class and CSVBaseTestingClass()
     def clean_and_init_tracker_file(self) -> None:
         self.remove_tracker_file()
         self.csv_handler.init_tracker_csv_file()

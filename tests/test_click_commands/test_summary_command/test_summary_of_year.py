@@ -26,8 +26,8 @@ class TestSummaryOfYear(CommandBaseTestingClass):
         self.run_cli(["summary", "-ty"])
 
         self.assertIn("Nothing to show yet. There have been no entries created this year.\n"
-                      "Create one using \"tracker start\".", self.result.output)
-        self.assertIn("OK", self.result.output)
+                      "Create one using \"tracker start\".", self.output)
+        self.assertIn("OK", self.output)
 
     def test_summary_with_one_entry_created_this_year(self) -> None:
         self.clean_and_init_tracker_file()
@@ -36,8 +36,8 @@ class TestSummaryOfYear(CommandBaseTestingClass):
         self.run_cli(["summary", "-ty"])
 
         self.assertIn("Showing entries as summary (1 in total).\n"
-                      "Range is \"this-year\".", self.result.output)
-        self.assertIn("OK", self.result.output)
+                      "Range is \"this-year\".", self.output)
+        self.assertIn("OK", self.output)
 
 
 if __name__ == "__main__":  # pragma: no cover

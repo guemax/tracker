@@ -24,29 +24,29 @@ class TestStart(CommandBaseTestingClass):
         self.clean_and_init_tracker_file()
 
         self.run_cli(["start"])
-        self.assertEqual(self.result.exit_code, 0)
+        self.assertEqual(self.exit_code, 0)
 
-        self.assertIn("New timer started", self.result.output)
-        self.assertIn("OK", self.result.output)
+        self.assertIn("New timer started", self.output)
+        self.assertIn("OK", self.output)
 
     def test_starting_a_timer_when_one_already_exists(self) -> None:
         self.clean_and_init_tracker_file()
 
         self.run_cli(["start"])
-        self.assertEqual(self.result.exit_code, 0)
+        self.assertEqual(self.exit_code, 0)
 
         self.run_cli(["start"])
-        self.assertEqual(self.result.exit_code, 0)
+        self.assertEqual(self.exit_code, 0)
 
-        self.assertIn("A timer already exists", self.result.output)
+        self.assertIn("A timer already exists", self.output)
 
     def test_starting_a_timer_with_invalid_option(self) -> None:
         self.clean_and_init_tracker_file()
 
         self.run_cli(["start", "--unknown-option"])
-        self.assertEqual(self.result.exit_code, 2)
+        self.assertEqual(self.exit_code, 2)
 
-        self.assertIn("Error", self.result.output)
+        self.assertIn("Error", self.output)
 
 
 if __name__ == "__main__":  # pragma: no cover

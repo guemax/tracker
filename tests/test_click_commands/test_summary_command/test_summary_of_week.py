@@ -26,8 +26,8 @@ class TestSummaryOfWeek(CommandBaseTestingClass):
         self.run_cli(["summary", "-tw"])
 
         self.assertIn("Nothing to show yet. There have been no entries created this week.\n"
-                      "Create one using \"tracker start\".", self.result.output)
-        self.assertIn("OK", self.result.output)
+                      "Create one using \"tracker start\".", self.output)
+        self.assertIn("OK", self.output)
 
     def test_summary_with_some_entries_created_this_week(self) -> None:
         self.clean_and_init_tracker_file()
@@ -36,8 +36,8 @@ class TestSummaryOfWeek(CommandBaseTestingClass):
         self.run_cli(["summary", "-tw"])
 
         self.assertIn("Showing entries as summary (1 in total).\n"
-                      "Range is \"this-week\".", self.result.output)
-        self.assertIn("OK", self.result.output)
+                      "Range is \"this-week\".", self.output)
+        self.assertIn("OK", self.output)
 
 
 if __name__ == "__main__":  # pragma: no cover
