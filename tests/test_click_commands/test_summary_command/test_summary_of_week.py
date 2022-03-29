@@ -44,7 +44,7 @@ class TestSummaryOfWeek(CommandBaseTestingClass):
 
     def test_summary_with_multiple_entries_created_this_week(self) -> None:
         self.clean_and_init_tracker_file()
-        self.setup_test_values(8)
+        self.setup_test_values(15)
 
         self.run_cli("summary", "-tw")
         self.check_for_exit_code_zero()
