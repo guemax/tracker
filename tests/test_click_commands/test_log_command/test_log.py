@@ -13,7 +13,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
 
-from ..CommandBaseTestingClass import CommandBaseTestingClass
+from tests.test_click_commands.CommandBaseTestingClass import CommandBaseTestingClass
 
 
 class TestLog(CommandBaseTestingClass):
