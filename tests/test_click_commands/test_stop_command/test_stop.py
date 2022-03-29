@@ -25,7 +25,7 @@ class TestStop(CommandBaseTestingClass):
 
         self.run_cli("start")
         self.run_cli("stop")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("Existing timer stopped", self.output)
         self.assertIn("OK", self.output)
@@ -37,7 +37,7 @@ class TestStop(CommandBaseTestingClass):
 
         self.run_cli("start")
         self.run_cli("stop", f"-m {message}")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("Existing timer stopped", self.output)
         self.assertIn(f"Added message", self.output)
@@ -48,9 +48,25 @@ class TestStop(CommandBaseTestingClass):
         self.clean_and_init_tracker_file()
 
         self.run_cli("stop")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("No timer exists yet", self.output)
+
+    def test_stopping_a_timer_when_no_one_exists_starting_one_and_stopping_it(self) -> None:
+        self.clean_and_init_tracker_file()
+
+        self.run_cli("stop")
+        self.check_for_exit_code_zero()
+        self.assertIn("No timer exists yet", self.output)
+
+        self.run_cli("start")
+        self.check_for_exit_code_zero()
+
+        self.run_cli("stop")
+        self.check_for_exit_code_zero()
+
+        self.assertIn("Existing timer stopped", self.output)
+        self.assertIn("OK", self.output)
 
 
 if __name__ == "__main__":  # pragma: no cover
