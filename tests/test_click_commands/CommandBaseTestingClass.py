@@ -33,8 +33,10 @@ class CommandBaseTestingClass(unittest.TestCase):
 
         add_subcommands_to_cli()
 
-    def run_cli(self, options: list) -> None:
-        result = self.runner.invoke(cli, options)
+    def run_cli(self, command: str, option: str = "") -> None:
+        parameters = [command, option] if option != "" else [command]
+
+        result = self.runner.invoke(cli, parameters)
 
         self.output = result.output
         self.exit_code = result.exit_code

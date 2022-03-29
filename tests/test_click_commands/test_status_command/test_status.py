@@ -23,7 +23,7 @@ class TestStatus(CommandBaseTestingClass):
     def test_showing_the_status_with_no_entries_present(self) -> None:
         self.clean_and_init_tracker_file()
 
-        self.run_cli(["status"])
+        self.run_cli("status")
         self.assertEqual(self.exit_code, 0)
 
         self.assertIn("Status information from Tracker", self.output)
@@ -34,10 +34,10 @@ class TestStatus(CommandBaseTestingClass):
 
     def test_showing_the_status_with_one_entry_present(self) -> None:
         self.clean_and_init_tracker_file()
-        self.run_cli(["start"])
-        self.run_cli(["stop"])
+        self.run_cli("start")
+        self.run_cli("stop")
 
-        self.run_cli(["status"])
+        self.run_cli("status")
         self.assertEqual(self.exit_code, 0)
 
         self.assertIn("Status information from Tracker", self.output)
@@ -49,13 +49,13 @@ class TestStatus(CommandBaseTestingClass):
     def test_showing_the_status_with_two_entries_present(self) -> None:
         self.clean_and_init_tracker_file()
 
-        self.run_cli(["start"])
-        self.run_cli(["stop"])
+        self.run_cli("start")
+        self.run_cli("stop")
 
-        self.run_cli(["start"])
-        self.run_cli(["stop"])
+        self.run_cli("start")
+        self.run_cli("stop")
 
-        self.run_cli(["status"])
+        self.run_cli("status")
         self.assertEqual(self.exit_code, 0)
 
         self.assertIn("Status information from Tracker", self.output)
@@ -67,9 +67,9 @@ class TestStatus(CommandBaseTestingClass):
 
     def test_showing_the_status_with_unfinished_timer_exisiting(self) -> None:
         self.clean_and_init_tracker_file()
-        self.run_cli(["start"])
+        self.run_cli("start")
 
-        self.run_cli(["status"])
+        self.run_cli("status")
         self.assertEqual(self.exit_code, 0)
 
         self.assertIn("Status information from Tracker", self.output)

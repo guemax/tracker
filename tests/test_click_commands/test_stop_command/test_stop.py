@@ -23,8 +23,8 @@ class TestStop(CommandBaseTestingClass):
     def test_stopping_a_timer_without_message(self) -> None:
         self.clean_and_init_tracker_file()
 
-        self.run_cli(["start"])
-        self.run_cli(["stop"])
+        self.run_cli("start")
+        self.run_cli("stop")
         self.assertEqual(self.exit_code, 0)
 
         self.assertIn("Existing timer stopped", self.output)
@@ -35,8 +35,8 @@ class TestStop(CommandBaseTestingClass):
 
         message = "my personal message"
 
-        self.run_cli(["start"])
-        self.run_cli(["stop", f"-m {message}"])
+        self.run_cli("start")
+        self.run_cli("stop", f"-m {message}")
         self.assertEqual(self.exit_code, 0)
 
         self.assertIn("Existing timer stopped", self.output)
@@ -47,7 +47,7 @@ class TestStop(CommandBaseTestingClass):
     def test_stopping_a_timer_when_no_one_exists(self) -> None:
         self.clean_and_init_tracker_file()
 
-        self.run_cli(["stop"])
+        self.run_cli("stop")
         self.assertEqual(self.exit_code, 0)
 
         self.assertIn("No timer exists yet", self.output)

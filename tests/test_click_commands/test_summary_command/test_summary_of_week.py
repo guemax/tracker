@@ -23,7 +23,7 @@ class TestSummaryOfWeek(CommandBaseTestingClass):
     def test_summary_without_any_entries_created_this_week(self) -> None:
         self.clean_and_init_tracker_file()
 
-        self.run_cli(["summary", "-tw"])
+        self.run_cli("summary", "-tw")
 
         self.assertIn("Nothing to show yet. There have been no entries created this week.\n"
                       "Create one using \"tracker start\".", self.output)
@@ -33,7 +33,7 @@ class TestSummaryOfWeek(CommandBaseTestingClass):
         self.clean_and_init_tracker_file()
         self.setup_test_values(1)
 
-        self.run_cli(["summary", "-tw"])
+        self.run_cli("summary", "-tw")
 
         self.assertIn("Showing entries as summary (1 in total).\n"
                       "Range is \"this-week\".", self.output)

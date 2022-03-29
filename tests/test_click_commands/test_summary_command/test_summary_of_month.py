@@ -23,7 +23,7 @@ class TestSummaryOfMonth(CommandBaseTestingClass):
     def test_summary_without_any_entries_created_this_month(self) -> None:
         self.clean_and_init_tracker_file()
 
-        self.run_cli(["summary", "-tm"])
+        self.run_cli("summary", "-tm")
 
         self.assertIn("Nothing to show yet. There have been no entries created this month.\n"
                       "Create one using \"tracker start\".", self.output)
@@ -33,7 +33,7 @@ class TestSummaryOfMonth(CommandBaseTestingClass):
         self.clean_and_init_tracker_file()
         self.setup_test_values(1)
 
-        self.run_cli(["summary", "-tm"])
+        self.run_cli("summary", "-tm")
 
         self.assertIn("Showing entries as summary (1 in total).\n"
                       "Range is \"this-month\".", self.output)
