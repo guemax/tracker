@@ -21,3 +21,5 @@ coverage: clean
 	@python3 -m coverage html
 badge: coverage
 	@coverage-badge -o ./docs/coverage-badge/coverage.svg -f
+count:
+	@pygount --format=summary --suffix="py" --folders-to-skip="env,htmlcov,build,dist"
