@@ -29,10 +29,12 @@ class CSVBaseTestingClass(unittest.TestCase):
         self.assertTrue(self.columns_names_are_correct())
 
     def columns_names_are_correct(self) -> bool:
-        column_names = self.get_column_names()
-        return column_names == self.csv_handler.get_column_names()
+        actual_column_names = self.get_actual_column_names()
+        expected_column_names = self.csv_handler.get_column_names()
 
-    def get_column_names(self) -> list:
+        return actual_column_names == expected_column_names
+
+    def get_actual_column_names(self) -> list:
         data_frame = pandas.read_csv(self.csv_handler.tracker_file)
         return list(data_frame.columns)
 
@@ -49,9 +51,7 @@ class CSVBaseTestingClass(unittest.TestCase):
 
     def get_contents_of_tracker_file_with_replaced_nans(self) -> pandas.DataFrame:
         data = self.get_contents_of_tracker_file()
-        data = data.fillna("")
-
-        return data
+        return data.fillna("")
 
     def get_contents_of_tracker_file(self) -> pandas.DataFrame:
         data_frame = pandas.read_csv(self.csv_handler.tracker_file)
