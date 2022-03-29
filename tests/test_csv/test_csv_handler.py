@@ -30,6 +30,7 @@ class TestCSVHandler(CSVBaseTestingClass):
     def test_inititalizing_tracker_file_if_it_already_exists(self) -> None:
         self.clean_and_init_tracker_file()
         self.csv_handler.init_tracker_csv_file()
+        
         self.assertTrue(self.columns_names_are_correct())
 
     def test_creating_the_files_folder(self):
