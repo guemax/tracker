@@ -12,6 +12,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
+from datetime import datetime
 
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
@@ -24,6 +25,7 @@ class TestSummaryOfMonth(CommandBaseTestingClass):
         self.clean_and_init_tracker_file()
 
         self.run_cli("summary", "-tm")
+        self.check_for_exit_code_zero()
 
         self.assertIn("Nothing to show yet. There have been no entries created this month.\n"
                       "Create one using \"tracker start\".", self.output)
@@ -34,7 +36,21 @@ class TestSummaryOfMonth(CommandBaseTestingClass):
         self.setup_test_values(1)
 
         self.run_cli("summary", "-tm")
+        self.check_for_exit_code_zero()
 
+        self.assertIn("Showing entries as summary (1 in total).\n"
+                      "Range is \"this-month\".", self.output)
+        self.assertIn("OK", self.output)
+
+    def test_summary_with_multiple_entries_created_this_month(self) -> None:
+        self.clean_and_init_tracker_file()
+        self.setup_test_values(1)
+
+        self.run_cli("summary", "-tm")
+        self.check_for_exit_code_zero()
+
+        # See the test for the MonthSummaryHandler() for more information
+        expected_length_of_entries = datetime.today().day
         self.assertIn("Showing entries as summary (1 in total).\n"
                       "Range is \"this-month\".", self.output)
         self.assertIn("OK", self.output)
