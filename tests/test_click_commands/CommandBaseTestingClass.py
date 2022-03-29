@@ -41,7 +41,13 @@ class CommandBaseTestingClass(unittest.TestCase):
         self.output = result.output
         self.exit_code = result.exit_code
 
-    # TODO: Duplicated code in this class and CSVBaseTestingClass()
+    def check_for_exit_code_zero(self) -> None:
+        self.assertEqual(self.exit_code, 0)
+
+    def check_for_exit_code_not_zero(self) -> None:
+        self.assertNotEqual(self.exit_code, 0)
+
+# TODO: Duplicated code in this class and CSVBaseTestingClass()
     def clean_and_init_tracker_file(self) -> None:
         self.remove_tracker_file()
         self.csv_handler.init_tracker_csv_file()

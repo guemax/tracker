@@ -25,9 +25,7 @@ class TestLog(CommandBaseTestingClass):
 
         self.run_cli("log")
 
-        # TODO: Move this into the base class?
-        self.assertEqual(self.exit_code, 0)
-
+        self.check_for_exit_code_zero()
         self.assertIn("Nothing to see yet.", self.output)
 
     def test_logging_with_one_grouped_entry(self) -> None:
@@ -36,23 +34,22 @@ class TestLog(CommandBaseTestingClass):
         self.run_cli("start")
         self.run_cli("stop")
 
-        total_dates = 1
-        self.check_for_log_message(total_dates)
+        number_of_entries = 1
+        self.check_for_log_message(number_of_entries)
 
-    def check_for_log_message(self, total_dates: int) -> None:
+    def check_for_log_message(self, number_of_entries: int) -> None:
         self.run_cli("log")
-        self.assertEqual(self.exit_code, 0)
+        self.check_for_exit_code_zero()
 
         self.assertIn("Showing all entries", self.output)
-        self.assertIn(f"({total_dates} in total)", self.output)
+        self.assertIn(f"({number_of_entries} in total)", self.output)
 
     def test_logging_with_multiple_grouped_entries(self) -> None:
         self.clean_and_init_tracker_file()
-
         self.setup_test_values()
 
-        total_dates = 2
-        self.check_for_log_message(total_dates)
+        number_of_entries = 2
+        self.check_for_log_message(number_of_entries)
 
     def test_logging_a_specific_entry(self) -> None:
         self.clean_and_init_tracker_file()
@@ -60,18 +57,21 @@ class TestLog(CommandBaseTestingClass):
 
         self.run_cli("log", "-i 1")
 
+        self.check_for_exit_code_zero()
         self.assertIn("Showing all entries of", self.output)
 
     def test_logging_a_sepcific_entry_with_unknown_id(self) -> None:
         self.clean_and_init_tracker_file()
         self.setup_test_values()
 
-        self.check_for_not_matching_id_of_date(-1)
-        self.check_for_not_matching_id_of_date(0)
-        self.check_for_not_matching_id_of_date(100)
+        self.check_for_unknown_id_of_date(-1)
+        self.check_for_unknown_id_of_date(0)    # IDs start with one
+        self.check_for_unknown_id_of_date(100)
 
-    def check_for_not_matching_id_of_date(self, id_of_date: int) -> None:
+    def check_for_unknown_id_of_date(self, id_of_date: int) -> None:
         self.run_cli("log", f"-i {id_of_date}")
+
+        self.check_for_exit_code_not_zero()
 
         self.assertIn(f"We couldn't find a date matching the ID {id_of_date}.", self.output)
         self.assertIn("EXIT", self.output)
