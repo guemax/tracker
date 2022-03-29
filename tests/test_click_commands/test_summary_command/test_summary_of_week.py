@@ -12,6 +12,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
+from datetime import datetime
 
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
@@ -29,13 +30,25 @@ class TestSummaryOfWeek(CommandBaseTestingClass):
                       "Create one using \"tracker start\".", self.output)
         self.assertIn("OK", self.output)
 
-    def test_summary_with_some_entries_created_this_week(self) -> None:
+    def test_summary_with_one_entry_created_this_week(self) -> None:
         self.clean_and_init_tracker_file()
         self.setup_test_values(1)
 
         self.run_cli("summary", "-tw")
 
         self.assertIn("Showing entries as summary (1 in total).\n"
+                      "Range is \"this-week\".", self.output)
+        self.assertIn("OK", self.output)
+
+    def test_summary_with_multiple_entries_created_this_week(self) -> None:
+        self.clean_and_init_tracker_file()
+        self.setup_test_values(6)
+
+        self.run_cli("summary", "-tw")
+
+        # See the test for the WeekSummaryHandler() for more information
+        exspected_length_of_entries = datetime.today().weekday() + 1   # Monday would otherwise be 0, not 1
+        self.assertIn(f"Showing entries as summary ({exspected_length_of_entries} in total).\n"
                       "Range is \"this-week\".", self.output)
         self.assertIn("OK", self.output)
 
