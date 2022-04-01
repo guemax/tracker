@@ -28,7 +28,7 @@ class TestSummaryOfMonth(CommandBaseTestingClass):
         self.check_for_exit_code_zero()
 
         self.assertIn("Nothing to show yet. There have been no entries created this month.\n"
-                      "Create one using \"tracker start\".", self.output)
+                      "  (use \"tracker start\" to create one)", self.output)
         self.assertIn("OK", self.output)
 
     def test_summary_with_one_entry_created_this_month(self) -> None:
