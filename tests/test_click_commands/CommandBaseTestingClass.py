@@ -13,7 +13,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 from click.testing import CliRunner
 
-from src.__main__ import cli, add_subcommands_to_cli
+from tracker.__main__ import cli, add_subcommands_to_cli
 from tests.BaseTestingClass import BaseTestingClass
 
 

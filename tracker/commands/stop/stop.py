@@ -15,9 +15,9 @@ import logging
 
 import click
 
-from src.console_logger.console_logger import info, warn
-from src.handler.timer_handler import TimerHandler
-from src.exceptions.InvalidTimerModification import InvalidTimerModification
+from tracker.console_logger.console_logger import info, warn
+from tracker.handler.timer_handler import TimerHandler
+from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 @click.command()

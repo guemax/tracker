@@ -13,7 +13,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 from num2words import num2words
 
-from src.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
+from tracker.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
 from .print_list_item import print_list_item
 
 

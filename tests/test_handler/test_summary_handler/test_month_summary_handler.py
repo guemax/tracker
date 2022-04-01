@@ -14,7 +14,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 import datetime
 import unittest
 
-from src.handler.summary_handler.month_summary_handler import MonthSummaryHandler
+from tracker.handler.summary_handler.month_summary_handler import MonthSummaryHandler
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 

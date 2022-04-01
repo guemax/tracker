@@ -15,8 +15,8 @@ from datetime import datetime
 
 import pandas
 
-from src.csv.CSVAttributes import CSVAttributes
-from src.exceptions.InvalidTimerModification import InvalidTimerModification
+from tracker.csv.CSVAttributes import CSVAttributes
+from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 class TimerHandler(CSVAttributes):

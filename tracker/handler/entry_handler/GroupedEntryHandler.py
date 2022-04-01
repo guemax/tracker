@@ -13,7 +13,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import pandas
 
-from src.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
+from tracker.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
 
 
 class GroupedEntryHandler(BaseEntryHandlerClass):

@@ -15,10 +15,10 @@ import sys
 
 import click
 
-from src.console_logger.console_logger import info, warn
-from src.handler.entry_handler import GroupedEntryHandler
-from src.handler.entry_handler import EntryHandler
-from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
+from tracker.console_logger.console_logger import info, warn
+from tracker.handler.entry_handler import GroupedEntryHandler
+from tracker.handler.entry_handler import EntryHandler
+from tracker.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
 
 @click.command()

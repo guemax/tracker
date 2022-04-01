@@ -13,9 +13,9 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import pandas
 
-from src.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
-from src.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
-from src.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
+from tracker.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
+from tracker.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
+from tracker.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
 
 
 class EntryHandler(BaseEntryHandlerClass):

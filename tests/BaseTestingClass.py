@@ -14,8 +14,8 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 import os
 import unittest
 
-from src.csv.CSVHandler import CSVHandler
-from src.setup_test_values.setup_test_values import SetupTestValues
+from tracker.csv.CSVHandler import CSVHandler
+from tracker.setup_test_values.setup_test_values import SetupTestValues
 
 
 class BaseTestingClass(unittest.TestCase):

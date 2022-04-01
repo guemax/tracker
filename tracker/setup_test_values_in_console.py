@@ -14,8 +14,8 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 import click
 import num2words
 
-from src.console_logger.console_logger import info, warn
-from src.setup_test_values.setup_test_values import SetupTestValues
+from tracker.console_logger.console_logger import info, warn
+from tracker.setup_test_values.setup_test_values import SetupTestValues
 
 
 class SetupTestValuesInConsole:

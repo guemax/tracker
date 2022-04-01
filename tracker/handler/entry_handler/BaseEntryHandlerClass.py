@@ -13,7 +13,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import pandas
 
-from src.csv.CSVAttributes import CSVAttributes
+from tracker.csv.CSVAttributes import CSVAttributes
 
 
 class BaseEntryHandlerClass(CSVAttributes):

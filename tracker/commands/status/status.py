@@ -11,15 +11,22 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from src.handler.timer_handler.TimerHandler import TimerHandler
-from .print_list_item import print_list_item
+import click
+
+from .print_status_of_unfinished_entries import print_status_of_unfinished_entries
+from .print_status_of_grouped_entries import print_status_of_grouped_entries
+from .print_status_of_entries import print_status_of_entries
+
+from tracker.console_logger.console_logger import info
 
 
-def print_status_of_unfinished_entries():
-    timer_handler = TimerHandler()
-    unfinished_entries_present = timer_handler.unfinished_entry_present()
+@click.command()
+def status():   # pragma: no cover
+    """Provide information about the current tracking process"""
+    info("Status information from Tracker:\n")
 
-    if unfinished_entries_present:
-        print_list_item("A timer exists which has not been stopped yet.")
-    else:
-        print_list_item("No unfinished timer exists.")
+    print_status_of_unfinished_entries()
+    print_status_of_entries()
+    print_status_of_grouped_entries()
+
+    info("\nOK")

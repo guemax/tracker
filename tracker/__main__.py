@@ -19,11 +19,11 @@ import click
 
 from .Tracker import Tracker
 
-from src.commands.summary import summary
-from src.commands.status import status
-from src.commands.start import start
-from src.commands.stop import stop
-from src.commands.log import log
+from tracker.commands.summary import summary
+from tracker.commands.status import status
+from tracker.commands.start import start
+from tracker.commands.stop import stop
+from tracker.commands.log import log
 
 from .version import __version__
 

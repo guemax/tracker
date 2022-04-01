@@ -18,7 +18,7 @@ import numpy
 import pandas
 from numpy import ndarray
 
-from src.csv import CSVHandler
+from tracker.csv import CSVHandler
 from .entry import Entry
 
 

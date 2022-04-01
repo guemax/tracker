@@ -1,4 +1,4 @@
-from src.__main__ import main
+from tracker.__main__ import main
 
 
 if __name__ == "__main__":

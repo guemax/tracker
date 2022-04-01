@@ -11,18 +11,9 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import pandas
-
-from src.handler.entry_handler.EntryHandler import EntryHandler
-from src.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
+from tracker.console_logger.console_logger import info
 
 
-class SummaryHandlerInterface:
-    def __init__(self) -> None:
-        self._grouped_entry_handler = GroupedEntryHandler()
-        self._entry_handler = EntryHandler()
-
-        self._data = None
-
-    def summary(self) -> pandas.DataFrame:  # pragma: no cover
-        pass
+def print_list_item(message: str) -> None:
+    style = " - "
+    info(style + message)

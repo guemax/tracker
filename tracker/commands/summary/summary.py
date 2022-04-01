@@ -16,11 +16,11 @@ import sys
 
 import click
 
-from src.handler.summary_handler.week_summary_handler import WeekSummaryHandler
-from src.handler.summary_handler.month_summary_handler import MonthSummaryHandler
-from src.handler.summary_handler.year_summary_handler import YearSummaryHandler
+from tracker.handler.summary_handler.week_summary_handler import WeekSummaryHandler
+from tracker.handler.summary_handler.month_summary_handler import MonthSummaryHandler
+from tracker.handler.summary_handler.year_summary_handler import YearSummaryHandler
 
-from src.console_logger.console_logger import info, warn
+from tracker.console_logger.console_logger import info, warn
 
 
 @click.command()
