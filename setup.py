@@ -108,7 +108,7 @@ setup(
     url=URL,
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     entry_points={
-        'console_scripts': ['tracker=src.__main__:main'],
+        'console_scripts': ['tracker=tracker.__main__:main'],
     },
     install_requires=REQUIRED,
     extras_require=EXTRAS,
