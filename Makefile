@@ -2,7 +2,7 @@ entries ?= 4
 
 all:
 	@echo "Running Tracker"
-	@python3 -m src.main
+	@python3 -m src
 clean:
 	@echo "Cleaning up Tracker files"
 	@-rm src/files/*
