@@ -30,14 +30,14 @@ def stop(message: str) -> None:
     except InvalidTimerModification:
         logging.info("Stopping timer aborted due to a missing created timer")
         warn("Warning: No timer exists yet.\n"
-             "Please start one before stopping it by typing \"tracker start\".\n"
-             "EXIT")
+             "  (use \"tracker start\" to create one)\n"
+             "\nEXIT")
     else:
         logging.info("Existing timer stopped")
         if message:
             info(f"Existing timer stopped at {time[0]} at {time[1]}. (running {time[2]})\n"
                  f"Added message \"{message}\" to Tracker file.\n"
-                 f"OK")
+                 f"\nOK")
         else:
             info(f"Existing timer stopped at {time[0]} at {time[1]}. (running {time[2]})\n"
-                 f"OK")
+                 f"\nOK")

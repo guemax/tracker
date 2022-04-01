@@ -30,9 +30,9 @@ def start():
     except InvalidTimerModification:
         logging.info("Starting a new timer aborted due to an exisiting timer")
         warn("Warning: A timer already exists which has not been stopped yet.\n"
-             "Please stop it first by typing \"tracker stop\".\n"
-             "EXIT")
+             "  (use \"tracker stop\" to stop it first)\n"
+             "\nEXIT")
     else:
         logging.info(f"New timer started")
         info(f"New timer started at {time}\n"
-             f"OK")
+             f"\nOK")

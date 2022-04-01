@@ -33,7 +33,7 @@ def enable_logging_in_console():    # pragma: no cover
 
 
 @click.group(help="A command-line tool to track your computer usage time.")
-@click.version_option(__version__, prog_name="Tracker")
+@click.version_option(__version__, prog_name="tracker")
 def cli():
     pass
 

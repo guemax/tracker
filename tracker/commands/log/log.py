@@ -50,9 +50,10 @@ def log(id_of_date: int):
 
         if number_of_grouped_entries == 0:
             info("Nothing to see yet.\n"
-                 "Start creating entries by typing \"tracker start\" and finish them by typing \"tracker stop\".")
+                 "  (use \"tracker start\" to create an entry)")
+            info("\nOK")
         else:
             info(f"Showing all entries grouped by date. ({number_of_grouped_entries} in total).\n"
-                 f"Use \"tracker log <ID>\" to show all entries of the date with the ID <ID>.\n")
+                 f"  (use \"tracker log <ID>\" to show all entries of the date with the ID <ID>.\n")
             info(f"{entries_grouped_by_date}\n"
                  f"\nOK")

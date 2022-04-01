@@ -42,7 +42,7 @@ def summary(summary_range: str) -> None:
         logging.info("Showing summary: No entries created this week.")
 
         info(f"Nothing to show yet. There have been no entries created this {summary_range}.\n"
-             f"Create one using \"tracker start\".\n"
+             f"  (use \"tracker start\" to create one)\n"
              f"\nOK")
         sys.exit(0)
 
