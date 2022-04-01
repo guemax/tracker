@@ -12,25 +12,16 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 import logging
 
-from .setup_tracker_files import setup_tracker_files
-from .setup_logging import setup_logging
-from .setup_cli import setup_cli
-
-from .cli import cli
-
-
-def start_tracker():
-    program_name = "tracker"
-    cli(prog_name=program_name)
+from tracker.commands.summary import summary
+from tracker.commands.status import status
+from tracker.commands.start import start
+from tracker.commands.stop import stop
+from tracker.commands.log import log
 
 
-def main():
-    setup_logging()
-    setup_tracker_files()
-    setup_cli(cli)
-
-    start_tracker()
-
-
-if __name__ == "__main__":  # pragma: no cover
-    main()
+def setup_cli(cli):
+    cli.add_command(summary.summary)
+    cli.add_command(status.status)
+    cli.add_command(start.start)
+    cli.add_command(stop.stop)
+    cli.add_command(log.log)

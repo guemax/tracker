@@ -11,12 +11,12 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from .csv import CSVHandler
+import click
+
+from .version import __version__
 
 
-class Tracker:
-    def __init__(self):     # pragma: no cover
-        self.csv_handler = CSVHandler.CSVHandler()
-
-    def init(self):     # pragma: no cover
-        self.csv_handler.init_tracker_csv_file()
+@click.group(help="A command-line tool to track your computer usage time.")
+@click.version_option(__version__, prog_name="tracker")
+def cli():
+    pass

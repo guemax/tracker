@@ -13,7 +13,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 from click.testing import CliRunner
 
-from tracker.__main__ import cli, add_subcommands_to_cli
+from tracker.__main__ import cli, setup_cli
 from tests.BaseTestingClass import BaseTestingClass
 
 
@@ -25,7 +25,7 @@ class CommandBaseTestingClass(BaseTestingClass):
         self.output = None
         self.exit_code = -1
 
-        add_subcommands_to_cli()
+        setup_cli(cli)
 
     def run_cli(self, command: str, option: str = "") -> None:
         parameters = [command, option] if option != "" else [command]
