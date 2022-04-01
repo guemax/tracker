@@ -25,8 +25,8 @@ def start_tracker():
 
 
 def main():
+    setup_tracker_files()   # Needs to be done first to ensure a 'files'-folder exists for the log file!
     setup_logging()
-    setup_tracker_files()
     setup_cli(cli)
 
     start_tracker()
