@@ -11,9 +11,4 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-
-class CSVAttributes:
-    def __init__(self):
-        self.tracker_folder = "files"
-        self.tracker_file = "files/tracker.csv"
-        self.column_names = ["start_date", "start_time", "stop_date", "stop_time", "work_hours", "message"]
+__version__ = "0.1.0"

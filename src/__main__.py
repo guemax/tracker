@@ -12,6 +12,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import logging
+import os.path
 import sys
 
 import click
@@ -24,12 +25,15 @@ from src.commands.start import start
 from src.commands.stop import stop
 from src.commands.log import log
 
+from .version import __version__
+
 
 def enable_logging_in_console():    # pragma: no cover
     logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 
 @click.group(help="A command-line tool to track your computer usage time.")
+@click.version_option(__version__, prog_name="Tracker")
 def cli():
     pass
 
@@ -42,11 +46,15 @@ def add_subcommands_to_cli():
     cli.add_command(log.log)
 
 
-if __name__ == "__main__":  # pragma: no cover
+def main():
+    # Create files folder if it does not exist
+    if not os.path.isdir("files"):
+        os.mkdir("files")
+
     # Set up logging
     logging.basicConfig(
         level=logging.INFO,
-        filename="src/files/tracker.log",
+        filename="files/tracker.log",
         filemode="w",
         format='%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s',
         datefmt='%d-%b-%y %H:%M:%S'
@@ -62,4 +70,8 @@ if __name__ == "__main__":  # pragma: no cover
     add_subcommands_to_cli()
 
     # Start click
-    cli()
+    cli(prog_name="tracker")
+
+
+if __name__ == "__main__":  # pragma: no cover
+    main()
