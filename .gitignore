@@ -132,5 +132,5 @@ dmypy.json
 .idea/*
 
 # Tracker files
-src/files/tracker.csv
-src/files/tracker.log
+files/tracker.csv
+files/tracker.log
