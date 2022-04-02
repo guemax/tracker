@@ -22,7 +22,7 @@ class TestSummaryOfYear(CommandBaseTestingClass):
         super(TestSummaryOfYear, self).setUp()
 
     def test_summary_without_any_entries_created_this_year(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("summary", "-ty")
         self.check_for_exit_code_zero()
@@ -32,7 +32,7 @@ class TestSummaryOfYear(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_summary_with_one_entry_created_this_year(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(1)
 
         self.run_cli("summary", "-ty")
@@ -43,7 +43,7 @@ class TestSummaryOfYear(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_summary_with_multiple_entries_created_this_year(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(720)
 
         self.run_cli("summary", "-ty")

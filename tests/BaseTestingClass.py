@@ -11,7 +11,7 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os
+import shutil
 import unittest
 
 from tracker.csv.CSVHandler import CSVHandler
@@ -23,16 +23,12 @@ class BaseTestingClass(unittest.TestCase):
         self.csv_handler = CSVHandler()
         self.set_upper = SetupTestValues()
 
-    def clean_and_init_tracker_file(self) -> None:
-        self.remove_tracker_file()
+    def remove_files_folder_and_init_tracker_file(self) -> None:
+        self.remove_files_folder_and_its_contents()
         self.csv_handler.init_tracker_csv_file()
 
-    def remove_tracker_file(self) -> None:
-        try:
-            os.remove(self.csv_handler.tracker_file)
-        except FileNotFoundError:
-            # File is not existing, that's good, nothing to do for us.
-            pass
+    def remove_files_folder_and_its_contents(self) -> None:
+        shutil.rmtree(self.csv_handler.tracker_folder, ignore_errors=True)
 
     def setup_test_values(self, number_of_entries: int = 4) -> None:
         self.set_upper.set_number_of_entries(number_of_entries)

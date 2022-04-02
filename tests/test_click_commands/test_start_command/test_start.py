@@ -21,7 +21,7 @@ class TestStart(CommandBaseTestingClass):
         super(TestStart, self).setUp()
 
     def test_starting_a_timer(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("start")
         self.check_for_exit_code_zero()
@@ -30,7 +30,7 @@ class TestStart(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_starting_a_timer_when_one_already_exists(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("start")
         self.check_for_exit_code_zero()
@@ -42,7 +42,7 @@ class TestStart(CommandBaseTestingClass):
         self.assertIn("EXIT", self.output)
 
     def test_starting_a_timer_stopping_it_and_starting_another_one(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("start")
         self.check_for_exit_code_zero()
@@ -57,7 +57,7 @@ class TestStart(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_starting_a_timer_with_invalid_option(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("start", "--unknown-option")
         self.check_for_exit_code_two()

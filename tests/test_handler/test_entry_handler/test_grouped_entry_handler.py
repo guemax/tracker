@@ -28,14 +28,14 @@ class TestGroupedEntryHandler(CSVBaseTestingClass):
         self.column_names = ["Date", "Total work time", "Individual entries"]
 
     def test_logging_without_any_grouped_entries(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.assertEqual(self.get_length_of_grouped_entries(), 0)
 
     def get_length_of_grouped_entries(self) -> int:
         return len(self.grouped_entry_handler.get_entries_grouped_by_date())
 
     def test_logging_with_more_grouped_entries(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.add_new_entries()
         self.assertEqual(self.get_length_of_grouped_entries(), 1)
@@ -56,7 +56,7 @@ class TestGroupedEntryHandler(CSVBaseTestingClass):
             self.timer_handler.stop_timer("")
 
     def test_column_names_of_grouped_entries(self):
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.add_new_entries()
 
         column_names = list(self.grouped_entry_handler.get_entries_grouped_by_date().columns)

@@ -22,7 +22,7 @@ class TestSummaryOfWeek(CommandBaseTestingClass):
         super(TestSummaryOfWeek, self).setUp()
 
     def test_summary_without_any_entries_created_this_week(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("summary", "-tw")
         self.check_for_exit_code_zero()
@@ -32,7 +32,7 @@ class TestSummaryOfWeek(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_summary_with_one_entry_created_this_week(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(1)
 
         self.run_cli("summary", "-tw")
@@ -43,7 +43,7 @@ class TestSummaryOfWeek(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_summary_with_multiple_entries_created_this_week(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(15)
 
         self.run_cli("summary", "-tw")

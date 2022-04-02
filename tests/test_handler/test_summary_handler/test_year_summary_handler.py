@@ -26,13 +26,13 @@ class TestYearSummaryHandler(CSVBaseTestingClass):
         self.year_summary_handler = YearSummaryHandler()
 
     def test_summary_without_any_entries_created_this_year(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         summarized_entries = self.year_summary_handler.summary()
         self.assertTrue(summarized_entries.empty)
 
     def test_summary_with_one_entry_created_this_year(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(1)
 
         summarized_entries = self.year_summary_handler.summary()
@@ -41,7 +41,7 @@ class TestYearSummaryHandler(CSVBaseTestingClass):
         self.assertEqual(1, len(summarized_entries))
 
     def test_summary_with_multiple_entries_created_this_year(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         # Set up two entries per day (40 grouped entries) for 370 days (more than one year)
         self.setup_test_values(720)

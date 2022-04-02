@@ -23,7 +23,7 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
         self.set_upper = SetupTestValues()
 
     def test_creating_the_header(self):
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.set_upper.setup()
 
         with open(self.csv_handler.tracker_file, "r") as f:
@@ -33,7 +33,7 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
             self.assertEqual(header_exspected, header_actual)
 
     def test_creating_default_number_of_entries(self):
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.set_upper.setup()
 
         self.check_if_given_number_of_entries_have_been_created()
@@ -49,7 +49,7 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
             self.assertEqual(self.set_upper._number_of_entries, number_of_entries)
 
     def test_creating_no_entries(self):
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.check_for_changed_number_of_entries(0)
 
@@ -63,13 +63,13 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
         self.set_upper.__init__()
 
     def test_creating_many_entries(self):
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         for i in range(1, 21):
             self.check_for_changed_number_of_entries(i)
 
     def test_invalid_number_of_entries_to_create(self):
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.assertRaises(ValueError, self.set_upper.set_number_of_entries, -1)
 

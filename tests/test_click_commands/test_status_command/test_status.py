@@ -21,7 +21,7 @@ class TestStatus(CommandBaseTestingClass):
         super(TestStatus, self).setUp()
 
     def test_showing_the_status_with_no_entries_present(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("status")
         self.check_for_exit_code_zero()
@@ -33,7 +33,7 @@ class TestStatus(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_showing_the_status_with_one_entry_present(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(1)
 
         self.run_cli("status")
@@ -46,7 +46,7 @@ class TestStatus(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_showing_the_status_with_two_entries_present(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(2)
 
         self.run_cli("status")
@@ -60,7 +60,7 @@ class TestStatus(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_showing_the_status_with_multiple_grouped_entries_present(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(12)
 
         self.run_cli("status")
@@ -74,7 +74,7 @@ class TestStatus(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_showing_the_status_with_unfinished_timer_exisiting(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.run_cli("start")
 
         self.run_cli("status")

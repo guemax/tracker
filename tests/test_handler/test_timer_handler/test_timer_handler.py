@@ -31,7 +31,7 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.work_hour_pattern = re.compile("(\d{1,2}:){2}\d{2}")
 
     def test_starting_the_first_timer(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.check_for_started_timer()
 
@@ -62,7 +62,7 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.assertEqual(actual_message, "")
 
     def test_starting_the_second_timer(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.set_upper.set_number_of_entries(1)
         self.set_upper.setup()
@@ -70,7 +70,7 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.check_for_started_timer()
 
     def test_stopping_first_timer_with_empty_message(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         message = ""
         self.check_for_stopped_timer(message)
@@ -114,13 +114,13 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.assertEqual(actual_message, expected_message)
 
     def test_stopping_first_timer_with_message(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         message = "Developed a new feature for Tracker"
         self.check_for_stopped_timer(message)
 
     def test_stopping_second_timer_with_empty_message(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.set_upper.set_number_of_entries(1)
         self.set_upper.setup()
@@ -129,7 +129,7 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.check_for_stopped_timer(message)
 
     def test_stopping_second_timer_with_message(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.set_upper.set_number_of_entries(1)
         self.set_upper.setup()
@@ -138,7 +138,7 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.check_for_stopped_timer(message)
 
     def test_unfinished_entry_present(self):
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.assertFalse(self.timer_handler.unfinished_entry_present())
 
@@ -149,7 +149,7 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.assertFalse(self.timer_handler.unfinished_entry_present())
     
     def test_starting_timer_when_one_already_exists(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         # Should not throw an exception
         self.timer_handler.start_timer()
@@ -161,7 +161,7 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.assertRaises(InvalidTimerModification, self.timer_handler.start_timer)
 
     def test_stopping_timer_when_no_one_already_exists(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         # There is no timer yet, throws an exception
         self.assertRaises(InvalidTimerModification, self.timer_handler.stop_timer, "")

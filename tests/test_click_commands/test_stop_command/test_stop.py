@@ -21,7 +21,7 @@ class TestStop(CommandBaseTestingClass):
         super(TestStop, self).setUp()
 
     def test_stopping_a_timer_without_message(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("start")
         self.run_cli("stop")
@@ -31,7 +31,7 @@ class TestStop(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_starting_a_timer_with_message(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         message = "my personal message"
 
@@ -45,7 +45,7 @@ class TestStop(CommandBaseTestingClass):
         self.assertIn("OK", self.output)
 
     def test_stopping_a_timer_when_no_one_exists(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("stop")
         self.check_for_exit_code_zero()
@@ -53,7 +53,7 @@ class TestStop(CommandBaseTestingClass):
         self.assertIn("No timer exists yet", self.output)
 
     def test_stopping_a_timer_when_no_one_exists_starting_one_and_stopping_it(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("stop")
         self.check_for_exit_code_zero()

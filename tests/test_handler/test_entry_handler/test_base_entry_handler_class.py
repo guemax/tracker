@@ -30,14 +30,14 @@ class TestBaseEntryHandlerClass(CSVBaseTestingClass):
         self.base_entry_handler = BaseEntryHandlerClass()
 
     def test_getting_empty_data(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.data = self.base_entry_handler.get_data()
 
         self.assertEqual(list(self.data.columns), self.csv_attributes.column_names)
         self.assertTrue(self.data.empty)
 
     def test_getting_filled_data(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values()
 
         self.data = self.base_entry_handler.get_data()
@@ -50,7 +50,7 @@ class TestBaseEntryHandlerClass(CSVBaseTestingClass):
         self.assertTrue(self.data["work_hours"].dtypes == "timedelta64[ns]")
 
     def test_grouping_entries_by_date_with_empty_data(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.base_entry_handler.data = self.base_entry_handler.get_data()
         entries_grouped_by_date = self.base_entry_handler.group_entries_by_date()
@@ -59,7 +59,7 @@ class TestBaseEntryHandlerClass(CSVBaseTestingClass):
         self.assertEqual(len(entries_grouped_by_date), 0)
 
     def test_grouping_entries_by_date_with_filled_data(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values()
 
         self.base_entry_handler.data = self.base_entry_handler.get_data()

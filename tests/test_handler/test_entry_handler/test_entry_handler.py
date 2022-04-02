@@ -28,7 +28,7 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.entry_handler = EntryHandler()
 
     def test_logging_entries_of_specific_date(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values()
 
         entries = self.entry_handler.get_entries_of_specific_date(1)
@@ -39,7 +39,7 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.assertEqual(type(entries_of_date), pandas.DataFrame)
 
     def test_logging_entries_of_specific_date_without_any_entries_existing(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.check_for_invalid_id_of_date_exception(0)
         self.check_for_invalid_id_of_date_exception(1)
@@ -49,7 +49,7 @@ class TestEntryHandler(CSVBaseTestingClass):
         self.assertRaises(InvalidIDOfDateException, self.entry_handler.get_entries_of_specific_date, id_of_date)
 
     def test_logging_entries_of_specific_date_with_unknown_id(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values()
 
         self.check_for_invalid_id_of_date_exception(0)

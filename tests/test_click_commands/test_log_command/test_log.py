@@ -21,7 +21,7 @@ class TestLog(CommandBaseTestingClass):
         super(TestLog, self).setUp()
 
     def test_logging_without_any_grouped_entries_existing(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("log")
 
@@ -29,7 +29,7 @@ class TestLog(CommandBaseTestingClass):
         self.assertIn("Nothing to see yet.", self.output)
 
     def test_logging_with_one_grouped_entry(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("start")
         self.run_cli("stop")
@@ -45,14 +45,14 @@ class TestLog(CommandBaseTestingClass):
         self.assertIn(f"({number_of_entries} in total)", self.output)
 
     def test_logging_with_multiple_grouped_entries(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values()
 
         number_of_entries = 2
         self.check_for_log_message(number_of_entries)
 
     def test_logging_a_specific_entry(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values()
 
         self.run_cli("log", "-i 1")
@@ -61,7 +61,7 @@ class TestLog(CommandBaseTestingClass):
         self.assertIn("Showing all entries of", self.output)
 
     def test_logging_a_sepcific_entry_with_unknown_id(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values()
 
         self.check_for_unknown_id_of_date(-1)
