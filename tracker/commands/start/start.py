@@ -31,7 +31,7 @@ def start():
         time = datetime[1]
     except InvalidTimerModification:
         logging.warning(
-            "InvalidTimerModification: A timer already exists which must be stopped before starting anotherone."
+            "InvalidTimerModification: A timer already exists which must be stopped before starting another one."
         )
         warn("Warning: A timer already exists which has not been stopped yet.\n"
              "  (use \"tracker stop\" to stop it first)\n"

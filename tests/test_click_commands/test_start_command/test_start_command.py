@@ -36,7 +36,7 @@ class TestStart(CommandBaseTestingClass):
         self.check_for_exit_code_zero()
 
         self.run_cli("start")
-        self.check_for_exit_code_zero()
+        self.check_for_exit_code_minus_one()
 
         self.assertIn("A timer already exists", self.output)
         self.assertIn("EXIT", self.output)

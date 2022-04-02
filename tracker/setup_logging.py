@@ -37,7 +37,7 @@ def setup_logging():
     fmt = '%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s'
     formatter = logging.Formatter(fmt=fmt, datefmt='%d-%b-%y %H:%M:%S')
 
-    debug = True
+    debug = False
     if debug:
         logger.addHandler(__setup_file_handler(formatter, logging.DEBUG))
         logger.addHandler(__setup_console_handler(formatter, logging.DEBUG))
