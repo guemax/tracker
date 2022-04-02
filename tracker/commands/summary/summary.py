@@ -20,7 +20,7 @@ from tracker.handler.summary_handler.week_summary_handler import WeekSummaryHand
 from tracker.handler.summary_handler.month_summary_handler import MonthSummaryHandler
 from tracker.handler.summary_handler.year_summary_handler import YearSummaryHandler
 
-from tracker.console_logger.console_logger import info, warn
+from tracker.console_logger.console_logger import info
 
 
 @click.command()
@@ -36,19 +36,19 @@ def summary(summary_range: str) -> None:
     else:
         summary_handler = YearSummaryHandler()
 
-    entries_as_summary = summary_handler.summary()
+    entries = summary_handler.summary()
+    number_of_entries = len(entries)
 
-    if len(entries_as_summary) == 0:
-        logging.info("Showing summary: No entries created this week.")
-
+    if number_of_entries == 0:
+        logging.info(f"Showing all entries (0) as summary of this {summary_range}.")
         info(f"Nothing to show yet. There have been no entries created this {summary_range}.\n"
              f"  (use \"tracker start\" to create one)\n"
              f"\nOK")
         sys.exit(0)
 
     # Else: There have been some entries created this week
-    logging.info("Showing summary...")
-    info(f"Showing entries as summary ({len(entries_as_summary)} in total).\n"
+    logging.info(f"Showing all entries ({number_of_entries}) as summary of this {summary_range}.")
+    info(f"Showing entries as summary ({number_of_entries} in total).\n"
          f"Range is \"this-{summary_range}\".\n")
-    info(f"{entries_as_summary}\n"
+    info(f"{entries}\n"
          f"\nOK")
