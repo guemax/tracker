@@ -1,14 +1,14 @@
-"""This file is part of Tracker.
-Tracker is free software: you can redistribute it and/or modify
+"""This file is part of tracker.
+tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-Tracker is distributed in the hope that it will be useful,
+tracker is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with Tracker. If not, see <http://www.gnu.org/licenses/>.
+along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
@@ -26,7 +26,7 @@ class TestStatus(CommandBaseTestingClass):
         self.run_cli("status")
         self.check_for_exit_code_zero()
 
-        self.assertIn("Status information from Tracker", self.output)
+        self.assertIn("Status information from tracker", self.output)
         self.assertIn(" - No unfinished timer exists.", self.output)
         self.assertIn(" - Zero (0) entries found. (use \"tracker start\" to create one)", self.output)
         self.assertIn(" - Zero (0) grouped entries found.", self.output)
@@ -39,7 +39,7 @@ class TestStatus(CommandBaseTestingClass):
         self.run_cli("status")
         self.check_for_exit_code_zero()
 
-        self.assertIn("Status information from Tracker", self.output)
+        self.assertIn("Status information from tracker", self.output)
         self.assertIn(" - No unfinished timer exists.", self.output)
         self.assertIn(" - One (1) entry found.", self.output)
         self.assertIn(" - One (1) grouped entry found.", self.output)
@@ -52,7 +52,7 @@ class TestStatus(CommandBaseTestingClass):
         self.run_cli("status")
         self.check_for_exit_code_zero()
 
-        self.assertIn("Status information from Tracker", self.output)
+        self.assertIn("Status information from tracker", self.output)
         self.assertIn(" - No unfinished timer exists.", self.output)
         self.assertIn(" - Two (2) entries found.", self.output)
         # The two entries were created at the same day, so they are in one group -> one grouped entry
@@ -66,7 +66,7 @@ class TestStatus(CommandBaseTestingClass):
         self.run_cli("status")
         self.check_for_exit_code_zero()
 
-        self.assertIn("Status information from Tracker", self.output)
+        self.assertIn("Status information from tracker", self.output)
         self.assertIn(" - No unfinished timer exists.", self.output)
         self.assertIn(" - Twelve (12) entries found.", self.output)
         # Two entries per group -> six grouped entries
@@ -80,7 +80,7 @@ class TestStatus(CommandBaseTestingClass):
         self.run_cli("status")
         self.check_for_exit_code_zero()
 
-        self.assertIn("Status information from Tracker", self.output)
+        self.assertIn("Status information from tracker", self.output)
         self.assertIn(
             " - A timer exists which has not been stopped yet. (use \"tracker stop -m 'message'\" to stop it)",
             self.output
