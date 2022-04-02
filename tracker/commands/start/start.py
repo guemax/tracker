@@ -11,12 +11,13 @@ You should have received a copy of the GNU General Public License
 along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
+import sys
 import logging
 
 import click
 
-from tracker.console_logger.console_logger import info, warn
 from tracker.handler.timer_handler import TimerHandler
+from tracker.console_logger.console_logger import info, warn
 from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
@@ -25,14 +26,18 @@ def start():
     """Start a new timer"""
     timer_handler = TimerHandler.TimerHandler()
     try:
-        time = timer_handler.start_timer()
-        time = " at ".join(time)
+        datetime = timer_handler.start_timer()
+        date = datetime[0]
+        time = datetime[1]
     except InvalidTimerModification:
-        logging.info("Starting a new timer aborted due to an exisiting timer")
+        logging.warning(
+            "InvalidTimerModification: A timer already exists which must be stopped before starting anotherone."
+        )
         warn("Warning: A timer already exists which has not been stopped yet.\n"
              "  (use \"tracker stop\" to stop it first)\n"
              "\nEXIT")
-    else:
-        logging.info(f"New timer started")
-        info(f"New timer started at {time}\n"
-             f"\nOK")
+        sys.exit(-1)
+
+    logging.info(f"New timer successfully started at {date} at {time}.")
+    info(f"New timer started at {date} at {time}\n"
+         f"\nOK")
