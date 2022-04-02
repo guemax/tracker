@@ -6,6 +6,7 @@ all:
 clean:
 	@echo "Cleaning up Tracker files"
 	@-rm files/*
+	@-rm -rf files
 log:
 	@echo "Showing Tracker log file"
 	@cat files/tracker.log
