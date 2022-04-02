@@ -60,7 +60,7 @@ class TestLog(CommandBaseTestingClass):
         self.check_for_exit_code_zero()
         self.assertIn("Showing all entries of", self.output)
 
-    def test_logging_a_sepcific_entry_with_unknown_id(self) -> None:
+    def test_logging_a_specific_entry_with_unknown_id(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values()
 

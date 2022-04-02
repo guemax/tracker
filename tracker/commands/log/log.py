@@ -11,49 +11,17 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import sys
-
 import click
 
-from tracker.console_logger.console_logger import info, warn
-from tracker.handler.entry_handler import GroupedEntryHandler
-from tracker.handler.entry_handler import EntryHandler
-from tracker.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
+from .log_all_entries_grouped_by_date import log_all_entries_grouped_by_date
+from .log_entries_of_specific_date import log_entries_of_specific_date
 
 
 @click.command()
-@click.option("-i", "--id", "id_of_date", help="ID of a specific day", type=int)
+@click.option("-i", "--id", "id_of_date", help="ID of a specific date", type=int, default=None)
 def log(id_of_date: int):
-    """Show old entries grouped by date"""
-    if id_of_date is not None:
-        entry_handler = EntryHandler.EntryHandler()
-        try:
-            entries_of_specific_date = entry_handler.get_entries_of_specific_date(id_of_date)
-        except InvalidIDOfDateException:
-            warn(f"We couldn't find a date matching the ID {id_of_date}.\n"
-                 f"Please double check if this was the ID you meant.\n"
-                 f"EXIT")
-            sys.exit(-1)
-
-        date = entries_of_specific_date[0]
-        entries_of_specific_date = entries_of_specific_date[1]
-
-        number_of_entries = len(entries_of_specific_date)
-
-        info(f"Showing all entries of {date}. ({number_of_entries} in total).\n")
-        info(f"{entries_of_specific_date}\n"
-             f"\nOK")
+    """Show old entries grouped by date or, when an ID is supplied, show entries of specific date"""
+    if id_of_date is None:
+        log_all_entries_grouped_by_date()
     else:
-        entry_handler = GroupedEntryHandler.GroupedEntryHandler()
-        entries_grouped_by_date = entry_handler.get_entries_grouped_by_date()
-        number_of_grouped_entries = len(entries_grouped_by_date)
-
-        if number_of_grouped_entries == 0:
-            info("Nothing to see yet.\n"
-                 "  (use \"tracker start\" to create an entry)")
-            info("\nOK")
-        else:
-            info(f"Showing all entries grouped by date. ({number_of_grouped_entries} in total).\n"
-                 f"  (use \"tracker log <ID>\" to show all entries of the date with the ID <ID>.\n")
-            info(f"{entries_grouped_by_date}\n"
-                 f"\nOK")
+        log_entries_of_specific_date(id_of_date)
