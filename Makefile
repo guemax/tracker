@@ -10,9 +10,9 @@ clean:
 log:
 	@echo "Showing Tracker log file"
 	@cat files/tracker.log
-test: clean
+test:
 	@echo "Running tests"
-	@python3 -m unittest discover
+	@python3 -m test
 setup: clean
 	@echo "Setting up test values"
 	@python3 -m tracker.setup_test_values_in_console -e ${entries}
