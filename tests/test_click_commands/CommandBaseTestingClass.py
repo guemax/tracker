@@ -43,3 +43,6 @@ class CommandBaseTestingClass(BaseTestingClass):
 
     def check_for_exit_code_not_zero(self) -> None:
         self.assertNotEqual(self.exit_code, 0)
+
+    def check_for_exit_code_minus_one(self) -> None:
+        self.assertEqual(self.exit_code, -1)

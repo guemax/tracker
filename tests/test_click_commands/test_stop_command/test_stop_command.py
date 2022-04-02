@@ -48,7 +48,7 @@ class TestStop(CommandBaseTestingClass):
         self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("stop")
-        self.check_for_exit_code_zero()
+        self.check_for_exit_code_minus_one()
 
         self.assertIn("No timer exists yet", self.output)
 
@@ -56,7 +56,7 @@ class TestStop(CommandBaseTestingClass):
         self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("stop")
-        self.check_for_exit_code_zero()
+        self.check_for_exit_code_minus_one()
         self.assertIn("No timer exists yet", self.output)
 
         self.run_cli("start")

@@ -12,6 +12,7 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import logging
+import sys
 
 import click
 
@@ -26,18 +27,20 @@ def stop(message: str) -> None:
     """Stop an exisiting timer"""
     timer_handler = TimerHandler.TimerHandler()
     try:
-        time = timer_handler.stop_timer(message)
+        datetime = timer_handler.stop_timer(message)
+        date = datetime[0]
+        time = datetime[1]
+        work_hours = datetime[2]
     except InvalidTimerModification:
-        logging.info("Stopping timer aborted due to a missing created timer")
+        logging.warning("InvalidTimerModification: No timer exists yet which could be stopped.")
         warn("Warning: No timer exists yet.\n"
              "  (use \"tracker start\" to create one)\n"
              "\nEXIT")
-    else:
-        logging.info("Existing timer stopped")
-        if message:
-            info(f"Existing timer stopped at {time[0]} at {time[1]}. (running {time[2]})\n"
-                 f"Added message \"{message}\" to tracker file.\n"
-                 f"\nOK")
-        else:
-            info(f"Existing timer stopped at {time[0]} at {time[1]}. (running {time[2]})\n"
-                 f"\nOK")
+        sys.exit(-1)
+
+    logging.info(f"Existing timer successfully stopped at {date} at {time} (running {work_hours})")
+    info(f"Existing timer stopped at {date} at {time}. (running {work_hours})")
+    if message:
+        logging.info(f"Added message \"{message}\" to tracker file.")
+        info(f"Added message \"{message}\" to tracker file.")
+    info("\nOK")
