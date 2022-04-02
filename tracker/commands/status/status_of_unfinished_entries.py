@@ -12,14 +12,13 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from tracker.handler.timer_handler.TimerHandler import TimerHandler
-from .print_list_item import print_list_item
 
 
-def print_status_of_unfinished_entries():
-    timer_handler = TimerHandler()
-    unfinished_entries_present = timer_handler.unfinished_entry_present()
+def status_of_unfinished_entries() -> str:
+    handler = TimerHandler()
+    unfinished_entries_present = handler.unfinished_entry_present()
 
     if unfinished_entries_present:
-        print_list_item("A timer exists which has not been stopped yet.")
+        return "A timer exists which has not been stopped yet. (use \"tracker stop -m 'message'\" to stop it)"
     else:
-        print_list_item("No unfinished timer exists.")
+        return "No unfinished timer exists."

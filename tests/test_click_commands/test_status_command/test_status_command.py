@@ -28,7 +28,7 @@ class TestStatus(CommandBaseTestingClass):
 
         self.assertIn("Status information from Tracker", self.output)
         self.assertIn(" - No unfinished timer exists.", self.output)
-        self.assertIn(" - Zero (0) entries found. Create one by typing \"tracker start\".", self.output)
+        self.assertIn(" - Zero (0) entries found. (use \"tracker start\" to create one)", self.output)
         self.assertIn(" - Zero (0) grouped entries found.", self.output)
         self.assertIn("OK", self.output)
 
@@ -81,7 +81,10 @@ class TestStatus(CommandBaseTestingClass):
         self.check_for_exit_code_zero()
 
         self.assertIn("Status information from Tracker", self.output)
-        self.assertIn(" - A timer exists which has not been stopped yet.", self.output)
+        self.assertIn(
+            " - A timer exists which has not been stopped yet. (use \"tracker stop -m 'message'\" to stop it)",
+            self.output
+        )
         self.assertIn(" - One (1) entry found.", self.output)
         self.assertIn(" - One (1) grouped entry found.", self.output)
         self.assertIn("OK", self.output)

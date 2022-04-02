@@ -13,20 +13,18 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import click
 
-from .print_status_of_unfinished_entries import print_status_of_unfinished_entries
-from .print_status_of_grouped_entries import print_status_of_grouped_entries
-from .print_status_of_entries import print_status_of_entries
+from .status_of_entries import status_of_entries
+from .status_of_grouped_entries import status_of_grouped_entries
+from .status_of_unfinished_entries import status_of_unfinished_entries
 
 from tracker.console_logger.console_logger import info
 
 
 @click.command()
-def status():   # pragma: no cover
+def status() -> None:
     """Provide information about the current tracking process"""
-    info("Status information from Tracker:\n")
-
-    print_status_of_unfinished_entries()
-    print_status_of_entries()
-    print_status_of_grouped_entries()
-
-    info("\nOK")
+    info(f"Status information from Tracker:\n\n"
+         f" - {status_of_unfinished_entries()}\n"
+         f" - {status_of_entries()}\n"
+         f" - {status_of_grouped_entries()}\n"
+         f"\nOK")
