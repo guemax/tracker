@@ -1,4 +1,4 @@
-"""This file is part of Tracker.
+"""This file is part of tracker.
 
 Tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -11,42 +11,41 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Tracker. If not, see <http://www.gnu.org/licenses/>.
+along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
-
-import unittest
-import os
 
 from click.testing import CliRunner
 
-from src.cli import cli
-
-from src.csv.CSVHandler import CSVHandler
-from src.setup_test_values.setup_test_values import SetupTestValues
+from tracker.__main__ import cli, setup_cli
+from tests.BaseTestingClass import BaseTestingClass
 
 
-class CommandBaseTestingClass(unittest.TestCase):
+class CommandBaseTestingClass(BaseTestingClass):
     def setUp(self) -> None:
+        super(CommandBaseTestingClass, self).setUp()
+
         self.runner = CliRunner()
-        self.result = None
+        self.output = None
+        self.exit_code = -1
 
-        self.csv_handler = CSVHandler()
-        self.set_upper = SetupTestValues()
+        setup_cli(cli)
 
-    def run_cli(self, options: list) -> None:
-        self.result = self.runner.invoke(cli, options)
+    def run_cli(self, command: str, option: str = "") -> None:
+        parameters = [command, option] if option != "" else [command]
 
-    def clean_and_init_tracker_file(self) -> None:
-        self.remove_tracker_file()
-        self.csv_handler.init_tracker_csv_file()
+        result = self.runner.invoke(cli, parameters)
 
-    def remove_tracker_file(self) -> None:
-        try:
-            os.remove(self.csv_handler.tracker_file)
-        except FileNotFoundError:
-            # File is not existing, that's good, nothing to do for us.
-            pass
+        self.output = result.output
+        self.exit_code = result.exit_code
 
-    def setup_test_values(self, number_of_entries: int = 4) -> None:
-        self.set_upper.set_number_of_entries(number_of_entries)
-        self.set_upper.setup()
+    def check_for_exit_code_zero(self) -> None:
+        self.assertEqual(self.exit_code, 0)
+
+    def check_for_exit_code_two(self) -> None:
+        self.assertEqual(self.exit_code, 2)     # Usage error, unexpected extra argument
+
+    def check_for_exit_code_not_zero(self) -> None:
+        self.assertNotEqual(self.exit_code, 0)
+
+    def check_for_exit_code_minus_one(self) -> None:
+        self.assertEqual(self.exit_code, -1)

@@ -36,25 +36,37 @@ P3
 - [X] Show number of work hours per day in a given range
 ## Contributing
 
-Downlaod the source code and move into the root directory of the project. Use `python3 -m src.main` to run Tracker. Append the command you would like to execute, for example `python3 -m src.main start` to start a timer.
-  
-On Linux (or if you have `make` installed, you can use some commands which are useful for developing:
+Downlaod the source code and move into the root directory of the project. Use `python3 -m tracker` to run Tracker. 
+Append the command you would like to execute, for example `python3 -m tracker start` to start a timer.
+
+The simple script `make.py` has some commands which are useful for developing:
 
 ```bash
-# Clean the project: Removes old entries and the log file
-make clean
+# Get a list of all commands supported by make.py
+python3 -m make --help
+
+# Clean the project (Removes all entries and the log file)
+python3 -m make clean
 
 # Run the tests to verify you did not broke something while writing some code
-make test
+python3 -m make test
 
-# Setup some test entries for developing
-make setup
+# Setup some test entries for developing (in this case twelve)
+python3 -m make setup --entries 12
 
-# Show coverage information
-make coverage
+# Show coverage information in default webbrowser
+python3 -m make coverage --webbrowser
 
-# Build the coverage badge for the README
-make badge
+# Generate coverage badge for README
+python3 -m make coverage --badge
+
+# Show the content of the log file
+python3 -m make log
+
+# Show number of code lines and comments written for this project
+python3 -m make count
 ```
 
-If you want to contribute to the project, please submit your ideas through a pull request. Make sure you code follows Python's PEP8 style guides and that all tests pass. If you are adding a new feature, it is good to write some tests for that one.
+If you want to contribute to the project, please submit your ideas through a pull request. 
+Make sure your code follows Python's PEP8 style guides and that all tests pass. If you are adding a new feature, 
+it is good to write some tests showing the usage of it.

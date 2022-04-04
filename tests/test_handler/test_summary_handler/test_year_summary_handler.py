@@ -1,4 +1,4 @@
-"""This file is part of Tracker.
+"""This file is part of tracker.
 
 Tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -11,13 +11,13 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Tracker. If not, see <http://www.gnu.org/licenses/>.
+along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import datetime
 import unittest
 
-from src.handler.summary_handler.year_summary_handler import YearSummaryHandler
+from tracker.handler.summary_handler.year_summary_handler import YearSummaryHandler
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
@@ -29,13 +29,13 @@ class TestYearSummaryHandler(CSVBaseTestingClass):
         self.year_summary_handler = YearSummaryHandler()
 
     def test_summary_without_any_entries_created_this_year(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         summarized_entries = self.year_summary_handler.summary()
         self.assertTrue(summarized_entries.empty)
 
     def test_summary_with_one_entry_created_this_year(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(1)
 
         summarized_entries = self.year_summary_handler.summary()
@@ -44,7 +44,7 @@ class TestYearSummaryHandler(CSVBaseTestingClass):
         self.assertEqual(1, len(summarized_entries))
 
     def test_summary_with_multiple_entries_created_this_year(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         # Set up two entries per day (40 grouped entries) for 370 days (more than one year)
         self.setup_test_values(720)

@@ -1,4 +1,4 @@
-"""This file is part of Tracker.
+"""This file is part of tracker.
 
 Tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -11,7 +11,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Tracker. If not, see <http://www.gnu.org/licenses/>.
+along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import io
@@ -20,7 +20,7 @@ import unittest
 
 import click.testing
 
-from src.console_logger.console_logger import *
+from tracker.console_logger.console_logger import *
 
 
 class TestConsoleLogger(unittest.TestCase):
@@ -28,59 +28,51 @@ class TestConsoleLogger(unittest.TestCase):
         self.runner = click.testing.CliRunner()
         self.output = io.StringIO()
 
-        self.start_redirect()
+        self.message = "A simple test message"
+
+        self.start_redirecting_output()
 
     def test_debug(self):
-        message = "Starting Tracker"
-        debug(message)
-
-        self.assertIn(message, self.output.getvalue())
+        debug(self.message)
+        self.assertIn(self.message, self.output.getvalue())
 
     def test_info(self):
-        message = "Starting Tracker"
-        info(message)
-
-        self.assertIn(message, self.output.getvalue())
+        info(self.message)
+        self.assertIn(self.message, self.output.getvalue())
 
     def test_warn(self):
-        message = "Warning: Cannot open Tracker file"
-        info(message)
-
-        self.assertIn(message, self.output.getvalue())
+        info(self.message)
+        self.assertIn(self.message, self.output.getvalue())
 
     def test_error(self):
-        self.start_error_redirect()
+        self.start_redirect_errors()
 
-        message = "Error: Unable to continue"
-        error(message)
+        error(self.message)
+        self.assertIn(self.message, self.output.getvalue())
 
-        self.assertIn(message, self.output.getvalue())
-
-        self.stop_error_redirect()
+        self.stop_redirect_errors()
 
     def test_fatal(self):
-        self.start_error_redirect()
+        self.start_redirect_errors()
 
-        message = "Fatal: Shutting down"
-        fatal(message)
+        fatal(self.message)
+        self.assertIn(self.message, self.output.getvalue())
 
-        self.assertIn(message, self.output.getvalue())
+        self.stop_redirect_errors()
 
-        self.stop_error_redirect()
-
-    def start_redirect(self):
+    def start_redirecting_output(self):
         sys.stdout = self.output
 
-    def start_error_redirect(self):
+    def start_redirect_errors(self):
         sys.stderr = self.output
 
     @staticmethod
-    def stop_redirect():
+    def stop_redirecting_output():
         sys.stdout = sys.__stdout__
 
     @staticmethod
-    def stop_error_redirect():
+    def stop_redirect_errors():
         sys.stderr = sys.__stderr__
 
     def tearDown(self) -> None:
-        self.stop_redirect()
+        self.stop_redirecting_output()

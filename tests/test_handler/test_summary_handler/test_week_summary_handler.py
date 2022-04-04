@@ -1,4 +1,4 @@
-"""This file is part of Tracker.
+"""This file is part of tracker.
 
 Tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -11,13 +11,13 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Tracker. If not, see <http://www.gnu.org/licenses/>.
+along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import datetime
 import unittest
 
-from src.handler.summary_handler.week_summary_handler import WeekSummaryHandler
+from tracker.handler.summary_handler.week_summary_handler import WeekSummaryHandler
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
 
@@ -29,13 +29,13 @@ class TestWeekSummaryHandler(CSVBaseTestingClass):
         self.week_summary_handler = WeekSummaryHandler()
 
     def test_summary_without_any_entries_created_this_week(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         summarized_entries = self.week_summary_handler.summary()
         self.assertTrue(summarized_entries.empty)
 
     def test_summary_with_one_entry_created_this_week(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
         self.setup_test_values(1)
 
         summarized_entries = self.week_summary_handler.summary()
@@ -44,7 +44,7 @@ class TestWeekSummaryHandler(CSVBaseTestingClass):
         self.assertEqual(1, len(summarized_entries))
 
     def test_summary_with_multiple_entries_created_this_week(self) -> None:
-        self.clean_and_init_tracker_file()
+        self.remove_files_folder_and_init_tracker_file()
 
         # Set up two entries per day (7 grouped entries)
         self.setup_test_values(14)
