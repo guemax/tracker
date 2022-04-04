@@ -54,11 +54,25 @@ class TestStartCommand(CommandBaseTestingClass):
     def test_overwriting_a_started_timer(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
+        self.run_cli("start")
+
         self.run_cli("start", "--overwrite")
         self.check_for_exit_code_zero()
 
-        self.assertIn("Succesfully overwritten started timer.", self.output)
-        self.assertIn("Started new timer", self.output)
+        self.assertIn("Succesfully overwritten exisiting timer.", self.output)
+        self.assertIn("New timer started at", self.output)
+
+    def test_overwriting_when_nothing_can_be_overwritten(self) -> None:
+        self.remove_files_folder_and_init_tracker_file()
+
+        self.run_cli("start")
+        self.run_cli("stop")
+
+        self.run_cli("start", "--overwrite")
+        self.check_for_exit_code_zero()
+
+        self.assertIn("New timer started", self.output)
+        self.assertIn("OK", self.output)
 
 
 if __name__ == "__main__":  # pragma: no cover
