@@ -26,7 +26,7 @@ class TimerHandler(CSVAttributes):
     def __init__(self) -> None:
         super(TimerHandler, self).__init__()
 
-    def start_timer(self) -> list:
+    def start_timer(self, overwrite: bool = False) -> list:
         if self.unfinished_entry_present():
             raise InvalidTimerModification()
 

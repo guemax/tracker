@@ -36,10 +36,10 @@ class TestTimerHandler(CSVBaseTestingClass):
     def test_starting_the_first_timer(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.check_for_started_timer()
-
-    def check_for_started_timer(self) -> None:
         start_datetime = self.timer_handler.start_timer()
+        self.check_for_started_timer(start_datetime)
+
+    def check_for_started_timer(self, start_datetime: list) -> None:
         expected_start_date = start_datetime[0]
         expected_start_time = start_datetime[1]
 
@@ -70,7 +70,17 @@ class TestTimerHandler(CSVBaseTestingClass):
         self.set_upper.set_number_of_entries(1)
         self.set_upper.setup()
 
-        self.check_for_started_timer()
+        start_datetime = self.timer_handler.start_timer()
+        self.check_for_started_timer(start_datetime)
+
+    def test_overwriting_a_started_timer(self) -> None:
+        self.remove_files_folder_and_init_tracker_file()
+
+        start_datetime = self.timer_handler.start_timer()
+        self.check_for_started_timer(start_datetime)
+
+        start_datetime = self.timer_handler.start_timer(overwrite=True)
+        self.check_for_started_timer(start_datetime)
 
     def test_stopping_first_timer_with_empty_message(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
@@ -150,7 +160,7 @@ class TestTimerHandler(CSVBaseTestingClass):
 
         self.timer_handler.stop_timer(message="")
         self.assertFalse(self.timer_handler.unfinished_entry_present())
-    
+
     def test_starting_timer_when_one_already_exists(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 

@@ -22,8 +22,13 @@ from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 @click.command()
-def start():
+@click.option("--overwrite", help="Overwrite an exisiting timer", is_flag=True)
+def start(overwrite: bool):
     """Start a new timer"""
+    if overwrite:
+        print("Overwriting")
+        sys.exit(0)
+    
     timer_handler = TimerHandler.TimerHandler()
     try:
         datetime = timer_handler.start_timer()
