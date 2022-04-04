@@ -46,11 +46,10 @@ class TestStatusCommand(CommandBaseTestingClass):
                       " - One (1) grouped entry found.", self.output)
         self.assertIn("OK", self.output)
 
-    def test_showing_the_status_with_multiple_entries_present(self) -> None:
+    def test_showing_the_status_with_two_entries_present(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.set_upper.set_number_of_entries(12)
-        self.set_upper.setup()
+        self.setup_test_values(2)
 
         self.run_cli("status")
         self.check_for_exit_code_zero()

@@ -41,6 +41,21 @@ class TestStartCommand(CommandBaseTestingClass):
         self.assertIn("A timer already exists", self.output)
         self.assertIn("EXIT", self.output)
 
+    def test_starting_a_timer_stopping_it_and_starting_another_one(self) -> None:
+        self.remove_files_folder_and_init_tracker_file()
+
+        self.run_cli("start")
+        self.check_for_exit_code_zero()
+
+        self.run_cli("stop", "-m \"\"")
+        self.check_for_exit_code_zero()
+
+        self.run_cli("start")
+        self.check_for_exit_code_zero()
+
+        self.assertIn("New timer started", self.output)
+        self.assertIn("OK", self.output)
+
     def test_starting_a_timer_with_invalid_option(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 

@@ -12,6 +12,7 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
+from datetime import datetime
 
 from ..CommandBaseTestingClass import CommandBaseTestingClass
 
@@ -38,6 +39,19 @@ class TestSummaryOfYearCommand(CommandBaseTestingClass):
         self.check_for_exit_code_zero()
 
         self.assertIn("Showing entries as summary (1 in total).\n"
+                      "Range is \"this-year\".", self.output)
+        self.assertIn("OK", self.output)
+
+    def test_summary_with_multiple_entries_created_this_year(self) -> None:
+        self.remove_files_folder_and_init_tracker_file()
+        self.setup_test_values(720)
+
+        self.run_cli("summary", "-ty")
+        self.check_for_exit_code_zero()
+
+        # See the test for the YearSummaryHandler() for more information
+        expected_length_of_entries = datetime.today().timetuple().tm_yday
+        self.assertIn(f"Showing entries as summary ({expected_length_of_entries} in total).\n"
                       "Range is \"this-year\".", self.output)
         self.assertIn("OK", self.output)
 
