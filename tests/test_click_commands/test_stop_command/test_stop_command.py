@@ -1,17 +1,14 @@
-"""This file is part of Tracker.
-
+"""This file is part of tracker.
 Tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
 Tracker is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
-along with Tracker. If not, see <http://www.gnu.org/licenses/>.
+along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
@@ -54,6 +51,22 @@ class TestStopCommand(CommandBaseTestingClass):
         self.check_for_exit_code_minus_one()
 
         self.assertIn("No timer exists yet", self.output)
+
+    def test_stopping_a_timer_when_no_one_exists_starting_one_and_stopping_it(self) -> None:
+        self.remove_files_folder_and_init_tracker_file()
+
+        self.run_cli("stop")
+        self.check_for_exit_code_minus_one()
+        self.assertIn("No timer exists yet", self.output)
+
+        self.run_cli("start")
+        self.check_for_exit_code_zero()
+
+        self.run_cli("stop")
+        self.check_for_exit_code_zero()
+
+        self.assertIn("Existing timer stopped", self.output)
+        self.assertIn("OK", self.output)
 
 
 if __name__ == "__main__":  # pragma: no cover

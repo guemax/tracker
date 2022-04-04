@@ -1,17 +1,14 @@
-"""This file is part of Tracker.
-
+"""This file is part of tracker.
 Tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
 Tracker is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
-along with Tracker. If not, see <http://www.gnu.org/licenses/>.
+along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
@@ -52,11 +49,7 @@ class TestStatusCommand(CommandBaseTestingClass):
     def test_showing_the_status_with_two_entries_present(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.run_cli("start")
-        self.run_cli("stop")
-
-        self.run_cli("start")
-        self.run_cli("stop")
+        self.setup_test_values(2)
 
         self.run_cli("status")
         self.check_for_exit_code_zero()
