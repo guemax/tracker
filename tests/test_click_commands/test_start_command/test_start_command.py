@@ -39,12 +39,13 @@ class TestStartCommand(CommandBaseTestingClass):
         self.check_for_exit_code_minus_one()
 
         self.assertIn("A timer already exists", self.output)
+        self.assertIn("EXIT", self.output)
 
     def test_starting_a_timer_with_invalid_option(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("start", "--unknown-option")
-        self.assertEqual(self.exit_code, 2)
+        self.check_for_exit_code_two()
 
         self.assertIn("Error", self.output)
 

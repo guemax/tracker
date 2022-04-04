@@ -24,6 +24,7 @@ class TestSummaryOfWeekCommand(CommandBaseTestingClass):
         self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("summary", "-tw")
+        self.check_for_exit_code_zero()
 
         self.assertIn("Nothing to show yet. There have been no entries created this week.\n"
                       "  (use \"tracker start\" to create one)", self.output)
@@ -34,6 +35,7 @@ class TestSummaryOfWeekCommand(CommandBaseTestingClass):
         self.setup_test_values(1)
 
         self.run_cli("summary", "-tw")
+        self.check_for_exit_code_zero()
 
         self.assertIn("Showing entries as summary (1 in total).\n"
                       "Range is \"this-week\".", self.output)
