@@ -23,22 +23,38 @@ class TimerHandler(CSVAttributes):
     def __init__(self) -> None:
         super(TimerHandler, self).__init__()
 
-    def start_timer(self) -> list:
-        if self.unfinished_entry_present():
+    def start_timer(self, overwrite: bool = False) -> list:
+        overwritten = False
+
+        if not overwrite and self.unfinished_entry_present():
             raise InvalidTimerModification()
+        elif overwrite and self.unfinished_entry_present():
+            self.overwrite_existing_timer()
+            overwritten = True
 
         start_date = datetime.now().strftime("%b, %d %Y")
         start_time = datetime.now().strftime("%H:%M:%S")
 
-        with open(self.tracker_file, "a") as f:
-            row = {
+        row = {
                 "start_date": start_date, "start_time": start_time, "stop_date": None, "stop_time": None,
                 "work_hours": None, "message": None
-                }
-            data = pandas.DataFrame(row, index=[0])
-            data.to_csv(f, header=False, index=False)
+        }
+        new_row = pandas.DataFrame(row, index=[0])
 
-        return [start_date, start_time]
+        data = pandas.read_csv(self.tracker_file, dtype=str)
+        data = pandas.concat([data, new_row], ignore_index=True)
+
+        data.to_csv(self.tracker_file, index=False)
+
+        return [start_date, start_time, overwritten]
+
+    def overwrite_existing_timer(self) -> None:
+        data = pandas.read_csv(self.tracker_file, dtype=str)
+
+        last_row = data.tail(1)
+        data.drop(last_row.index, inplace=True)
+
+        data.to_csv(self.tracker_file, index=False)
 
     def stop_timer(self, message: str) -> list:
         if not self.unfinished_entry_present():

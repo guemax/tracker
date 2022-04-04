@@ -22,13 +22,15 @@ from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
 @click.command()
-def start():
+@click.option("--overwrite", help="Overwrite an exisiting timer", is_flag=True)
+def start(overwrite: bool):
     """Start a new timer"""
     timer_handler = TimerHandler.TimerHandler()
     try:
-        datetime = timer_handler.start_timer()
+        datetime = timer_handler.start_timer(overwrite)
         date = datetime[0]
         time = datetime[1]
+        overwritten = datetime[2]
     except InvalidTimerModification:
         logging.warning(
             "InvalidTimerModification: A timer already exists which must be stopped before starting another one."
@@ -37,6 +39,9 @@ def start():
              "  (use \"tracker stop\" to stop it first)\n"
              "\nEXIT")
         sys.exit(-1)
+
+    if overwritten:
+        info("Succesfully overwritten exisiting timer.")
 
     logging.info(f"New timer successfully started at {date} at {time}.")
     info(f"New timer started at {date} at {time}\n"
