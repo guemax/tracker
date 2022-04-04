@@ -1,52 +1,21 @@
-import logging
-import sys
+"""This file is part of Tracker.
 
-import click
+Tracker is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-from .Tracker import Tracker
+Tracker is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-from src.commands.summary import summary
-from src.commands.status import status
-from src.commands.start import start
-from src.commands.stop import stop
-from src.commands.log import log
+You should have received a copy of the GNU General Public License
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
+"""
 
-
-def enable_logging_in_console():    # pragma: no cover
-    logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
-
-
-@click.group(help="A command-line tool to track your computer usage time.")
-def cli():
-    pass
-
-
-def add_subcommands_to_cli():
-    cli.add_command(summary.summary)
-    cli.add_command(status.status)
-    cli.add_command(start.start)
-    cli.add_command(stop.stop)
-    cli.add_command(log.log)
+from .cli import cli
 
 
 if __name__ == "__main__":  # pragma: no cover
-    # Set up logging
-    logging.basicConfig(
-        level=logging.INFO,
-        filename="src/files/tracker.log",
-        filemode="w",
-        format='%(asctime)s.%(msecs)03d - %(levelname)s - %(message)s',
-        datefmt='%d-%b-%y %H:%M:%S'
-    )
-    debug = False
-    if debug:
-        enable_logging_in_console()
-
-    # Set up tracker
-    tracker = Tracker()
-    tracker.init()
-
-    add_subcommands_to_cli()
-
-    # Start click
     cli()
