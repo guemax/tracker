@@ -11,7 +11,6 @@ You should have received a copy of the GNU General Public License
 along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from distutils.log import error
 import os
 import shutil
 import logging
