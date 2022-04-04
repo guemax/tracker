@@ -50,8 +50,8 @@ class TestSummaryOfWeekCommand(CommandBaseTestingClass):
         self.check_for_exit_code_zero()
 
         # See the test for the WeekSummaryHandler() for more information
-        exspected_length_of_entries = datetime.today().weekday() + 1  # Monday would otherwise be 0, not 1
-        self.assertIn(f"Showing entries as summary ({exspected_length_of_entries} in total).\n"
+        expected_length_of_entries = datetime.today().weekday() + 1  # Monday would otherwise be 0, not 1
+        self.assertIn(f"Showing entries as summary ({expected_length_of_entries} in total).\n"
                       "Range is \"this-week\".", self.output)
         self.assertIn("OK", self.output)
 
