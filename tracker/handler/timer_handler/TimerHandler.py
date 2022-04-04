@@ -16,7 +16,6 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime
 
-import numpy
 import pandas
 
 from tracker.csv.CSVAttributes import CSVAttributes
@@ -29,11 +28,12 @@ class TimerHandler(CSVAttributes):
 
     def start_timer(self, overwrite: bool = False) -> list:
         overwritten = False
+
         if not overwrite and self.unfinished_entry_present():
             raise InvalidTimerModification()
         elif overwrite and self.unfinished_entry_present():
-            overwritten = True
             self.overwrite_existing_timer()
+            overwritten = True
 
         start_date = datetime.now().strftime("%b, %d %Y")
         start_time = datetime.now().strftime("%H:%M:%S")
@@ -44,7 +44,7 @@ class TimerHandler(CSVAttributes):
         }
         new_row = pandas.DataFrame(row, index=[0])
 
-        data = pandas.read_csv(self.tracker_file)
+        data = pandas.read_csv(self.tracker_file, dtype=str)
         data = pandas.concat([data, new_row], ignore_index=True)
 
         data.to_csv(self.tracker_file, index=False)
