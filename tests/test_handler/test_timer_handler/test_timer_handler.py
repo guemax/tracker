@@ -82,6 +82,18 @@ class TestTimerHandler(CSVBaseTestingClass):
         start_datetime = self.timer_handler.start_timer(overwrite=True)
         self.check_for_started_timer(start_datetime)
 
+        overwritten = start_datetime[2]
+        self.assertTrue(overwritten)
+
+    def test_overwriting_a_timer_when_nothing_can_be_overwritten(self) -> None:
+        self.remove_files_folder_and_init_tracker_file()
+
+        start_datetime = self.timer_handler.start_timer(overwrite=True)
+        self.check_for_started_timer(start_datetime)
+
+        overwritten = start_datetime[2]
+        self.assertFalse(overwritten)
+
     def test_stopping_first_timer_with_empty_message(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 

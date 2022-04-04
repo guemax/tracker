@@ -42,6 +42,7 @@ class TestStartCommand(CommandBaseTestingClass):
         self.check_for_exit_code_minus_one()
 
         self.assertIn("A timer already exists", self.output)
+        self.assertIn("EXIT", self.output)
 
     def test_starting_a_timer_with_invalid_option(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
@@ -61,8 +62,9 @@ class TestStartCommand(CommandBaseTestingClass):
 
         self.assertIn("Succesfully overwritten exisiting timer.", self.output)
         self.assertIn("New timer started at", self.output)
+        self.assertIn("OK", self.output)
 
-    def test_overwriting_when_nothing_can_be_overwritten(self) -> None:
+    def test_overwriting_a_timer_when_nothing_can_be_overwritten(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("start")
