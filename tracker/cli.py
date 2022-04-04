@@ -16,8 +16,11 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import click
 
+from .version import __version__
+
 
 @click.group(help="A command-line tool to track your computer usage time.")
+@click.version_option(__version__, prog_name="tracker")
 def cli():
     pass
 

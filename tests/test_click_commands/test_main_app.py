@@ -13,6 +13,9 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 
 from tracker.cli import cli
 from tracker.setup_cli import setup_cli
+
+from tracker.version import __version__
+
 from .CommandBaseTestingClass import CommandBaseTestingClass
 
 
@@ -36,7 +39,8 @@ class TestMainApp(CommandBaseTestingClass):
         self.assertIn("A command-line tool to track your computer usage time.", self.output)
 
         self.assertIn("Options:", self.output)
-        self.assertIn("--help  Show this message and exit.", self.output)
+        self.assertIn("--version  Show the version and exit.", self.output)
+        self.assertIn("--help     Show this message and exit.", self.output)
 
         self.assertIn("Commands:", self.output)
         self.assertIn("log", self.output)
@@ -49,5 +53,4 @@ class TestMainApp(CommandBaseTestingClass):
         self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("--version")
-
-        print(self.output)
+        self.assertIn(f"tracker, version {__version__}", self.output)
