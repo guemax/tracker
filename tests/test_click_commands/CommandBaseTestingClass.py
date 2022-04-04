@@ -30,8 +30,11 @@ class CommandBaseTestingClass(BaseTestingClass):
 
         setup_cli(cli)
 
-    def run_cli(self, command: str, option: str = "") -> None:
-        parameters = [command, option] if option != "" else [command]
+    def run_cli(self, command: str = "", option: str = "") -> None:
+        if command:
+            parameters = [command, option] if option != "" else [command]
+        else:
+            parameters = []
 
         result = self.runner.invoke(cli, parameters)
 
