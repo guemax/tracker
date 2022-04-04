@@ -64,8 +64,7 @@ class TestTimerHandler(CSVBaseTestingClass):
     def test_starting_the_second_timer(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.set_upper.set_number_of_entries(1)
-        self.set_upper.setup()
+        self.setup_test_values(1)
 
         start_datetime = self.timer_handler.start_timer()
         self.check_for_started_timer(start_datetime)
@@ -144,8 +143,7 @@ class TestTimerHandler(CSVBaseTestingClass):
     def test_stopping_second_timer_with_empty_message(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.set_upper.set_number_of_entries(1)
-        self.set_upper.setup()
+        self.setup_test_values(1)
 
         message = ""
         self.check_for_stopped_timer(message)
@@ -153,8 +151,7 @@ class TestTimerHandler(CSVBaseTestingClass):
     def test_stopping_second_timer_with_message(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.set_upper.set_number_of_entries(1)
-        self.set_upper.setup()
+        self.setup_test_values(1)
 
         message = "Developed a new feature for tracker"
         self.check_for_stopped_timer(message)

@@ -21,7 +21,7 @@ from tracker.setup_test_values.setup_test_values import SetupTestValues
 class BaseTestingClass(unittest.TestCase):
     def setUp(self) -> None:
         self.csv_handler = CSVHandler()
-        self.set_upper = SetupTestValues()
+        self.__set_upper = SetupTestValues()
 
     def remove_files_folder_and_init_tracker_file(self) -> None:
         self.remove_files_folder_and_its_contents()
@@ -31,5 +31,5 @@ class BaseTestingClass(unittest.TestCase):
         shutil.rmtree(self.csv_handler.tracker_folder, ignore_errors=True)
 
     def setup_test_values(self, number_of_entries: int = 4) -> None:
-        self.set_upper.set_number_of_entries(number_of_entries)
-        self.set_upper.setup()
+        self.__set_upper.set_number_of_entries(number_of_entries)
+        self.__set_upper.setup()
