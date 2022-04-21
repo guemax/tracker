@@ -11,21 +11,26 @@ You should have received a copy of the GNU General Public License
 along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from .StartTimer import StartTimer
-from .StopTimer import StopTimer
-
-from .TimerBaseClass import TimerBaseClass
+import pandas
 
 
-class TimerHandler(TimerBaseClass):
+from tracker.csv.CSVAttributes import CSVAttributes
+
+
+class TimerBaseClass(CSVAttributes):
     def __init__(self) -> None:
-        super(TimerHandler, self).__init__()
+        super(TimerBaseClass, self).__init__()
 
-        self.start = StartTimer()
-        self.stop = StopTimer()
+    def unfinished_entry_present(self) -> bool:
+        data = pandas.read_csv(self.tracker_file, dtype=str)
+        data = data.fillna("")
 
-    def start_timer(self, do_overwrite: bool = False) -> list:
-        return self.start.do(do_overwrite)
+        if len(data) == 0:
+            return False
 
-    def stop_timer(self, message: str) -> list:
-        return self.stop.do(message)
+        index = len(data) - 1
+
+        if data.at[index, "start_time"] != "" and data.at[index, "stop_time"] == "":
+            return True
+
+        return False
