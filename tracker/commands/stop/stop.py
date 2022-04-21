@@ -26,6 +26,7 @@ from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 def stop(message: str) -> None:
     """Stop an exisiting timer"""
     timer_handler = TimerHandler.TimerHandler()
+    message = message.strip()
     try:
         datetime = timer_handler.stop_timer(message)
         date = datetime[0]
