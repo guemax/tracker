@@ -93,7 +93,7 @@ def test() -> None:
               is_flag=True, default=False, type=bool)
 @click.pass_context
 def coverage(ctx: click.Context, badge: bool, open_in_browser: bool) -> None:
-    """Calculate the coverage (and generate the coverage badge if reuested)"""
+    """Calculate the coverage (and generate the coverage badge if requested)"""
     print("Calculating coverage ...\n")
 
     cov = coverage_lib.Coverage(omit=["/usr/*", "*__init__.py"])
