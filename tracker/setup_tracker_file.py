@@ -14,6 +14,6 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 from tracker.handler.tracker_file_handler.TrackerFileHandler import TrackerFileHandler
 
 
-def setup_tracker_and_log_file():
-    csv_handler = TrackerFileHandler()
-    csv_handler.init_tracker_file()
+def setup_tracker_file():
+    tracker_file_handler = TrackerFileHandler()
+    tracker_file_handler.init_tracker_file()
