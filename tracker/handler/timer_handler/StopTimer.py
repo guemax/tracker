@@ -24,7 +24,7 @@ class StopTimer(TimerBaseClass):
         super(StopTimer, self).__init__()
 
     def do(self, message: str) -> list:
-        if not self.unfinished_entry_present():
+        if self.__cannot_stop_timer():
             raise InvalidTimerModification()
 
         stop_date = datetime.now().strftime("%b, %d %Y")
@@ -48,3 +48,6 @@ class StopTimer(TimerBaseClass):
         data.to_csv(self.tracker_file, index=False)
 
         return [stop_date, stop_time, work_hours]
+
+    def __cannot_stop_timer(self) -> bool:
+        return not self.unfinished_entry_present()
