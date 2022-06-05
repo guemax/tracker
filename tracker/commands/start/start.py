@@ -17,7 +17,7 @@ import logging
 import click
 
 from tracker.handler.timer_handler import TimerHandler
-from tracker.console_logger.console_logger import info, warn
+from tracker.commands.console_logger import info, warn
 from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
 

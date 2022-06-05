@@ -11,7 +11,7 @@ You should have received a copy of the GNU General Public License
 along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from tracker.console_logger.console_logger import info
+from tracker.commands.console_logger import info
 from tracker.handler.entry_handler import GroupedEntryHandler
 
 

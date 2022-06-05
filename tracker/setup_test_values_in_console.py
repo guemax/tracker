@@ -14,7 +14,7 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 import click
 import num2words
 
-from tracker.console_logger.console_logger import info, warn
+from tracker.commands.console_logger import info, warn
 from tracker.setup_test_values.setup_test_values import SetupTestValues
 
 

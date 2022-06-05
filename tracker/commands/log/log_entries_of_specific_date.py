@@ -14,7 +14,7 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 import sys
 
 from tracker.handler.entry_handler import EntryHandler
-from tracker.console_logger.console_logger import info, warn
+from tracker.commands.console_logger import info, warn
 from tracker.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
 

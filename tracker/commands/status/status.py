@@ -17,7 +17,7 @@ from .status_of_entries import status_of_entries
 from .status_of_grouped_entries import status_of_grouped_entries
 from .status_of_unfinished_entries import status_of_unfinished_entries
 
-from tracker.console_logger.console_logger import info
+from tracker.commands.console_logger import info
 
 
 @click.command()
