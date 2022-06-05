@@ -15,7 +15,7 @@ import unittest
 
 import pandas
 
-from tracker.csv.CSVAttributes import CSVAttributes
+from tracker.handler.tracker_file_handler.TrackerFileAttributes import TrackerFileAttributes
 from tracker.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
 
 from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
@@ -26,7 +26,7 @@ class TestBaseEntryHandlerClass(CSVBaseTestingClass):
         super(TestBaseEntryHandlerClass, self).setUp()
 
         self.data = None
-        self.csv_attributes = CSVAttributes()
+        self.csv_attributes = TrackerFileAttributes()
         self.base_entry_handler = BaseEntryHandlerClass()
 
     def test_getting_empty_data(self) -> None:

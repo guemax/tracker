@@ -20,7 +20,7 @@ import webbrowser
 import click
 import coverage as coverage_lib
 
-from tracker.csv.CSVHandler import CSVHandler
+from tracker.handler.tracker_file_handler.TrackerFileHandler import TrackerFileHandler
 from tracker.setup_test_values.setup_test_values import SetupTestValues
 
 
@@ -45,7 +45,7 @@ def log() -> None:
 def test() -> None:
     """Run the tracker test suite"""
     # Clean the tracker files before testing
-    csv_handler = CSVHandler()
+    csv_handler = TrackerFileHandler()
     shutil.rmtree(csv_handler.tracker_folder, ignore_errors=True)
 
     # Removes annoying log messages when running the tests
@@ -74,7 +74,7 @@ def clean() -> None:
     """Remove the files folder and all its content"""
     print("Cleaning tracker folder ... ", end="")
     try:
-        csv_handler = CSVHandler()
+        csv_handler = TrackerFileHandler()
         shutil.rmtree(csv_handler.tracker_folder)
     except FileNotFoundError:
         # File has already been deleted. Nothing to do for us now.

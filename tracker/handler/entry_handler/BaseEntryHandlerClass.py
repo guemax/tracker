@@ -13,10 +13,10 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import pandas
 
-from tracker.csv.CSVAttributes import CSVAttributes
+from tracker.handler.tracker_file_handler.TrackerFileAttributes import TrackerFileAttributes
 
 
-class BaseEntryHandlerClass(CSVAttributes):
+class BaseEntryHandlerClass(TrackerFileAttributes):
     def __init__(self):
         super(BaseEntryHandlerClass, self).__init__()
 

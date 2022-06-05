@@ -14,10 +14,10 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 import pandas
 
 
-from tracker.csv.CSVAttributes import CSVAttributes
+from tracker.handler.tracker_file_handler.TrackerFileAttributes import TrackerFileAttributes
 
 
-class TimerBaseClass(CSVAttributes):
+class TimerBaseClass(TrackerFileAttributes):
     def __init__(self) -> None:
         super(TimerBaseClass, self).__init__()
 

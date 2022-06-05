@@ -14,13 +14,13 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 import os
 import unittest
 
-from tracker.csv import CSVHandler
+from tracker.handler.tracker_file_handler import TrackerFileHandler
 from .CSVBaseTestingClass import CSVBaseTestingClass
 
 
-class TestCSVHandler(CSVBaseTestingClass):
+class TestTrackerFileHandler(CSVBaseTestingClass):
     def setUp(self) -> None:
-        self.csv_handler = CSVHandler.CSVHandler()
+        self.csv_handler = TrackerFileHandler.TrackerFileHandler()
 
     def test_inititalizing_tracker_file(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
@@ -28,7 +28,7 @@ class TestCSVHandler(CSVBaseTestingClass):
 
     def test_inititalizing_tracker_file_if_it_already_exists(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
-        self.csv_handler.init_tracker_csv_file()
+        self.csv_handler.init_tracker_file()
         
         self.assertTrue(self.columns_names_are_correct())
 

@@ -16,14 +16,14 @@ import os
 
 import pandas
 
-from .CSVAttributes import CSVAttributes
+from tracker.handler.tracker_file_handler.TrackerFileAttributes import TrackerFileAttributes
 
 
-class CSVHandler(CSVAttributes):
+class TrackerFileHandler(TrackerFileAttributes):
     def __init__(self):
-        super(CSVHandler, self).__init__()
+        super(TrackerFileHandler, self).__init__()
 
-    def init_tracker_csv_file(self) -> None:
+    def init_tracker_file(self) -> None:
         if self.tracker_file_exists():
             return
         else:

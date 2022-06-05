@@ -18,13 +18,13 @@ import numpy
 import pandas
 from numpy import ndarray
 
-from tracker.csv import CSVHandler
+from ..handler.tracker_file_handler import TrackerFileHandler
 from .entry import Entry
 
 
 class SetupTestValues:
     def __init__(self) -> None:
-        self.__csv_handler = CSVHandler.CSVHandler()
+        self.__csv_handler = TrackerFileHandler.TrackerFileHandler()
         self.__csv_handler.create_files_folder_if_not_exists()
 
         self._number_of_entries = 4

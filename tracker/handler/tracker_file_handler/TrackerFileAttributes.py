@@ -12,7 +12,7 @@ along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 
-class CSVAttributes:
+class TrackerFileAttributes:
     def __init__(self):
         self.tracker_folder = "files"
         self.tracker_file = "files/tracker.csv"
