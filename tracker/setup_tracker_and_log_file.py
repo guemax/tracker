@@ -11,11 +11,9 @@ You should have received a copy of the GNU General Public License
 along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import logging
-
 from tracker.csv.CSVHandler import CSVHandler
 
 
-def setup_tracker_files():
+def setup_tracker_and_log_file():
     csv_handler = CSVHandler()
     csv_handler.init_tracker_csv_file()

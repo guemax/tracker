@@ -17,7 +17,7 @@ from .cli import cli
 
 from .setup_cli import setup_cli
 from .setup_logging import setup_logging
-from .setup_tracker_files import setup_tracker_files
+from .setup_tracker_and_log_file import setup_tracker_and_log_file
 
 from .version import __version__
 
@@ -28,7 +28,7 @@ def start_tracker():
 
 
 def main():
-    setup_tracker_files()   # Needs to be done first to ensure a 'files'-folder exists for the log file!
+    setup_tracker_and_log_file()   # Needs to be done first to ensure a 'files'-folder exists for the log file!
     setup_logging()
 
     logging.info("Initialising tracker")
