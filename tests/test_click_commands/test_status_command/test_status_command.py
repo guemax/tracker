@@ -8,7 +8,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
@@ -26,9 +26,9 @@ class TestStatusCommand(CommandBaseTestingClass):
         self.run_cli("status")
         self.check_for_exit_code_zero()
 
-        self.assertIn("Status information from tracker:\n\n"
+        self.assertIn("Status information from Tracker:\n\n"
                       " - No unfinished timer exists.\n"
-                      " - Zero (0) entries found. (use \"tracker start\" to create one)\n"
+                      " - Zero (0) entries found. (use \"Tracker start\" to create one)\n"
                       " - Zero (0) grouped entries found.", self.output)
         self.assertIn("OK", self.output)
 
@@ -40,7 +40,7 @@ class TestStatusCommand(CommandBaseTestingClass):
         self.run_cli("status")
         self.check_for_exit_code_zero()
 
-        self.assertIn("Status information from tracker:\n\n"
+        self.assertIn("Status information from Tracker:\n\n"
                       " - No unfinished timer exists.\n"
                       " - One (1) entry found.\n"
                       " - One (1) grouped entry found.", self.output)
@@ -55,7 +55,7 @@ class TestStatusCommand(CommandBaseTestingClass):
         self.check_for_exit_code_zero()
 
         # The two entries were created at the same day, so they are in one group -> one grouped entry
-        self.assertIn("Status information from tracker:\n\n"
+        self.assertIn("Status information from Tracker:\n\n"
                       " - No unfinished timer exists.\n"
                       " - Two (2) entries found.\n"
                       " - One (1) grouped entry found.", self.output)
@@ -68,9 +68,9 @@ class TestStatusCommand(CommandBaseTestingClass):
         self.run_cli("status")
         self.check_for_exit_code_zero()
 
-        self.assertIn("Status information from tracker:\n\n"
+        self.assertIn("Status information from Tracker:\n\n"
                       " - A timer exists which has not been stopped yet."
-                      " (use \"tracker stop -m \'message\'\" to stop it)\n"
+                      " (use \"Tracker stop -m \'message\'\" to stop it)\n"
                       " - One (1) entry found.\n"
                       " - One (1) grouped entry found.", self.output)
         self.assertIn("OK", self.output)

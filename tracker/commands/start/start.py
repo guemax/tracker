@@ -8,7 +8,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import sys
@@ -36,7 +36,7 @@ def start(overwrite: bool):
             "InvalidTimerModification: A timer already exists which must be stopped before starting another one."
         )
         warn("Warning: A timer already exists which has not been stopped yet.\n"
-             "  (use \"tracker stop\" to stop it first)\n"
+             "  (use \"Tracker stop\" to stop it first)\n"
              "\nEXIT")
         sys.exit(-1)
 

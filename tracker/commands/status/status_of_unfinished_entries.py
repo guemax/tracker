@@ -8,7 +8,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from tracker.handler.timer_handler.TimerHandler import TimerHandler
@@ -19,6 +19,6 @@ def status_of_unfinished_entries() -> str:
     unfinished_entries_present = handler.unfinished_entry_present()
 
     if unfinished_entries_present:
-        return "A timer exists which has not been stopped yet. (use \"tracker stop -m 'message'\" to stop it)"
+        return "A timer exists which has not been stopped yet. (use \"Tracker stop -m 'message'\" to stop it)"
     else:
         return "No unfinished timer exists."

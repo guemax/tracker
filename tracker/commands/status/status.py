@@ -8,7 +8,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import click
@@ -23,7 +23,7 @@ from tracker.commands.console_logger import info
 @click.command()
 def status() -> None:
     """Provide information about the current tracking process"""
-    info(f"Status information from tracker:\n\n"
+    info(f"Status information from Tracker:\n\n"
          f" - {status_of_unfinished_entries()}\n"
          f" - {status_of_entries()}\n"
          f" - {status_of_grouped_entries()}\n"

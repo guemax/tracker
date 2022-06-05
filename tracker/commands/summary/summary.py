@@ -8,7 +8,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import logging
@@ -42,7 +42,7 @@ def summary(summary_range: str) -> None:
     if number_of_entries == 0:
         logging.info(f"Showing all entries (0) as summary of this {summary_range}.")
         info(f"Nothing to show yet. There have been no entries created this {summary_range}.\n"
-             f"  (use \"tracker start\" to create one)\n"
+             f"  (use \"Tracker start\" to create one)\n"
              f"\nOK")
         sys.exit(0)
 

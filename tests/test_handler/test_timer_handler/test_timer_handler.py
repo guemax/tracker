@@ -8,7 +8,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
@@ -137,7 +137,7 @@ class TestTimerHandler(CSVBaseTestingClass):
     def test_stopping_first_timer_with_message(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        message = "Developed a new feature for tracker"
+        message = "Developed a new feature for Tracker"
         self.check_for_stopped_timer(message)
 
     def test_stopping_second_timer_with_empty_message(self) -> None:
@@ -153,7 +153,7 @@ class TestTimerHandler(CSVBaseTestingClass):
 
         self.setup_test_values(1)
 
-        message = "Developed a new feature for tracker"
+        message = "Developed a new feature for Tracker"
         self.check_for_stopped_timer(message)
 
     def test_unfinished_entry_present(self):

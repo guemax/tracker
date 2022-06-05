@@ -8,7 +8,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 from num2words import num2words
@@ -24,7 +24,7 @@ def status_of_entries() -> str:
 
     if number_of_entries == 0:
         return f"{number_of_entries_as_word} ({number_of_entries}) entries found. " \
-               f"(use \"tracker start\" to create one)"
+               f"(use \"Tracker start\" to create one)"
     elif number_of_entries == 1:
         return f"{number_of_entries_as_word} ({number_of_entries}) entry found."
     else:

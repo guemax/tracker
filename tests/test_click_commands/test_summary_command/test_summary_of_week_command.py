@@ -8,7 +8,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
@@ -28,7 +28,7 @@ class TestSummaryOfWeekCommand(CommandBaseTestingClass):
         self.check_for_exit_code_zero()
 
         self.assertIn("Nothing to show yet. There have been no entries created this week.\n"
-                      "  (use \"tracker start\" to create one)", self.output)
+                      "  (use \"Tracker start\" to create one)", self.output)
         self.assertIn("OK", self.output)
 
     def test_summary_with_one_entry_created_this_week(self) -> None:
