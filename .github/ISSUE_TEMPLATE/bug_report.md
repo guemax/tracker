@@ -25,9 +25,9 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
- - Version [e.g. 22]
- - Python version [e.g. 3.9.1]
- - Tracker version [e.g. 1.0.0]
+ - Version: [e.g. 22]
+ - Python version: [e.g. 3.9.1]
+ - Tracker version: [e.g. 1.0.0]
 
 **Additional context**
 Add any other context about the problem here.
