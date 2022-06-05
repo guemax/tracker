@@ -11,29 +11,36 @@ You should have received a copy of the GNU General Public License
 along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 import click
+import colorama
+
+from colorama import Fore, Back
 
 
 def debug(message: str) -> None:
-    colored_message = click.style(message, fg="white")
+    colored_message = Fore.LIGHTBLUE_EX + message
     click.echo(colored_message)
 
 
 def info(message: str) -> None:
-    colored_message = click.style(message, fg="white")
+    colored_message = Fore.WHITE + message
     click.echo(colored_message)
 
 
 def warn(message: str) -> None:
-    colored_message = click.style(message, fg="yellow")
+    colored_message = Fore.YELLOW + message
     click.echo(colored_message, err=True)
 
 
 def error(message: str) -> None:
-    colored_message = click.style(message, fg="red")
+    colored_message = Fore.RED + message
     click.echo(colored_message, err=True)
 
 
 def fatal(message: str) -> None:
-    colored_message = click.style(message, fg="red")
+    colored_message = Fore.BLACK + Back.RED + message
     click.echo(colored_message, err=True)
+
+
+# This part will be run when this file has been loaded
+colorama.init(autoreset=True)
 
