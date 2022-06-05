@@ -10,30 +10,30 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with tracker. If not, see <http://www.gnu.org/licenses/>.
 """
-
-from .ConsoleLogger import ConsoleLogger
-
-
-def debug(message: str):
-    logger = ConsoleLogger("DEBUG")
-    logger.print(message)
+import click
 
 
-def info(message: str):
-    logger = ConsoleLogger("INFO")
-    logger.print(message)
+def debug(message: str) -> None:
+    colored_message = click.style(message, fg="white")
+    click.echo(colored_message)
 
 
-def warn(message: str):
-    logger = ConsoleLogger("WARNING")
-    logger.print(message, error=True)
+def info(message: str) -> None:
+    colored_message = click.style(message, fg="white")
+    click.echo(colored_message)
 
 
-def error(message: str):
-    logger = ConsoleLogger("ERROR")
-    logger.print(message, error=True)
+def warn(message: str) -> None:
+    colored_message = click.style(message, fg="yellow")
+    click.echo(colored_message, err=True)
 
 
-def fatal(message: str):
-    logger = ConsoleLogger("FATAL")
-    logger.print(message, error=True)
+def error(message: str) -> None:
+    colored_message = click.style(message, fg="red")
+    click.echo(colored_message, err=True)
+
+
+def fatal(message: str) -> None:
+    colored_message = click.style(message, fg="red")
+    click.echo(colored_message, err=True)
+
