@@ -11,17 +11,26 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import click
-
-from .log_all_entries_grouped_by_date import log_all_entries_grouped_by_date
-from .log_entries_of_specific_date import log_entries_of_specific_date
+import pandas
 
 
-@click.command()
-@click.option("-i", "--id", "id_of_date", help="ID of a specific date", type=int, default=None)
-def log(id_of_date: int):
-    """Show old entries grouped by date or, when an ID is supplied, show entries of specific date"""
-    if id_of_date is None:
-        log_all_entries_grouped_by_date()
-    else:
-        log_entries_of_specific_date(id_of_date)
+from tracker.handler.tracker_file_handler.TrackerFileAttributes import TrackerFileAttributes
+
+
+class TimerBaseClass(TrackerFileAttributes):
+    def __init__(self) -> None:
+        super(TimerBaseClass, self).__init__()
+
+    def unfinished_entry_present(self) -> bool:
+        data = pandas.read_csv(self.tracker_file, dtype=str)
+        data = data.fillna("")
+
+        if len(data) == 0:
+            return False
+
+        index = len(data) - 1
+
+        if data.at[index, "start_time"] != "" and data.at[index, "stop_time"] == "":
+            return True
+
+        return False

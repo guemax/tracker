@@ -1,4 +1,4 @@
-"""This file is part of tracker.
+"""This file is part of Tracker.
 Tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -8,5 +8,12 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
+
+
+class TrackerFileAttributes:
+    def __init__(self):
+        self.tracker_folder = "files"
+        self.tracker_file = "files/tracker.csv"
+        self.column_names = ["start_date", "start_time", "stop_date", "stop_time", "work_hours", "message"]

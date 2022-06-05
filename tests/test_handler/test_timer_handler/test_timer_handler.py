@@ -1,17 +1,14 @@
-"""This file is part of tracker.
-
+"""This file is part of Tracker.
 Tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
-
 Tracker is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import unittest
@@ -36,10 +33,10 @@ class TestTimerHandler(CSVBaseTestingClass):
     def test_starting_the_first_timer(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.check_for_started_timer()
-
-    def check_for_started_timer(self) -> None:
         start_datetime = self.timer_handler.start_timer()
+        self.check_for_started_timer(start_datetime)
+
+    def check_for_started_timer(self, start_datetime: list) -> None:
         expected_start_date = start_datetime[0]
         expected_start_time = start_datetime[1]
 
@@ -67,10 +64,31 @@ class TestTimerHandler(CSVBaseTestingClass):
     def test_starting_the_second_timer(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.set_upper.set_number_of_entries(1)
-        self.set_upper.setup()
+        self.setup_test_values(1)
 
-        self.check_for_started_timer()
+        start_datetime = self.timer_handler.start_timer()
+        self.check_for_started_timer(start_datetime)
+
+    def test_overwriting_a_started_timer(self) -> None:
+        self.remove_files_folder_and_init_tracker_file()
+
+        start_datetime = self.timer_handler.start_timer()
+        self.check_for_started_timer(start_datetime)
+
+        start_datetime = self.timer_handler.start_timer(do_overwrite=True)
+        self.check_for_started_timer(start_datetime)
+
+        overwritten = start_datetime[2]
+        self.assertTrue(overwritten)
+
+    def test_overwriting_a_timer_when_nothing_can_be_overwritten(self) -> None:
+        self.remove_files_folder_and_init_tracker_file()
+
+        start_datetime = self.timer_handler.start_timer(do_overwrite=True)
+        self.check_for_started_timer(start_datetime)
+
+        overwritten = start_datetime[2]
+        self.assertFalse(overwritten)
 
     def test_stopping_first_timer_with_empty_message(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
@@ -119,14 +137,13 @@ class TestTimerHandler(CSVBaseTestingClass):
     def test_stopping_first_timer_with_message(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        message = "Developed a new feature for tracker"
+        message = "Developed a new feature for Tracker"
         self.check_for_stopped_timer(message)
 
     def test_stopping_second_timer_with_empty_message(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.set_upper.set_number_of_entries(1)
-        self.set_upper.setup()
+        self.setup_test_values(1)
 
         message = ""
         self.check_for_stopped_timer(message)
@@ -134,10 +151,9 @@ class TestTimerHandler(CSVBaseTestingClass):
     def test_stopping_second_timer_with_message(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 
-        self.set_upper.set_number_of_entries(1)
-        self.set_upper.setup()
+        self.setup_test_values(1)
 
-        message = "Developed a new feature for tracker"
+        message = "Developed a new feature for Tracker"
         self.check_for_stopped_timer(message)
 
     def test_unfinished_entry_present(self):
@@ -150,7 +166,7 @@ class TestTimerHandler(CSVBaseTestingClass):
 
         self.timer_handler.stop_timer(message="")
         self.assertFalse(self.timer_handler.unfinished_entry_present())
-    
+
     def test_starting_timer_when_one_already_exists(self) -> None:
         self.remove_files_folder_and_init_tracker_file()
 

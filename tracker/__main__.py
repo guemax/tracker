@@ -1,4 +1,4 @@
-"""This file is part of tracker.
+"""This file is part of Tracker.
 Tracker is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -8,7 +8,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
-along with tracker. If not, see <http://www.gnu.org/licenses/>.
+along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import logging
@@ -17,7 +17,7 @@ from .cli import cli
 
 from .setup_cli import setup_cli
 from .setup_logging import setup_logging
-from .setup_tracker_files import setup_tracker_files
+from .setup_tracker_file import setup_tracker_file
 
 from .version import __version__
 
@@ -28,7 +28,7 @@ def start_tracker():
 
 
 def main():
-    setup_tracker_files()   # Needs to be done first to ensure a 'files'-folder exists for the log file!
+    setup_tracker_file()    # Needs to be done first to ensure a 'files'-folder exists for the log file!
     setup_logging()
 
     logging.info("Initialising tracker")
