@@ -32,7 +32,7 @@ class StartTimer(TimerBaseClass):
         if self.__cannot_start_timer():
             raise InvalidTimerModification()
         elif self.__should_overwrite_existing_timer():
-            self.overwrite_existing_timer()
+            self.__overwrite_existing_timer()
 
         start_date = datetime.now().strftime("%b, %d %Y")
         start_time = datetime.now().strftime("%H:%M:%S")
@@ -56,7 +56,7 @@ class StartTimer(TimerBaseClass):
     def __should_overwrite_existing_timer(self) -> bool:
         return self.__do_overwrite and self.unfinished_entry_present()
 
-    def overwrite_existing_timer(self) -> None:
+    def __overwrite_existing_timer(self) -> None:
         data = pandas.read_csv(self.tracker_file, dtype=str)
 
         last_row = data.tail(1)
