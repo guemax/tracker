@@ -14,10 +14,10 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 import unittest
 
 from tracker.setup_test_values.setup_test_values import SetupTestValues
-from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
+from tests.test_handler.test_tracker_file_handler.TrackerFileBaseTestingClass import TrackerFileBaseTestingClass
 
 
-class TestSettingUpTestValues(CSVBaseTestingClass):
+class TestSettingUpTestValues(TrackerFileBaseTestingClass):
     def setUp(self) -> None:
         super(TestSettingUpTestValues, self).setUp()
         self.set_upper = SetupTestValues()
@@ -26,9 +26,9 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
         self.remove_files_folder_and_init_tracker_file()
         self.set_upper.setup()
 
-        with open(self.csv_handler.tracker_file, "r") as f:
+        with open(self.tracker_file_handler.tracker_file, "r") as f:
             header_actual = f.readline().strip()
-            header_exspected = ",".join(self.csv_handler.column_names)
+            header_exspected = ",".join(self.tracker_file_handler.column_names)
 
             self.assertEqual(header_exspected, header_actual)
 
@@ -39,7 +39,7 @@ class TestSettingUpTestValues(CSVBaseTestingClass):
         self.check_if_given_number_of_entries_have_been_created()
 
     def check_if_given_number_of_entries_have_been_created(self):
-        with open(self.csv_handler.tracker_file, "r") as f:
+        with open(self.tracker_file_handler.tracker_file, "r") as f:
             content = f.read().strip()
             number_of_lines = len(content.split("\n"))
 

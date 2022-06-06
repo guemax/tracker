@@ -16,10 +16,10 @@ import unittest
 
 from tracker.handler.summary_handler.month_summary_handler import MonthSummaryHandler
 
-from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
+from tests.test_handler.test_tracker_file_handler.TrackerFileBaseTestingClass import TrackerFileBaseTestingClass
 
 
-class TestMonthSummaryHandler(CSVBaseTestingClass):
+class TestMonthSummaryHandler(TrackerFileBaseTestingClass):
     def setUp(self) -> None:
         super(TestMonthSummaryHandler, self).setUp()
 

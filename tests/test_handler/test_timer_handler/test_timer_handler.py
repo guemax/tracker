@@ -17,10 +17,10 @@ import re
 from tracker.handler.timer_handler.TimerHandler import TimerHandler
 from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
-from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
+from tests.test_handler.test_tracker_file_handler.TrackerFileBaseTestingClass import TrackerFileBaseTestingClass
 
 
-class TestTimerHandler(CSVBaseTestingClass):
+class TestTimerHandler(TrackerFileBaseTestingClass):
     def setUp(self) -> None:
         super(TestTimerHandler, self).setUp()
 

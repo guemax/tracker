@@ -16,10 +16,10 @@ import unittest
 from tracker.handler.entry_handler.GroupedEntryHandler import GroupedEntryHandler
 from tracker.handler.timer_handler.TimerHandler import TimerHandler
 
-from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
+from tests.test_handler.test_tracker_file_handler.TrackerFileBaseTestingClass import TrackerFileBaseTestingClass
 
 
-class TestGroupedEntryHandler(CSVBaseTestingClass):
+class TestGroupedEntryHandler(TrackerFileBaseTestingClass):
     def setUp(self) -> None:
         super(TestGroupedEntryHandler, self).setUp()
         self.grouped_entry_handler = GroupedEntryHandler()

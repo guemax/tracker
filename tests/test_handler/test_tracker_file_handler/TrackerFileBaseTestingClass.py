@@ -16,21 +16,21 @@ import pandas
 from tests.BaseTestingClass import BaseTestingClass
 
 
-class CSVBaseTestingClass(BaseTestingClass):
+class TrackerFileBaseTestingClass(BaseTestingClass):
     def setUp(self) -> None:
-        super(CSVBaseTestingClass, self).setUp()
+        super(TrackerFileBaseTestingClass, self).setUp()
 
     def check_for_correct_column_names(self) -> None:
         self.assertTrue(self.columns_names_are_correct())
 
     def columns_names_are_correct(self) -> bool:
         actual_column_names = self.get_actual_column_names()
-        expected_column_names = self.csv_handler.get_column_names()
+        expected_column_names = self.tracker_file_handler.get_column_names()
 
         return actual_column_names == expected_column_names
 
     def get_actual_column_names(self) -> list:
-        data_frame = pandas.read_csv(self.csv_handler.tracker_file)
+        data_frame = pandas.read_csv(self.tracker_file_handler.tracker_file)
         return list(data_frame.columns)
 
     def get_contents_of_tracker_file_with_replaced_nans(self) -> pandas.DataFrame:
@@ -38,5 +38,5 @@ class CSVBaseTestingClass(BaseTestingClass):
         return data.fillna("")
 
     def get_contents_of_tracker_file(self) -> pandas.DataFrame:
-        data_frame = pandas.read_csv(self.csv_handler.tracker_file)
+        data_frame = pandas.read_csv(self.tracker_file_handler.tracker_file)
         return data_frame

@@ -18,10 +18,10 @@ import pandas
 from tracker.handler.tracker_file_handler.TrackerFileAttributes import TrackerFileAttributes
 from tracker.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
 
-from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
+from tests.test_handler.test_tracker_file_handler.TrackerFileBaseTestingClass import TrackerFileBaseTestingClass
 
 
-class TestBaseEntryHandlerClass(CSVBaseTestingClass):
+class TestBaseEntryHandlerClass(TrackerFileBaseTestingClass):
     def setUp(self) -> None:
         super(TestBaseEntryHandlerClass, self).setUp()
 

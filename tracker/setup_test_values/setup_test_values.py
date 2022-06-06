@@ -24,8 +24,8 @@ from .entry import Entry
 
 class SetupTestValues:
     def __init__(self) -> None:
-        self.__csv_handler = TrackerFileHandler.TrackerFileHandler()
-        self.__csv_handler.create_files_folder_if_not_exists()
+        self.__tracker_file_handler = TrackerFileHandler.TrackerFileHandler()
+        self.__tracker_file_handler.create_files_folder_if_not_exists()
 
         self._number_of_entries = 4
 
@@ -43,12 +43,12 @@ class SetupTestValues:
         self._number_of_entries = new_number
 
     def setup(self) -> None:
-        with open(self.__csv_handler.tracker_file, "w") as f:
+        with open(self.__tracker_file_handler.tracker_file, "w") as f:
             f.write(self.__header())
             f.write(self.__entries())
 
     def __header(self) -> str:
-        return ",".join(self.__csv_handler.column_names) + "\n"
+        return ",".join(self.__tracker_file_handler.column_names) + "\n"
 
     def __entries(self) -> str:
         entries = ""

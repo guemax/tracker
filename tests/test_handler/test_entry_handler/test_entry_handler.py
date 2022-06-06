@@ -18,10 +18,10 @@ import pandas
 from tracker.handler.entry_handler.EntryHandler import EntryHandler
 from tracker.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
-from tests.test_csv.CSVBaseTestingClass import CSVBaseTestingClass
+from tests.test_handler.test_tracker_file_handler.TrackerFileBaseTestingClass import TrackerFileBaseTestingClass
 
 
-class TestEntryHandler(CSVBaseTestingClass):
+class TestEntryHandler(TrackerFileBaseTestingClass):
     def setUp(self) -> None:
         super(TestEntryHandler, self).setUp()
 
