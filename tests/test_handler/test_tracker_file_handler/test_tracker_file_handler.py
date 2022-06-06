@@ -51,11 +51,7 @@ class TestTrackerFileHandler(TrackerFileBaseTestingClass):
         self.assertTrue(self.tracker_file_handler.tracker_file_exists())
 
     def remove_tracker_file(self) -> None:
-        try:
-            os.remove(self.tracker_file_handler.tracker_file)
-        except FileNotFoundError:
-            # File has been deleted previously, we don't have to do anything now.
-            pass
+        os.remove(self.tracker_file_handler.tracker_file)
 
 
 if __name__ == "__main__":  # pragma: no cover
