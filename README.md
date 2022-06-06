@@ -7,12 +7,12 @@
 
 <!-- ![GitHub release (latest by date)](https://img.shields.io/github/v/release/guemax/tracker) -->
 
-A command-line tool to track your computer usage time.
+A command-line tool for tracking your computer usage times.
 
 ## Features
 
-Tracker allows you to start a timer and stop it again providing a message describing what you have been doing.
-You can also show old entries or summarize the entries.
+Tracker lets you start a timer and stop it again with a message describing what you did during that time.
+You can also view old entries as well as summarise them into an overview.
 
 ## Contributing
 
@@ -45,6 +45,9 @@ python3 -m make log
 
 # Show number of code lines and comments written for this project
 python3 -m make count
+  
+# Export Tracker into an executable file
+python3 -m make build
 ```
 
 If you want to contribute to the project, please submit your ideas through a pull request. 
