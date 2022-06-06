@@ -45,8 +45,8 @@ def log() -> None:
 def test() -> None:
     """Run the tracker test suite"""
     # Clean the tracker files before testing
-    csv_handler = TrackerFileHandler()
-    shutil.rmtree(csv_handler.tracker_folder, ignore_errors=True)
+    tracker_file_handler = TrackerFileHandler()
+    shutil.rmtree(tracker_file_handler.tracker_folder, ignore_errors=True)
 
     # Removes annoying log messages when running the tests
     logging.disable(logging.CRITICAL)
@@ -74,8 +74,8 @@ def clean() -> None:
     """Remove the files folder and all its content"""
     print("Cleaning tracker folder ... ", end="")
     try:
-        csv_handler = TrackerFileHandler()
-        shutil.rmtree(csv_handler.tracker_folder)
+        tracker_file_handler = TrackerFileHandler()
+        shutil.rmtree(tracker_file_handler.tracker_folder)
     except FileNotFoundError:
         # File has already been deleted. Nothing to do for us now.
         pass
@@ -106,13 +106,13 @@ def setup(entries: int) -> None:
 @click.option("-b", "--badge", help="Generate the coverage badge for the README",
               is_flag=True, default=False, type=bool)
 @click.option("-w", "--webbrowser", "open_in_browser", help="Open html report in default webbrowser",
-              is_flag=True, default=False, type=bool)
+              is_flag=True, default=True, type=bool)
 @click.pass_context
 def coverage(ctx: click.Context, badge: bool, open_in_browser: bool) -> None:
     """Calculate the coverage (and generate the coverage badge if requested)"""
     print("Calculating coverage ...\n")
 
-    cov = coverage_lib.Coverage(omit=["/usr/*", "*__init__.py"])
+    cov = coverage_lib.Coverage(omit=["/usr/*", "*__init__.py", "make.py"])
     cov.start()
 
     ctx.invoke(test)
