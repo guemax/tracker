@@ -106,7 +106,7 @@ def setup(entries: int) -> None:
 @click.option("-b", "--badge", help="Generate the coverage badge for the README",
               is_flag=True, default=False, type=bool)
 @click.option("-w", "--webbrowser", "open_in_browser", help="Open html report in default webbrowser",
-              is_flag=True, default=True, type=bool)
+              is_flag=True, default=False, type=bool)
 @click.pass_context
 def coverage(ctx: click.Context, badge: bool, open_in_browser: bool) -> None:
     """Calculate the coverage (and generate the coverage badge if requested)"""
