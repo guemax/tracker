@@ -11,18 +11,20 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from tracker.commands.summary import summary
-from tracker.commands.status import status
-from tracker.commands.filter import filter
-from tracker.commands.start import start
-from tracker.commands.stop import stop
-from tracker.commands.log import log
+import click
+
+from tracker.commands.console_logger import info, warn
 
 
-def setup_cli(cli):
-    cli.add_command(summary.summary)
-    cli.add_command(status.status)
-    cli.add_command(filter.filter)
-    cli.add_command(start.start)
-    cli.add_command(stop.stop)
-    cli.add_command(log.log)
+@click.command()
+@click.option("-d", "--day", "day", help="Filter entries by given day", type=int, default=0)
+@click.option("-m", "--month", "month", help="Filter entries by given month", type=int, default=0)
+@click.option("-y", "--year", "year", help="Filter entries by given year", type=int, default=0)
+@click.option("--message", type=str, default="")
+def filter(day, month, year, message) -> None:
+    """Filter entries by the given specifier"""
+    info("Showing entries by filter")
+
+    filters = [day, month, year, message]
+
+    # filtered_entries =

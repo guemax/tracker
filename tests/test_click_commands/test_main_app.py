@@ -53,4 +53,4 @@ class TestMainApp(CommandBaseTestingClass):
         self.remove_files_folder_and_init_tracker_file()
 
         self.run_cli("--version")
-        self.assertIn(f"tracker, version {__version__}", self.output)
+        self.assertIn(f"Tracker, version {__version__}", self.output)

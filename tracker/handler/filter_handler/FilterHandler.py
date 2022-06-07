@@ -11,18 +11,17 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from tracker.commands.summary import summary
-from tracker.commands.status import status
-from tracker.commands.filter import filter
-from tracker.commands.start import start
-from tracker.commands.stop import stop
-from tracker.commands.log import log
 
+class FilterHandler:
+    def __init__(self, filters: list) -> None:
+        self.filters = filters
 
-def setup_cli(cli):
-    cli.add_command(summary.summary)
-    cli.add_command(status.status)
-    cli.add_command(filter.filter)
-    cli.add_command(start.start)
-    cli.add_command(stop.stop)
-    cli.add_command(log.log)
+    def remove_unused_filters(self) -> list:
+        original_filters = self.filters
+        cleaned_filters = []
+
+        for item in original_filters:
+            if item != "" and item != 0:
+                cleaned_filters.append(item)
+
+        return cleaned_filters
