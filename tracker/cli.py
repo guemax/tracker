@@ -17,7 +17,7 @@ from .version import __version__
 
 
 @click.group(help="A command-line tool to track your computer usage time.")
-@click.version_option(__version__, prog_name="tracker")
+@click.version_option(__version__, prog_name="Tracker")
 def cli():
     pass
 

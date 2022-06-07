@@ -22,11 +22,6 @@ from .setup_tracker_file import setup_tracker_file
 from .version import __version__
 
 
-def start_tracker():
-    program_name = "tracker"
-    cli(prog_name=program_name)
-
-
 def main():
     setup_tracker_file()    # Needs to be done first to ensure a 'files'-folder exists for the log file!
     setup_logging()
@@ -35,7 +30,7 @@ def main():
     setup_cli(cli)
 
     logging.info(f"Starting tracker {__version__}")
-    start_tracker()
+    cli(prog_name="tracker")
 
     # TODO: Show exit information
     # logging.info(f"Closing tracker {__version__}")
