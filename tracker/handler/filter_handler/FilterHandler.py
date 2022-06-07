@@ -17,10 +17,9 @@ class FilterHandler:
         self.filters = filters
 
     def remove_unused_filters(self) -> list:
-        original_filters = self.filters
         cleaned_filters = []
 
-        for item in original_filters:
+        for item in self.filters:
             if item != "" and item != 0:
                 cleaned_filters.append(item)
 
