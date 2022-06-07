@@ -22,100 +22,24 @@ class TestFilterHandler(unittest.TestCase):
         self.filter_handler = FilterHandler(filters=[])
 
     def test_removing_unused_filters(self) -> None:
-        filters = [1, 7, 2022, "My new message"]
+        self.check_for_removed_filters([0, 0, 0, ""], [])
+        self.check_for_removed_filters([1, 0, 0, ""], [1])
+        self.check_for_removed_filters([0, 7, 0, ""], [7])
+        self.check_for_removed_filters([0, 0, 2022, ""], [2022])
+        self.check_for_removed_filters([0, 0, 0, "My message"], ["My message"])
+        self.check_for_removed_filters([1, 7, 0, ""], [1, 7])
+        self.check_for_removed_filters([0, 0, 2022, "My message"], [2022, "My message"])
+        self.check_for_removed_filters([1, 0, 0, "My message"], [1, "My message"])
+        self.check_for_removed_filters([0, 7, 2022, ""], [7, 2022])
+        self.check_for_removed_filters([1, 7, 2022, ""], [1, 7, 2022])
+        self.check_for_removed_filters([0, 7, 2022, "My message"], [7, 2022, "My message"])
+        self.check_for_removed_filters([1, 7, 2022, "My new message"], [1, 7, 2022, "My new message"])
+
+    def check_for_removed_filters(self, filters: list, expected_cleaned_filters) -> None:
         self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
+        actual_cleaned_filters = self.filter_handler.remove_unused_filters()
 
-        self.assertEqual(filters, cleaned_filters)
-        self.assertEqual(len(cleaned_filters), 4)
-
-        filters = [0, 0, 0, ""]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [])
-        self.assertEqual(len(cleaned_filters), 0)
-
-        filters = [1, 0, 0, ""]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [1])
-        self.assertEqual(len(cleaned_filters), 1)
-
-        filters = [0, 7, 0, ""]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [7])
-        self.assertEqual(len(cleaned_filters), 1)
-
-        filters = [0, 0, 2022, ""]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [2022])
-        self.assertEqual(len(cleaned_filters), 1)
-
-        filters = [0, 0, 0, "My message"]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, ["My message"])
-        self.assertEqual(len(cleaned_filters), 1)
-
-        filters = [1, 7, 0, ""]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [1, 7])
-        self.assertEqual(len(cleaned_filters), 2)
-
-        filters = [0, 0, 2022, "My message"]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [2022, "My message"])
-        self.assertEqual(len(cleaned_filters), 2)
-
-        filters = [1, 0, 0, "My message"]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [1, "My message"])
-        self.assertEqual(len(cleaned_filters), 2)
-
-        filters = [0, 7, 2022, ""]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [7, 2022])
-        self.assertEqual(len(cleaned_filters), 2)
-
-        filters = [1, 7, 2022, ""]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [1, 7, 2022])
-        self.assertEqual(len(cleaned_filters), 3)
-
-        filters = [0, 7, 2022, "My message"]
-        self.filter_handler.__init__(filters)
-        cleaned_filters = self.filter_handler.remove_unused_filters()
-
-        self.assertNotEqual(filters, cleaned_filters)
-        self.assertEqual(cleaned_filters, [7, 2022, "My message"])
-        self.assertEqual(len(cleaned_filters), 3)
+        self.assertEqual(expected_cleaned_filters, actual_cleaned_filters)
 
 
 if __name__ == "__main__":
