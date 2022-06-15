@@ -12,36 +12,73 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 import unittest
 
+from tests.BaseTestingClass import BaseTestingClass
+
 from tracker.handler.filter_handler.FilterHandler import FilterHandler
 
 
-class TestFilterHandler(unittest.TestCase):
+class TestFilterHandler(BaseTestingClass):
     def setUp(self) -> None:
         super(TestFilterHandler, self).setUp()
 
-        self.filter_handler = FilterHandler(filters=[])
+        self.filter_handler = FilterHandler()
 
     def test_removing_unused_filters(self) -> None:
-        self.check_for_removed_filters([0, 0, 0, ""], [])
-        self.check_for_removed_filters([1, 0, 0, ""], [1])
-        self.check_for_removed_filters([0, 7, 0, ""], [7])
-        self.check_for_removed_filters([0, 0, 2022, ""], [2022])
-        self.check_for_removed_filters([0, 0, 0, "My message"], ["My message"])
-        self.check_for_removed_filters([1, 7, 0, ""], [1, 7])
-        self.check_for_removed_filters([0, 0, 2022, "My message"], [2022, "My message"])
-        self.check_for_removed_filters([1, 0, 0, "My message"], [1, "My message"])
-        self.check_for_removed_filters([0, 7, 2022, ""], [7, 2022])
-        self.check_for_removed_filters([1, 7, 2022, ""], [1, 7, 2022])
-        self.check_for_removed_filters([0, 7, 2022, "My message"], [7, 2022, "My message"])
-        self.check_for_removed_filters([1, 7, 2022, "My new message"], [1, 7, 2022, "My new message"])
+        self.check_for_removed_filters(
+            {"day": 0, "month": 0, "year": 0, "message": ""},
+            {}
+        )
+        self.check_for_removed_filters(
+            {"day": 1, "month": 0, "year": 0, "message": ""},
+            {"day": 1}
+        )
+        self.check_for_removed_filters(
+            {"day": 0, "month": 7, "year": 0, "message": ""},
+            {"month": 7}
+        )
+        self.check_for_removed_filters(
+            {"day": 0, "month": 0, "year": 2022, "message": ""},
+            {"year": 2022}
+        )
+        self.check_for_removed_filters(
+            {"day": 0, "month": 0, "year": 0, "message": "My message"},
+            {"message": "My message"}
+        )
+        self.check_for_removed_filters(
+            {"day": 1, "month": 7, "year": 0, "message": ""},
+            {"day": 1, "month": 7}
+        )
+        self.check_for_removed_filters(
+            {"day": 0, "month": 0, "year": 2022, "message": "My message"},
+            {"year": 2022, "message": "My message"})
+        self.check_for_removed_filters(
+            {"day": 1, "month": 0, "year": 0, "message": "My message"},
+            {"day": 1, "message": "My message"}
+        )
+        self.check_for_removed_filters(
+            {"day": 0, "month": 7, "year": 2022, "message": ""},
+            {"month": 7, "year": 2022}
+        )
+        self.check_for_removed_filters(
+            {"day": 1, "month": 7, "year": 2022, "message": ""},
+            {"day": 1, "month": 7, "year": 2022}
+        )
+        self.check_for_removed_filters(
+            {"day": 0, "month": 7, "year": 2022, "message": "My message"},
+            {"month": 7, "year": 2022, "message": "My message"}
+        )
+        self.check_for_removed_filters(
+            {"day": 1, "month": 7, "year": 2022, "message": "My new message"},
+            {"day": 1, "month": 7, "year": 2022, "message": "My new message"}
+        )
 
-    def check_for_removed_filters(self, filters: list, expected_cleaned_filters) -> None:
-        self.filter_handler.__init__(filters)
-        actual_cleaned_filters = self.filter_handler.remove_unused_filters()
+    def check_for_removed_filters(self, filters: dict, expected_cleaned_filters) -> None:
+        actual_cleaned_filters = self.filter_handler.remove_unused_filters_from(filters)
 
         self.assertEqual(expected_cleaned_filters, actual_cleaned_filters)
 
-
+    def test_filtering_items(self) -> None:
+        self.setup_test_values(10)
 
 
 if __name__ == "__main__":

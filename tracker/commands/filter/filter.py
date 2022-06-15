@@ -13,6 +13,8 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import click
 
+from tracker.handler.filter_handler.FilterHandler import FilterHandler
+
 from tracker.commands.console_logger import info, warn
 
 
@@ -25,6 +27,6 @@ def filter(day, month, year, message) -> None:
     """Filter entries by the given specifier"""
     info("Showing entries by filter")
 
-    filters = [day, month, year, message]
+    filters = {"day": day, "month": month, "year": year, "message": message}
 
-    # filtered_entries =
+    filtered_entries = FilterHandler().filter_for(filters)
