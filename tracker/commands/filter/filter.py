@@ -10,6 +10,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
+import sys
 
 import click
 
@@ -26,11 +27,16 @@ from tracker.commands.console_logger import info, warn
 @click.option("--message", "message", type=str, default="")
 def filter(day: int, month: str, year: int, message: str) -> None:
     """Filter entries by the given specifier"""
+    try:
+        filters = UnifyFilters().unify(day, month, year, message)
+    except ValueError:
+        warn("Warning: One of the passed values is not matching the type. Please double check them and try again."
+             "\nEXIT")
+        sys.exit()
+
     info("Showing entries by filter")
 
-    filters = UnifyFilters().unify(day, month, year, message)
     print(f"Filters: {filters}")
-    return
     filtered_entries = FilterHandler().filter_for(filters)
 
     print(filtered_entries)
