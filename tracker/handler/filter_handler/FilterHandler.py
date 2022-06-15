@@ -32,9 +32,19 @@ class FilterHandler:
 
     def filter_for(self, filters: dict) -> pandas.DataFrame:
         self.filters = self.remove_unused_filters_from(filters)
-
         entries = self.get_all_entries()
-        # filtered_entries = entries.loc[(entries[])]
+
+        if self.filters == {}:
+            return entries
+
+        filtered_entries = entries.loc[
+            (entries["start_date"].str.contains(str(filters["day"]))) &
+            (entries["start_date"].str.contains(str(filters["month"]))) &
+            (entries["start_date"].str.contains(str(filters["year"]))) &
+            (entries["message"].str.contains(str(filters["message"])))
+        ]
+
+        return filtered_entries
 
     def get_all_entries(self) -> pandas.DataFrame:
         return self.base_entry_handler.get_data()
