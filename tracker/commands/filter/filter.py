@@ -13,6 +13,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import click
 
+from .UnifyFilters import UnifyFilters
 from tracker.handler.filter_handler.FilterHandler import FilterHandler
 
 from tracker.commands.console_logger import info, warn
@@ -20,13 +21,16 @@ from tracker.commands.console_logger import info, warn
 
 @click.command()
 @click.option("-d", "--day", "day", help="Filter entries by given day", type=int, default=0)
-@click.option("-m", "--month", "month", help="Filter entries by given month", type=int, default=0)
+@click.option("-m", "--month", "month", help="Filter entries by given month", type=str, default="0")
 @click.option("-y", "--year", "year", help="Filter entries by given year", type=int, default=0)
-@click.option("--message", type=str, default="")
-def filter(day, month, year, message) -> None:
+@click.option("--message", "message", type=str, default="")
+def filter(day: int, month: str, year: int, message: str) -> None:
     """Filter entries by the given specifier"""
     info("Showing entries by filter")
 
-    filters = {"day": day, "month": month, "year": year, "message": message}
-
+    filters = UnifyFilters().unify(day, month, year, message)
+    print(f"Filters: {filters}")
+    return
     filtered_entries = FilterHandler().filter_for(filters)
+
+    print(filtered_entries)
