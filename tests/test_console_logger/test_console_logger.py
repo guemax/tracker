@@ -28,6 +28,7 @@ class TestConsoleLogger(unittest.TestCase):
         self.message = "A simple test message"
 
         self.start_redirecting_output()
+        self.start_redirect_errors()
 
     def test_debug_deprecated(self):
         debug_deprecated(self.message)
@@ -71,6 +72,24 @@ class TestConsoleLogger(unittest.TestCase):
         info_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
+    def test_warn(self) -> None:
+        self.start_redirect_errors()
+
+        warn(self.message)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertNotIn("\n\nEXIT", self.output.getvalue())
+
+        self.erase_errors()
+
+        warn(self.message, print_status=True, exit_tracker=False)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertIn("\n\nEXIT", self.output.getvalue())
+
+        self.erase_errors()
+
+        self.assertRaises(SystemExit, warn, self.message, True, True)
+        self.assertRaises(SystemExit, warn, self.message, False, True)
+
     def test_error_deprecated(self):
         self.start_redirect_errors()
 
@@ -92,6 +111,11 @@ class TestConsoleLogger(unittest.TestCase):
         self.output = io.StringIO()
         self.start_redirecting_output()
 
+    def erase_errors(self) -> None:
+        self.start_redirect_errors()
+        self.output = io.StringIO()
+        self.start_redirect_errors()
+
     def start_redirecting_output(self):
         sys.stdout = self.output
 
@@ -108,3 +132,4 @@ class TestConsoleLogger(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.stop_redirecting_output()
+        self.stop_redirect_errors()
