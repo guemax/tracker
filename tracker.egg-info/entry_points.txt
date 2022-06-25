@@ -1,0 +1,3 @@
+[console_scripts]
+tracker = src.__main__:main
+

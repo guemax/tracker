@@ -30,21 +30,21 @@ class TestConsoleLogger(unittest.TestCase):
         self.start_redirecting_output()
 
     def test_debug(self):
-        debug(self.message)
+        debug_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
     def test_info(self):
-        info(self.message)
+        info_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
     def test_warn(self):
-        info(self.message)
+        info_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
     def test_error(self):
         self.start_redirect_errors()
 
-        error(self.message)
+        error_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
         self.stop_redirect_errors()
@@ -52,7 +52,7 @@ class TestConsoleLogger(unittest.TestCase):
     def test_fatal(self):
         self.start_redirect_errors()
 
-        fatal(self.message)
+        fatal_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
         self.stop_redirect_errors()

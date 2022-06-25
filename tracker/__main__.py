@@ -33,7 +33,7 @@ def main():
     cli(prog_name="tracker")
 
     # TODO: Show exit information
-    # logging.info(f"Closing tracker {__version__}")
+    # logging.info_deprecated(f"Closing tracker {__version__}")
 
 
 if __name__ == "__main__":  # pragma: no cover

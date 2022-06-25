@@ -14,7 +14,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 import click
 import num2words
 
-from tracker.commands.console_logger import info, warn
+from tracker.commands.console_logger import info_deprecated, warn_deprecated
 from tracker.setup_test_values.setup_test_values import SetupTestValues
 
 
@@ -41,7 +41,7 @@ class SetupTestValuesInConsole:
             self.__handle_invalid_number_of_entries()
 
     def __handle_invalid_number_of_entries(self) -> None:
-        warn(f"The number of entries cannot be negative (was {self.__number_of_entries}). "
+        warn_deprecated(f"The number of entries cannot be negative (was {self.__number_of_entries}). "
              f"Please specify a value greater than or equal zero.\n"
              "EXIT")
         exit(-1)
@@ -55,7 +55,7 @@ class SetupTestValuesInConsole:
         else:
             message_of_created_entries = f"{self.__number_of_entries_as_word} entries"
 
-        info(f"\nSuccesfully setup {message_of_created_entries}.\n"
+        info_deprecated(f"\nSuccesfully setup {message_of_created_entries}.\n"
              f"OK")
 
 

@@ -11,7 +11,7 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from tracker.commands.console_logger import info
+from tracker.commands.console_logger import info_deprecated
 from tracker.handler.entry_handler import GroupedEntryHandler
 
 
@@ -22,11 +22,11 @@ def log_all_entries_grouped_by_date() -> None:
     number_of_entries = len(entries)
 
     if number_of_entries == 0:
-        info("Nothing to see yet.\n"
+        info_deprecated("Nothing to see yet.\n"
              "  (use \"tracker start\" to create an entry)")
-        info("\nOK")
+        info_deprecated("\nOK")
     else:
-        info(f"Showing all entries grouped by date. ({number_of_entries} in total).\n"
+        info_deprecated(f"Showing all entries grouped by date. ({number_of_entries} in total).\n"
              f"  (use \"tracker log <ID>\" to show all entries of the date with the ID <ID>.\n")
-        info(f"{entries}\n"
+        info_deprecated(f"{entries}\n"
              f"\nOK")

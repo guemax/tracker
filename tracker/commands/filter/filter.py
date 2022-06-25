@@ -17,7 +17,7 @@ import click
 from .UnifyFilters import UnifyFilters
 from tracker.handler.filter_handler.FilterHandler import FilterHandler
 
-from tracker.commands.console_logger import info, warn
+from tracker.commands.console_logger import info_deprecated, warn_deprecated
 
 
 @click.command()
@@ -30,11 +30,11 @@ def filter(day: int, month: str, year: int, message: str) -> None:
     try:
         filters = UnifyFilters().unify(day, month, year, message)
     except ValueError:
-        warn("Warning: One of the passed values is not matching the type. Please double check them and try again."
+        warn_deprecated("Warning: One of the passed values is not matching the type. Please double check them and try again."
              "\nEXIT")
         sys.exit()
 
-    info("Showing entries by filter")
+    info_deprecated("Showing entries by filter")
 
     print(f"Filters: {filters}")
     filtered_entries = FilterHandler().filter_for(filters)

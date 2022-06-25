@@ -14,7 +14,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 import sys
 
 from tracker.handler.entry_handler import EntryHandler
-from tracker.commands.console_logger import info, warn
+from tracker.commands.console_logger import info_deprecated, warn_deprecated
 from tracker.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
 
@@ -23,7 +23,7 @@ def log_entries_of_specific_date(id_of_date: int) -> None:
     try:
         entries_of_specific_date = entry_handler.get_entries_of_specific_date(id_of_date)
     except InvalidIDOfDateException:
-        warn(f"We couldn't find a date matching the ID {id_of_date}.\n"
+        warn_deprecated(f"We couldn't find a date matching the ID {id_of_date}.\n"
              f"Please double check if this was the ID you meant.\n"
              f"EXIT")
         sys.exit(-1)
@@ -33,6 +33,6 @@ def log_entries_of_specific_date(id_of_date: int) -> None:
 
     number_of_entries = len(entries)
 
-    info(f"Showing all entries of {date}. ({number_of_entries} in total).\n")
-    info(f"{entries}\n"
+    info_deprecated(f"Showing all entries of {date}. ({number_of_entries} in total).\n")
+    info_deprecated(f"{entries}\n"
          f"\nOK")

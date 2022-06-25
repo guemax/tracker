@@ -17,7 +17,7 @@ import logging
 import click
 
 from tracker.handler.timer_handler import TimerHandler
-from tracker.commands.console_logger import info, warn
+from tracker.commands.console_logger import info_deprecated, warn_deprecated
 from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
@@ -35,14 +35,14 @@ def start(overwrite: bool):
         logging.warning(
             "InvalidTimerModification: A timer already exists which must be stopped before starting another one."
         )
-        warn("Warning: A timer already exists which has not been stopped yet.\n"
+        warn_deprecated("Warning: A timer already exists which has not been stopped yet.\n"
              "  (use \"Tracker stop\" to stop it first)\n"
              "\nEXIT")
         sys.exit(-1)
 
     if overwritten:
-        info("Succesfully overwritten exisiting timer.")
+        info_deprecated("Succesfully overwritten exisiting timer.")
 
     logging.info(f"New timer successfully started at {date} at {time}.")
-    info(f"New timer started at {date} at {time}\n"
+    info_deprecated(f"New timer started at {date} at {time}\n"
          f"\nOK")

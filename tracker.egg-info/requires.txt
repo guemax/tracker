@@ -1,0 +1,6 @@
+click
+pandas
+coverage
+coverage-badge
+num2words
+numpy

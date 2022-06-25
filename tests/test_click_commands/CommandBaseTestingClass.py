@@ -42,7 +42,7 @@ class CommandBaseTestingClass(BaseTestingClass):
         self.assertEqual(self.exit_code, 0)
 
     def check_for_exit_code_two(self) -> None:
-        self.assertEqual(self.exit_code, 2)     # Usage error, unexpected extra argument
+        self.assertEqual(self.exit_code, 2)     # Usage error_deprecated, unexpected extra argument
 
     def check_for_exit_code_minus_one(self) -> None:
         self.assertEqual(self.exit_code, -1)

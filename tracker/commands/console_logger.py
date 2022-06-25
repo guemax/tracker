@@ -16,27 +16,27 @@ import colorama
 from colorama import Fore, Back
 
 
-def debug(message: str) -> None:
+def debug_deprecated(message: str) -> None:
     colored_message = Fore.LIGHTBLUE_EX + message
     click.echo(colored_message)
 
 
-def info(message: str) -> None:
+def info_deprecated(message: str) -> None:
     colored_message = Fore.WHITE + message
     click.echo(colored_message)
 
 
-def warn(message: str) -> None:
+def warn_deprecated(message: str) -> None:
     colored_message = Fore.YELLOW + message
     click.echo(colored_message, err=True)
 
 
-def error(message: str) -> None:
+def error_deprecated(message: str) -> None:
     colored_message = Fore.RED + message
     click.echo(colored_message, err=True)
 
 
-def fatal(message: str) -> None:
+def fatal_deprecated(message: str) -> None:
     colored_message = Fore.BLACK + Back.RED + message
     click.echo(colored_message, err=True)
 
