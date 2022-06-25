@@ -33,6 +33,23 @@ class TestConsoleLogger(unittest.TestCase):
         debug_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
+    def test_debug(self) -> None:
+        debug(self.message, print_status=False)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertNotIn("\n\nOK", self.output.getvalue())
+
+        self.erase_output()
+
+        debug(self.message, print_status=True)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertIn("\n\nOK", self.output.getvalue())
+
+        self.erase_output()
+
+        debug(self.message)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertNotIn("\n\nOK", self.output.getvalue())
+
     def test_info_deprecated(self):
         info_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
@@ -69,6 +86,11 @@ class TestConsoleLogger(unittest.TestCase):
         self.assertIn(self.message, self.output.getvalue())
 
         self.stop_redirect_errors()
+
+    def erase_output(self) -> None:
+        self.stop_redirecting_output()
+        self.output = io.StringIO()
+        self.start_redirecting_output()
 
     def start_redirecting_output(self):
         sys.stdout = self.output
