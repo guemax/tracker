@@ -29,19 +29,32 @@ class TestConsoleLogger(unittest.TestCase):
 
         self.start_redirecting_output()
 
-    def test_debug(self):
+    def test_debug_deprecated(self):
         debug_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
-    def test_info(self):
+    def test_info_deprecated(self):
         info_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
-    def test_warn(self):
+    def test_info(self) -> None:
+        info(self.message, print_status=False)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertNotIn("\n\nOK", self.output.getvalue())
+
+        info(self.message, print_status=True)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertIn("\n\nOK", self.output.getvalue())
+
+        info(self.message)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertIn("\n\nOK", self.output.getvalue())
+
+    def test_warn_deprecated(self):
         info_deprecated(self.message)
         self.assertIn(self.message, self.output.getvalue())
 
-    def test_error(self):
+    def test_error_deprecated(self):
         self.start_redirect_errors()
 
         error_deprecated(self.message)
@@ -49,7 +62,7 @@ class TestConsoleLogger(unittest.TestCase):
 
         self.stop_redirect_errors()
 
-    def test_fatal(self):
+    def test_fatal_deprecated(self):
         self.start_redirect_errors()
 
         fatal_deprecated(self.message)
