@@ -21,6 +21,14 @@ def debug_deprecated(message: str) -> None:
     click.echo(colored_message)
 
 
+def debug(message: str, print_status: bool = False) -> None:
+    if print_status:
+        message += "\n\nOK"
+
+    colored_message = Fore.LIGHTBLUE_EX + message
+    click.echo(colored_message)
+
+
 def info_deprecated(message: str) -> None:
     colored_message = Fore.WHITE + message
     click.echo(colored_message)
