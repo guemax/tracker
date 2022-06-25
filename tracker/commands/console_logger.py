@@ -26,12 +26,15 @@ def debug(message: str, print_status: bool = False) -> None:
     click.echo(colored_message)
 
 
-def info(message: str, print_status: bool = True) -> None:
+def info(message: str, print_status: bool = True, exit_tracker: bool = False) -> None:
     if print_status:
         message += "\n\nOK"
 
     colored_message = Fore.WHITE + message
     click.echo(colored_message)
+
+    if exit_tracker:
+        sys.exit(0)
 
 
 def warn(message: str, print_status: bool = False, exit_tracker: bool = False) -> None:

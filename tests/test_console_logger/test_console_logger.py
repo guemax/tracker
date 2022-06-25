@@ -25,6 +25,12 @@ class TestConsoleLogger(unittest.TestCase):
         self.__start_redirecting()
 
     def test_debug(self) -> None:
+        debug(self.message)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertNotIn("\n\nOK", self.output.getvalue())
+
+        self.clear_output()
+
         debug(self.message, print_status=False)
         self.assertIn(self.message, self.output.getvalue())
         self.assertNotIn("\n\nOK", self.output.getvalue())
@@ -35,24 +41,27 @@ class TestConsoleLogger(unittest.TestCase):
         self.assertIn(self.message, self.output.getvalue())
         self.assertIn("\n\nOK", self.output.getvalue())
 
+    def test_info(self) -> None:
+        info(self.message)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertIn("\n\nOK", self.output.getvalue())
+
         self.clear_output()
 
-        debug(self.message)
-        self.assertIn(self.message, self.output.getvalue())
-        self.assertNotIn("\n\nOK", self.output.getvalue())
-
-    def test_info(self) -> None:
         info(self.message, print_status=False)
         self.assertIn(self.message, self.output.getvalue())
         self.assertNotIn("\n\nOK", self.output.getvalue())
+
+        self.clear_output()
 
         info(self.message, print_status=True)
         self.assertIn(self.message, self.output.getvalue())
         self.assertIn("\n\nOK", self.output.getvalue())
 
-        info(self.message)
-        self.assertIn(self.message, self.output.getvalue())
-        self.assertIn("\n\nOK", self.output.getvalue())
+        self.clear_output()
+
+        self.assertRaises(SystemExit, info, self.message, True, True)
+        self.assertRaises(SystemExit, info, self.message, False, True)
 
     def test_warn(self) -> None:
         warn(self.message)

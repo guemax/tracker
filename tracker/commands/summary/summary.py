@@ -42,8 +42,7 @@ def summary(summary_range: str) -> None:
     if number_of_entries == 0:
         logging.info(f"Showing all entries (0) as summary of this {summary_range}.")
         info(f"Nothing to show yet. There have been no entries created this {summary_range}.\n"
-             f"  (use \"Tracker start\" to create one)", print_status=True)
-        sys.exit(0)     # TODO: Move this part into info()?
+             f"  (use \"Tracker start\" to create one)", print_status=True, exit_tracker=True)
 
     # Else: There have been some entries created this week
     logging.info(f"Showing all entries ({number_of_entries}) as summary of this {summary_range}.")
