@@ -65,6 +65,17 @@ def error_deprecated(message: str) -> None:
     click.echo(colored_message, err=True)
 
 
+def error(message: str, print_status: bool = False, exit_tracker: bool = False) -> None:
+    if print_status:
+        message += "\n\nEXIT"
+
+    colored_message = Fore.RED + message
+    click.echo(colored_message, err=True)
+
+    if exit_tracker:
+        sys.exit(-1)
+
+
 def fatal_deprecated(message: str) -> None:
     colored_message = Fore.BLACK + Back.RED + message
     click.echo(colored_message, err=True)
