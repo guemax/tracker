@@ -26,6 +26,14 @@ def info_deprecated(message: str) -> None:
     click.echo(colored_message)
 
 
+def info(message: str, print_status: bool = True) -> None:
+    if print_status:
+        message += "\n\nOK"
+
+    colored_message = Fore.WHITE + message
+    click.echo(colored_message)
+
+
 def warn_deprecated(message: str) -> None:
     colored_message = Fore.YELLOW + message
     click.echo(colored_message, err=True)
