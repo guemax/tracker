@@ -12,48 +12,34 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import io
-import sys
 import unittest
-
-import click.testing
 
 from tracker.commands.console_logger import *
 
 
 class TestConsoleLogger(unittest.TestCase):
     def setUp(self) -> None:
-        self.runner = click.testing.CliRunner()
         self.output = io.StringIO()
-
         self.message = "A simple test message"
 
-        self.start_redirecting_output()
-        self.start_redirect_errors()
-
-    def test_debug_deprecated(self):
-        debug_deprecated(self.message)
-        self.assertIn(self.message, self.output.getvalue())
+        self.__start_redirecting()
 
     def test_debug(self) -> None:
         debug(self.message, print_status=False)
         self.assertIn(self.message, self.output.getvalue())
         self.assertNotIn("\n\nOK", self.output.getvalue())
 
-        self.erase_output()
+        self.clear_output()
 
         debug(self.message, print_status=True)
         self.assertIn(self.message, self.output.getvalue())
         self.assertIn("\n\nOK", self.output.getvalue())
 
-        self.erase_output()
+        self.clear_output()
 
         debug(self.message)
         self.assertIn(self.message, self.output.getvalue())
         self.assertNotIn("\n\nOK", self.output.getvalue())
-
-    def test_info_deprecated(self):
-        info_deprecated(self.message)
-        self.assertIn(self.message, self.output.getvalue())
 
     def test_info(self) -> None:
         info(self.message, print_status=False)
@@ -68,104 +54,81 @@ class TestConsoleLogger(unittest.TestCase):
         self.assertIn(self.message, self.output.getvalue())
         self.assertIn("\n\nOK", self.output.getvalue())
 
-    def test_warn_deprecated(self):
-        info_deprecated(self.message)
-        self.assertIn(self.message, self.output.getvalue())
-
     def test_warn(self) -> None:
-        self.start_redirect_errors()
-
         warn(self.message)
         self.assertIn(self.message, self.output.getvalue())
         self.assertNotIn("\n\nEXIT", self.output.getvalue())
 
-        self.erase_errors()
+        self.clear_output()
 
         warn(self.message, print_status=True, exit_tracker=False)
         self.assertIn(self.message, self.output.getvalue())
         self.assertIn("\n\nEXIT", self.output.getvalue())
 
-        self.erase_errors()
+        self.clear_output()
 
         self.assertRaises(SystemExit, warn, self.message, True, True)
         self.assertRaises(SystemExit, warn, self.message, False, True)
 
-    def test_error_deprecated(self):
-        self.start_redirect_errors()
-
-        error_deprecated(self.message)
-        self.assertIn(self.message, self.output.getvalue())
-
-        self.stop_redirect_errors()
-
     def test_error(self) -> None:
-        self.start_redirect_errors()
-
         error(self.message)
         self.assertIn(self.message, self.output.getvalue())
         self.assertNotIn("\n\nEXIT", self.output.getvalue())
 
-        self.erase_errors()
+        self.clear_output()
 
         error(self.message, print_status=True, exit_tracker=False)
         self.assertIn(self.message, self.output.getvalue())
         self.assertIn("\n\nEXIT", self.output.getvalue())
 
-        self.erase_errors()
+        self.clear_output()
 
         self.assertRaises(SystemExit, error, self.message, True, True)
         self.assertRaises(SystemExit, error, self.message, False, True)
-
-    def test_fatal_deprecated(self):
-        self.start_redirect_errors()
-
-        fatal_deprecated(self.message)
-        self.assertIn(self.message, self.output.getvalue())
-
-        self.stop_redirect_errors()
 
     def test_fatal(self) -> None:
-        self.start_redirect_errors()
-
         error(self.message)
         self.assertIn(self.message, self.output.getvalue())
         self.assertNotIn("\n\nEXIT", self.output.getvalue())
 
-        self.erase_errors()
+        self.clear_output()
 
         error(self.message, print_status=True, exit_tracker=False)
         self.assertIn(self.message, self.output.getvalue())
         self.assertIn("\n\nEXIT", self.output.getvalue())
 
-        self.erase_errors()
+        self.clear_output()
 
         self.assertRaises(SystemExit, error, self.message, True, True)
         self.assertRaises(SystemExit, error, self.message, False, True)
 
-    def erase_output(self) -> None:
-        self.stop_redirecting_output()
+    def clear_output(self) -> None:
+        self.__stop_redirecting()
         self.output = io.StringIO()
-        self.start_redirecting_output()
+        self.__start_redirecting()
 
-    def erase_errors(self) -> None:
-        self.start_redirect_errors()
-        self.output = io.StringIO()
-        self.start_redirect_errors()
+    def __start_redirecting(self) -> None:
+        self.__start_redirecting_stdout()
+        self.__start_redirecting_stderr()
 
-    def start_redirecting_output(self):
+    def __start_redirecting_stdout(self) -> None:
         sys.stdout = self.output
 
-    def start_redirect_errors(self):
+    def __start_redirecting_stderr(self) -> None:
         sys.stderr = self.output
 
+    def __stop_redirecting(self) -> None:
+        self.__stop_redirecting_stdout()
+        self.__stop_redirect_stderr()
+
     @staticmethod
-    def stop_redirecting_output():
+    def __stop_redirecting_stdout() -> None:
         sys.stdout = sys.__stdout__
 
     @staticmethod
-    def stop_redirect_errors():
+    def __stop_redirect_stderr() -> None:
         sys.stderr = sys.__stderr__
 
     def tearDown(self) -> None:
-        self.stop_redirecting_output()
-        self.stop_redirect_errors()
+        self.__stop_redirecting_stdout()
+        self.__stop_redirect_stderr()
