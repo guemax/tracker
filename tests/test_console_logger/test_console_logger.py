@@ -119,16 +119,16 @@ class TestConsoleLogger(unittest.TestCase):
 
     def __stop_redirecting(self) -> None:
         self.__stop_redirecting_stdout()
-        self.__stop_redirect_stderr()
+        self.__stop_redirecting_stderr()
 
     @staticmethod
     def __stop_redirecting_stdout() -> None:
         sys.stdout = sys.__stdout__
 
     @staticmethod
-    def __stop_redirect_stderr() -> None:
+    def __stop_redirecting_stderr() -> None:
         sys.stderr = sys.__stderr__
 
     def tearDown(self) -> None:
         self.__stop_redirecting_stdout()
-        self.__stop_redirect_stderr()
+        self.__stop_redirecting_stderr()
