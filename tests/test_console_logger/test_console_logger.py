@@ -124,6 +124,24 @@ class TestConsoleLogger(unittest.TestCase):
 
         self.stop_redirect_errors()
 
+    def test_fatal(self) -> None:
+        self.start_redirect_errors()
+
+        error(self.message)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertNotIn("\n\nEXIT", self.output.getvalue())
+
+        self.erase_errors()
+
+        error(self.message, print_status=True, exit_tracker=False)
+        self.assertIn(self.message, self.output.getvalue())
+        self.assertIn("\n\nEXIT", self.output.getvalue())
+
+        self.erase_errors()
+
+        self.assertRaises(SystemExit, error, self.message, True, True)
+        self.assertRaises(SystemExit, error, self.message, False, True)
+
     def erase_output(self) -> None:
         self.stop_redirecting_output()
         self.output = io.StringIO()
