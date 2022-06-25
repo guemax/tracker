@@ -20,32 +20,67 @@ class UnifyFilters:
 
     def unify(self, day: int, month: str, year: int, message: str) -> dict:
         self.day, self.month, self.year, self.message = day, month, year, message
+        self.month = self.__convert_month_value_to_number()
 
-        if self.month_has_not_been_specified():
-            self.month = 0
-            return self.filter_object_if_day_or_month_are_not_invalid()
-
-        try:
-            self.month = int(self.month)  # E.g. "4" for april (translates to 4)
-        except ValueError:
-            # We will handle this down below
-            pass
+        if self.__day_or_month_are_invalid():
+            raise ValueError
         else:
-            return self.filter_object_if_day_or_month_are_not_invalid()
+            return self.__create_dict_with_filters()
 
-        try:
-            self.month = int(datetime.strptime(self.month, "%b").strftime("%m"))  # E.g. "Apr" for april
-        except ValueError:
-            self.month = int(datetime.strptime(self.month, "%B").strftime("%m"))  # E.g. "April" for april
+    def __convert_month_value_to_number(self) -> int:
+        if self.__month_has_not_been_specified():
+            return 0
 
-        # Month is now a number just as day and year
-        return self.filter_object_if_day_or_month_are_not_invalid()
+        if self.__month_format_is_number():
+            return int(self.month)
 
-    def month_has_not_been_specified(self) -> bool:
-        return self.month == "0" or self.month == ""
-
-    def filter_object_if_day_or_month_are_not_invalid(self) -> dict:
-        if self.day < 0 or self.month < 0:
+        # Month has letters in it, translate it into the month number
+        if self.__month_format_is_abbrevation():
+            return self.__translate_abbrevation_of_month_into_month_number()
+        elif self.__month_format_is_name():
+            return self.__translate_full_name_of_month_into_month_number()
+        else:
+            # Month has no valid format, e.g. "January..."
             raise ValueError
 
+    def __month_format_is_number(self) -> bool:
+        try:
+            self.__translate_number_of_month_into_month_number()
+            return True
+        except ValueError:
+            return False
+
+    def __month_format_is_abbrevation(self) -> bool:
+        try:
+            self.__translate_abbrevation_of_month_into_month_number()
+            return True
+        except ValueError:
+            return False
+
+    def __month_format_is_name(self) -> bool:
+        try:
+            self.__translate_full_name_of_month_into_month_number()
+            return True
+        except ValueError:
+            return False
+
+    def __translate_number_of_month_into_month_number(self) -> int:
+        return int(self.month)  # E.g. "4" for april (translates to 4)
+
+    def __translate_abbrevation_of_month_into_month_number(self) -> int:
+        return int(datetime.strptime(self.month, "%b").strftime("%m"))  # E.g. "Apr" for april
+
+    def __translate_full_name_of_month_into_month_number(self) -> int:
+        return int(datetime.strptime(self.month, "%B").strftime("%m"))  # E.g. "April" for april
+
+    def __month_has_not_been_specified(self) -> bool:
+        return self.month == "0" or self.month == ""
+
+    def __day_or_month_are_invalid(self) -> bool:
+        if self.day < 0 or self.month < 0:
+            return True
+
+        return False
+
+    def __create_dict_with_filters(self) -> dict:
         return {"day": self.day, "month": self.month, "year": self.year, "message": self.message}
