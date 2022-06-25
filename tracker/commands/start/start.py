@@ -11,13 +11,12 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import sys
 import logging
 
 import click
 
 from tracker.handler.timer_handler import TimerHandler
-from tracker.commands.console_logger import info_deprecated, warn_deprecated
+from tracker.commands.console_logger import info, warn
 from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
 
@@ -35,14 +34,11 @@ def start(overwrite: bool):
         logging.warning(
             "InvalidTimerModification: A timer already exists which must be stopped before starting another one."
         )
-        warn_deprecated("Warning: A timer already exists which has not been stopped yet.\n"
-             "  (use \"Tracker stop\" to stop it first)\n"
-             "\nEXIT")
-        sys.exit(-1)
+        warn("Warning: A timer already exists which has not been stopped yet.\n"
+             "  (use \"Tracker stop\" to stop it first)", print_status=True, exit_tracker=True)
+    else:
+        if overwritten:
+            info("Succesfully overwritten exisiting timer.")
 
-    if overwritten:
-        info_deprecated("Succesfully overwritten exisiting timer.")
-
-    logging.info(f"New timer successfully started at {date} at {time}.")
-    info_deprecated(f"New timer started at {date} at {time}\n"
-         f"\nOK")
+        logging.info(f"New timer successfully started at {date} at {time}.")
+        info(f"New timer started at {date} at {time}", print_status=True)

@@ -11,10 +11,8 @@ You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import sys
-
 from tracker.handler.entry_handler import EntryHandler
-from tracker.commands.console_logger import info_deprecated, warn_deprecated
+from tracker.commands.console_logger import info, warn
 from tracker.exceptions.InvalidIDOfDateException import InvalidIDOfDateException
 
 
@@ -23,16 +21,14 @@ def log_entries_of_specific_date(id_of_date: int) -> None:
     try:
         entries_of_specific_date = entry_handler.get_entries_of_specific_date(id_of_date)
     except InvalidIDOfDateException:
-        warn_deprecated(f"We couldn't find a date matching the ID {id_of_date}.\n"
-             f"Please double check if this was the ID you meant.\n"
-             f"EXIT")
-        sys.exit(-1)
+        warn(f"We couldn't find a date matching the ID {id_of_date}.\n"
+             f"Please double check if this was the ID you meant.", print_status=True, exit_tracker=True)
+    else:
+        date = entries_of_specific_date[0]
+        entries = entries_of_specific_date[1]
 
-    date = entries_of_specific_date[0]
-    entries = entries_of_specific_date[1]
+        number_of_entries = len(entries)
 
-    number_of_entries = len(entries)
-
-    info_deprecated(f"Showing all entries of {date}. ({number_of_entries} in total).\n")
-    info_deprecated(f"{entries}\n"
-         f"\nOK")
+        info(f"Showing all entries of {date}. ({number_of_entries} in total).\n")
+        # TODO: Twice calling info(); is there a better way for doing what I want?
+        info(f"{entries}", print_status=True)

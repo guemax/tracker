@@ -17,14 +17,13 @@ from .status_of_entries import status_of_entries
 from .status_of_grouped_entries import status_of_grouped_entries
 from .status_of_unfinished_entries import status_of_unfinished_entries
 
-from tracker.commands.console_logger import info_deprecated
+from tracker.commands.console_logger import info
 
 
 @click.command()
 def status() -> None:
     """Provide information about the current tracking process"""
-    info_deprecated(f"Status information from Tracker:\n\n"
+    info(f"Status information from Tracker:\n\n"
          f" - {status_of_unfinished_entries()}\n"
          f" - {status_of_entries()}\n"
-         f" - {status_of_grouped_entries()}\n"
-         f"\nOK")
+         f" - {status_of_grouped_entries()}", print_status=True)

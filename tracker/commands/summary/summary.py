@@ -20,7 +20,7 @@ from tracker.handler.summary_handler.week_summary_handler import WeekSummaryHand
 from tracker.handler.summary_handler.month_summary_handler import MonthSummaryHandler
 from tracker.handler.summary_handler.year_summary_handler import YearSummaryHandler
 
-from tracker.commands.console_logger import info_deprecated
+from tracker.commands.console_logger import info
 
 
 @click.command()
@@ -41,14 +41,12 @@ def summary(summary_range: str) -> None:
 
     if number_of_entries == 0:
         logging.info(f"Showing all entries (0) as summary of this {summary_range}.")
-        info_deprecated(f"Nothing to show yet. There have been no entries created this {summary_range}.\n"
-             f"  (use \"Tracker start\" to create one)\n"
-             f"\nOK")
-        sys.exit(0)
+        info(f"Nothing to show yet. There have been no entries created this {summary_range}.\n"
+             f"  (use \"Tracker start\" to create one)", print_status=True)
+        sys.exit(0)     # TODO: Move this part into info()?
 
     # Else: There have been some entries created this week
     logging.info(f"Showing all entries ({number_of_entries}) as summary of this {summary_range}.")
-    info_deprecated(f"Showing entries as summary ({number_of_entries} in total).\n"
+    info(f"Showing entries as summary ({number_of_entries} in total).\n"
          f"Range is \"this-{summary_range}\".\n")
-    info_deprecated(f"{entries}\n"
-         f"\nOK")
+    info(f"{entries}", print_status=True)

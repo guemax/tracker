@@ -12,11 +12,10 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import logging
-import sys
 
 import click
 
-from tracker.commands.console_logger import info_deprecated, warn_deprecated
+from tracker.commands.console_logger import info, warn
 from tracker.handler.timer_handler import TimerHandler
 from tracker.exceptions.InvalidTimerModification import InvalidTimerModification
 
@@ -34,14 +33,12 @@ def stop(message: str) -> None:
         work_hours = datetime[2]
     except InvalidTimerModification:
         logging.warning("InvalidTimerModification: No timer exists yet which could be stopped.")
-        warn_deprecated("Warning: No timer exists yet.\n"
-             "  (use \"tracker start\" to create one)\n"
-             "\nEXIT")
-        sys.exit(-1)
-
-    logging.info(f"Existing timer successfully stopped at {date} at {time} (running {work_hours})")
-    info_deprecated(f"Existing timer stopped at {date} at {time}. (running {work_hours})")
-    if message:
-        logging.info(f"Added message \"{message}\" to tracker file.")
-        info_deprecated(f"Added message \"{message}\" to tracker file.")
-    info_deprecated("\nOK")
+        warn("Warning: No timer exists yet.\n"
+             "  (use \"tracker start\" to create one)", print_status=True, exit_tracker=True)
+    else:
+        logging.info(f"Existing timer successfully stopped at {date} at {time} (running {work_hours})")
+        info(f"Existing timer stopped at {date} at {time}. (running {work_hours})")
+        if message:
+            logging.info(f"Added message \"{message}\" to tracker file.")
+            info(f"Added message \"{message}\" to tracker file.")
+        info("\nOK")    # TODO: Not using 'print_status' option!

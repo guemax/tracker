@@ -18,21 +18,11 @@ import colorama
 from colorama import Fore, Back
 
 
-def debug_deprecated(message: str) -> None:
-    colored_message = Fore.LIGHTBLUE_EX + message
-    click.echo(colored_message)
-
-
 def debug(message: str, print_status: bool = False) -> None:
     if print_status:
         message += "\n\nOK"
 
     colored_message = Fore.LIGHTBLUE_EX + message
-    click.echo(colored_message)
-
-
-def info_deprecated(message: str) -> None:
-    colored_message = Fore.WHITE + message
     click.echo(colored_message)
 
 
@@ -42,11 +32,6 @@ def info(message: str, print_status: bool = True) -> None:
 
     colored_message = Fore.WHITE + message
     click.echo(colored_message)
-
-
-def warn_deprecated(message: str) -> None:
-    colored_message = Fore.YELLOW + message
-    click.echo(colored_message, err=True)
 
 
 def warn(message: str, print_status: bool = False, exit_tracker: bool = False) -> None:
@@ -60,11 +45,6 @@ def warn(message: str, print_status: bool = False, exit_tracker: bool = False) -
         sys.exit(-1)
 
 
-def error_deprecated(message: str) -> None:
-    colored_message = Fore.RED + message
-    click.echo(colored_message, err=True)
-
-
 def error(message: str, print_status: bool = False, exit_tracker: bool = False) -> None:
     if print_status:
         message += "\n\nEXIT"
@@ -74,11 +54,6 @@ def error(message: str, print_status: bool = False, exit_tracker: bool = False) 
 
     if exit_tracker:
         sys.exit(-1)
-
-
-def fatal_deprecated(message: str) -> None:
-    colored_message = Fore.BLACK + Back.RED + message
-    click.echo(colored_message, err=True)
 
 
 def fatal(message: str, print_status: bool = False, exit_tracker: bool = False) -> None:
