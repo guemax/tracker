@@ -10,6 +10,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
+import sys
+
 import click
 import colorama
 
@@ -45,6 +47,17 @@ def info(message: str, print_status: bool = True) -> None:
 def warn_deprecated(message: str) -> None:
     colored_message = Fore.YELLOW + message
     click.echo(colored_message, err=True)
+
+
+def warn(message: str, print_status: bool = False, exit_tracker: bool = False) -> None:
+    if print_status:
+        message += "\n\nEXIT"
+
+    colored_message = Fore.YELLOW + message
+    click.echo(colored_message, err=True)
+
+    if exit_tracker:
+        sys.exit(-1)
 
 
 def error_deprecated(message: str) -> None:
