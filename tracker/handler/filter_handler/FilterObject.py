@@ -15,11 +15,17 @@ from .UnifyFilters import UnifyFilters
 
 
 class FilterObject:
-    def __init__(self, day: int, month: str, year: int, message: str) -> None:
+    def __init__(self, day: str, month: str, year: str, message: str) -> None:
         self.day, self.month, self.year, self.message = day, month, year, message
 
-        # Don't forget to unify the filters to get the right format for the filters
+        # Don't forget to unify the filter_dict to get the right format for the filter_dict
         self.__unify()
+
+    def empty(self) -> bool:
+        if self.day == "" and self.month == "" and self.year == "" and self.message == "":
+            return True
+
+        return False
 
     def __unify(self) -> None:
         unified_filters = UnifyFilters().unify(self.day, self.month, self.year, self.message)
@@ -29,18 +35,5 @@ class FilterObject:
         self.year = unified_filters["year"]
         self.message = unified_filters["message"]
 
-    def get_dict_of_used_filters(self) -> dict:
-        return self.__remove_unused_filters_from_all_filters()
-
-    def __remove_unused_filters_from_all_filters(self) -> dict:
-        original_filters = self.__get_dict()
-        cleaned_filters = {}
-
-        for key, value in original_filters.items():
-            if value != "" and value != 0:
-                cleaned_filters[key] = value
-
-        return cleaned_filters
-
-    def __get_dict(self) -> dict:
+    def get_dict(self) -> dict:
         return {"day": self.day, "month": self.month, "year": self.year, "message": self.message}

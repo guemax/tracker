@@ -20,6 +20,12 @@ class TestFilterCommand(CommandBaseTestingClass):
     def setUp(self) -> None:
         super(TestFilterCommand, self).setUp()
 
+    def test_filtering_without_passing_any_filters(self) -> None:
+        self.setup_test_values(20)
+
+        self.run_cli("filter")
+        self.assertIn("No filter passed. Showing all entries.", self.output)
+
 
 if __name__ == "__main__":
     unittest.main()

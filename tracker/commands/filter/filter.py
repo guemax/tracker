@@ -20,11 +20,11 @@ from tracker.commands.console_logger import info, warn
 
 
 @click.command()
-@click.option("-d", "--day", "day", help="Filter entries by given day", type=int, default=0)
-@click.option("-m", "--month", "month", help="Filter entries by given month", type=str, default="0")
-@click.option("-y", "--year", "year", help="Filter entries by given year", type=int, default=0)
-@click.option("--message", "message", type=str, default="")
-def filter(day: int, month: str, year: int, message: str) -> None:
+@click.option("-d", "--day", "day", help="Filter entries by given day", type=str, default="")
+@click.option("-m", "--month", "month", help="Filter entries by given month", type=str, default="")
+@click.option("-y", "--year", "year", help="Filter entries by given year", type=str, default="")
+@click.option("--message", "message", help="Filter entries by given message", type=str, default="")
+def filter(day: str, month: str, year: str, message: str) -> None:
     """Filter entries by the given specifier"""
     try:
         filters = FilterObject(day, month, year, message)
@@ -32,9 +32,17 @@ def filter(day: int, month: str, year: int, message: str) -> None:
         warn("Warning: One of the passed values is not matching the type. Please double check them and try again.",
              print_status=True, exit_tracker=True)
     else:
-        info("Showing entries by filter")
+        if filters.empty():
+            info("No filter passed. Showing all entries.", print_status=False)
+        else:
+            info("Following filter_dict passed:\n", print_status=False)
+            for key, value in filters.get_dict().items():
+                if value != "" and value != 0:
+                    info(f"{key.title()}: {value}", print_status=False)
+                else:
+                    info(f"{key.title()}: -", print_status=False)
 
-        print(f"Filters: {filters}")
         filtered_entries = FilterHandler().filter_for(filters)
 
+        info("", print_status=False)
         print(filtered_entries)

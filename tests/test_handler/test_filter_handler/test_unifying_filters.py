@@ -23,33 +23,33 @@ class TestFilterCommand(unittest.TestCase):
         self.unifiy_filters = UnifyFilters()
 
     def test_unifying_filters(self) -> None:
-        actual_filters = self.unifiy_filters.unify(0, "0", 0, "")
-        expected_filters = {"day": 0, "month": 0, "year": 0, "message": ""}
+        actual_filters = self.unifiy_filters.unify("", "", "", "")
+        expected_filters = {"day": "", "month": "", "year": "", "message": ""}
 
         self.assertEqual(actual_filters, expected_filters)
 
-        actual_filters = self.unifiy_filters.unify(0, "0", 0, "")
-        expected_filters = {"day": 0, "month": 0, "year": 0, "message": ""}
+        actual_filters = self.unifiy_filters.unify("", "", "", "")
+        expected_filters = {"day": "", "month": "", "year": "", "message": ""}
 
         self.assertEqual(actual_filters, expected_filters)
 
-        actual_filters = self.unifiy_filters.unify(1, "1", 2022, "My message")
-        expected_filters = {"day": 1, "month": 1, "year": 2022, "message": "My message"}
+        actual_filters = self.unifiy_filters.unify("1", "1", "2022", "My message")
+        expected_filters = {"day": "1", "month": "Jan", "year": "2022", "message": "My message"}
 
         self.assertEqual(actual_filters, expected_filters)
 
-        actual_filters = self.unifiy_filters.unify(0, "January", 0, "")
-        expected_filters = {"day": 0, "month": 1, "year": 0, "message": ""}
+        actual_filters = self.unifiy_filters.unify("", "January", "", "")
+        expected_filters = {"day": "", "month": "Jan", "year": "", "message": ""}
 
         self.assertEqual(actual_filters, expected_filters)
 
-        actual_filters = self.unifiy_filters.unify(0, "Jan", 0, "")
-        expected_filters = {"day": 0, "month": 1, "year": 0, "message": ""}
+        actual_filters = self.unifiy_filters.unify("", "Jan", "", "")
+        expected_filters = {"day": "", "month": "Jan", "year": "", "message": ""}
 
         self.assertEqual(actual_filters, expected_filters)
 
-        self.assertRaises(ValueError, self.unifiy_filters.unify, 0, "January...", 0, "")
-        self.assertRaises(ValueError, self.unifiy_filters.unify, -1,  "-1", 2022, "")
+        self.assertRaises(ValueError, self.unifiy_filters.unify, "", "January...", "", "")
+        self.assertRaises(ValueError, self.unifiy_filters.unify, "-1",  "-1", "2022", "")
 
 
 if __name__ == "__main__":

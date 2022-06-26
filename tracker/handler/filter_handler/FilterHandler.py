@@ -10,6 +10,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
+
 import pandas
 
 from tracker.handler.filter_handler.FilterObject import FilterObject
@@ -18,28 +19,32 @@ from tracker.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandler
 
 class FilterHandler:
     def __init__(self) -> None:
-        self.filters = {}
         self.entries = None
-
         self.base_entry_handler = BaseEntryHandlerClass()
 
     def filter_for(self, filters: FilterObject) -> pandas.DataFrame:
-        self.filters = filters.get_dict_of_used_filters()
-        self.entries = self.get_all_entries()
+        self.entries = self.__get_all_entries()
 
-        if self.filters == {}:
+        if filters.empty():
             return self.entries
 
+        # Necessary to match the right number; not showing entries of 25th when searching for 5 contained by start_date
+        day = f" {filters.day} "
+        month = f"{filters.month}, "
+        year = f" {filters.year}"
+        message = filters.message
+
+        # TODO: Add support to filter for entries with no message
         filtered_entries = self.entries.loc[
-            (self.entries["start_date"].str.contains(str(filters.day))) &
-            (self.entries["start_date"].str.contains(str(filters.month))) &
-            (self.entries["start_date"].str.contains(str(filters.year))) &
-            (self.entries["message"].str.contains(str(filters.message)))
-        ]
+            (self.entries["start_date"].str.contains(day)) &
+            (self.entries["start_date"].str.contains(month)) &
+            (self.entries["start_date"].str.contains(year)) &
+            (self.entries["message"].str.contains(message))
+            ]
 
         return filtered_entries
 
-    def get_all_entries(self) -> pandas.DataFrame:
+    def __get_all_entries(self) -> pandas.DataFrame:
         return self.base_entry_handler.get_data()
 
 

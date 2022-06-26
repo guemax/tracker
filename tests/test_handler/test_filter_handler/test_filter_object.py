@@ -21,67 +21,59 @@ class TestFilterHandler(BaseTestingClass):
     def setUp(self) -> None:
         super(TestFilterHandler, self).setUp()
 
-        self.filter_handler = FilterObject(0, "0", 0, "")
+        self.filter_handler = FilterObject(0, "", 0, "")
 
-    def test_removing_unused_filters(self) -> None:
-        self.check_for_removed_filters(
-            {"day": 0, "month": "0", "year": 0, "message": ""},
-            {}
-        )
-        self.check_for_removed_filters(
-            {"day": 1, "month": "0", "year": 0, "message": ""},
-            {"day": 1}
-        )
-        self.check_for_removed_filters(
-            {"day": 0, "month": "7", "year": 0, "message": ""},
-            {"month": 7}
-        )
-        self.check_for_removed_filters(
-            {"day": 0, "month": "0", "year": 2022, "message": ""},
-            {"year": 2022}
-        )
-        self.check_for_removed_filters(
-            {"day": 0, "month": "0", "year": 0, "message": "My message"},
-            {"message": "My message"}
-        )
-        self.check_for_removed_filters(
-            {"day": 1, "month": "7", "year": 0, "message": ""},
-            {"day": 1, "month": 7}
-        )
-        self.check_for_removed_filters(
-            {"day": 0, "month": "0", "year": 2022, "message": "My message"},
-            {"year": 2022, "message": "My message"})
-        self.check_for_removed_filters(
-            {"day": 1, "month": "0", "year": 0, "message": "My message"},
-            {"day": 1, "message": "My message"}
-        )
-        self.check_for_removed_filters(
-            {"day": 0, "month": "7", "year": 2022, "message": ""},
-            {"month": 7, "year": 2022}
-        )
-        self.check_for_removed_filters(
-            {"day": 1, "month": "7", "year": 2022, "message": ""},
-            {"day": 1, "month": 7, "year": 2022}
-        )
-        self.check_for_removed_filters(
-            {"day": 0, "month": "7", "year": 2022, "message": "My message"},
-            {"month": 7, "year": 2022, "message": "My message"}
-        )
-        self.check_for_removed_filters(
-            {"day": 1, "month": "7", "year": 2022, "message": "My new message"},
-            {"day": 1, "month": 7, "year": 2022, "message": "My new message"}
+    def test_creating_dict(self) -> None:
+        self.check_created_dict(
+            {"day": 0, "month": "", "year": 0, "message": ""},
+            {"day": 0, "month": "", "year": 0, "message": ""}
         )
 
-    def check_for_removed_filters(self, actual_filters: dict, expected_cleaned_filters: dict) -> None:
-        day = actual_filters["day"]
-        month = actual_filters["month"]
-        year = actual_filters["year"]
-        message = actual_filters["message"]
+        self.check_created_dict(
+            {"day": 1, "month": "", "year": 0, "message": ""},
+            {"day": 1, "month": "", "year": 0, "message": ""}
+        )
+
+        self.check_created_dict(
+            {"day": 0, "month": "1", "year": 0, "message": ""},
+            {"day": 0, "month": "Jan", "year": 0, "message": ""}
+        )
+
+        self.check_created_dict(
+            {"day": 0, "month": "January", "year": 0, "message": ""},
+            {"day": 0, "month": "Jan", "year": 0, "message": ""}
+        )
+
+        self.check_created_dict(
+            {"day": 0, "month": "Jan", "year": 0, "message": ""},
+            {"day": 0, "month": "Jan", "year": 0, "message": ""}
+        )
+
+        self.check_created_dict(
+            {"day": 0, "month": "", "year": 2022, "message": ""},
+            {"day": 0, "month": "", "year": 2022, "message": ""}
+        )
+
+        self.check_created_dict(
+            {"day": 0, "month": "", "year": 0, "message": "My message"},
+            {"day": 0, "month": "", "year": 0, "message": "My message"}
+        )
+
+        self.check_created_dict(
+            {"day": 1, "month": "1", "year": 2022, "message": "My message"},
+            {"day": 1, "month": "Jan", "year": 2022, "message": "My message"}
+        )
+
+    def check_created_dict(self, filters: dict, expected_dict: dict) -> None:
+        day = filters["day"]
+        month = filters["month"]
+        year = filters["year"]
+        message = filters["message"]
 
         self.filter_handler.__init__(day, month, year, message)
-        actual_cleaned_filters = self.filter_handler.get_dict_of_used_filters()
+        actual_dict = self.filter_handler.get_dict()
 
-        self.assertEqual(expected_cleaned_filters, actual_cleaned_filters)
+        self.assertEqual(actual_dict, expected_dict)
 
 
 if __name__ == "__main__":
