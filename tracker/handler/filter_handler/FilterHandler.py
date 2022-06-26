@@ -12,36 +12,29 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 """
 import pandas
 
+from tracker.handler.filter_handler.FilterObject import FilterObject
 from tracker.handler.entry_handler.BaseEntryHandlerClass import BaseEntryHandlerClass
 
 
 class FilterHandler:
     def __init__(self) -> None:
         self.filters = {}
+        self.entries = None
+
         self.base_entry_handler = BaseEntryHandlerClass()
 
-    @staticmethod
-    def remove_unused_filters_from(filters: dict) -> dict:
-        cleaned_filters = {}
-
-        for key, value in filters.items():
-            if value != "" and value != 0:
-                cleaned_filters[key] = value
-
-        return cleaned_filters
-
-    def filter_for(self, filters: dict) -> pandas.DataFrame:
-        self.filters = self.remove_unused_filters_from(filters)
-        entries = self.get_all_entries()
+    def filter_for(self, filters: FilterObject) -> pandas.DataFrame:
+        self.filters = filters.get_dict_of_used_filters()
+        self.entries = self.get_all_entries()
 
         if self.filters == {}:
-            return entries
+            return self.entries
 
-        filtered_entries = entries.loc[
-            (entries["start_date"].str.contains(str(filters["day"]))) &
-            (entries["start_date"].str.contains(str(filters["month"]))) &
-            (entries["start_date"].str.contains(str(filters["year"]))) &
-            (entries["message"].str.contains(str(filters["message"])))
+        filtered_entries = self.entries.loc[
+            (self.entries["start_date"].str.contains(str(filters.day))) &
+            (self.entries["start_date"].str.contains(str(filters.month))) &
+            (self.entries["start_date"].str.contains(str(filters.year))) &
+            (self.entries["message"].str.contains(str(filters.message)))
         ]
 
         return filtered_entries

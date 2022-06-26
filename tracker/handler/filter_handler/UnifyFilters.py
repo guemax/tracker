@@ -30,12 +30,9 @@ class UnifyFilters:
     def __convert_month_value_to_number(self) -> int:
         if self.__month_has_not_been_specified():
             return 0
-
-        if self.__month_format_is_number():
+        elif self.__month_format_is_number():
             return int(self.month)
-
-        # Month has letters in it, translate it into the month number
-        if self.__month_format_is_abbrevation():
+        elif self.__month_format_is_abbrevation():
             return self.__translate_abbrevation_of_month_into_month_number()
         elif self.__month_format_is_name():
             return self.__translate_full_name_of_month_into_month_number()

@@ -13,7 +13,7 @@ along with Tracker. If not, see <http://www.gnu.org/licenses/>.
 
 import click
 
-from .UnifyFilters import UnifyFilters
+from tracker.handler.filter_handler.FilterObject import FilterObject
 from tracker.handler.filter_handler.FilterHandler import FilterHandler
 
 from tracker.commands.console_logger import info, warn
@@ -27,7 +27,7 @@ from tracker.commands.console_logger import info, warn
 def filter(day: int, month: str, year: int, message: str) -> None:
     """Filter entries by the given specifier"""
     try:
-        filters = UnifyFilters().unify(day, month, year, message)
+        filters = FilterObject(day, month, year, message)
     except ValueError:
         warn("Warning: One of the passed values is not matching the type. Please double check them and try again.",
              print_status=True, exit_tracker=True)
