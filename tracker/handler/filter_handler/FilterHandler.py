@@ -29,9 +29,10 @@ class FilterHandler:
             return self.entries
 
         # Necessary to match the right number; not showing entries of 25th when searching for 5 contained by start_date
-        day = f" {filters.day} "
-        month = f"{filters.month}, "
-        year = f" {filters.year}"
+        # If filter is not used, we simply leave it an empty string
+        day = "" if filters.day == "" else f" {filters.day} "
+        month = "" if filters.month == "" else f"{filters.month}, "
+        year = "" if filters.year == "" else f" {filters.year}"
         message = filters.message
 
         # TODO: Add support to filter for entries with no message
