@@ -21,7 +21,7 @@ class TestFilterHandler(BaseTestingClass):
     def setUp(self) -> None:
         super(TestFilterHandler, self).setUp()
 
-        self.filter_handler = FilterObject(0, "", 0, "")
+        self.filter_handler = FilterObject()
 
     def test_creating_dict(self) -> None:
         self.check_created_dict(

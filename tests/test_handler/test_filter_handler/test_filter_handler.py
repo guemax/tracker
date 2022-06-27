@@ -30,13 +30,13 @@ class TestFilterHandler(BaseTestingClass):
         self.setup_test_values(4)   # creates entries containing the date of today
         day = date.today().day
 
-        filters = FilterObject(str(day), "", "", "")
+        filters = FilterObject(day=str(day))
 
         entries = self.filter_handler.filter_for(filters)
         self.assertFalse(entries.empty)
         self.assertEqual(len(entries), 2)
 
-        filters = FilterObject(str(day + 1), "", "", "")
+        filters = FilterObject(day=str(day + 1))
 
         entries = self.filter_handler.filter_for(filters)
         self.assertTrue(entries.empty)  # Cannot find entry of tomorrow...
@@ -45,7 +45,7 @@ class TestFilterHandler(BaseTestingClass):
         self.setup_test_values(4)   # creates entries containing the date of today
         month = date.today().month
 
-        filters = FilterObject("", str(month), "", "")
+        filters = FilterObject(month=str(month))
 
         entries = self.filter_handler.filter_for(filters)
         self.assertFalse(entries.empty)
@@ -55,7 +55,7 @@ class TestFilterHandler(BaseTestingClass):
         expected_number_of_entries = 2 if day == 1 else 4
         self.assertEqual(len(entries), expected_number_of_entries)
 
-        filters = FilterObject("", str(month + 1), "", "")
+        filters = FilterObject(month=str(month + 1))
 
         entries = self.filter_handler.filter_for(filters)
         self.assertTrue(entries.empty)  # Cannot find entry of tomorrow
@@ -64,7 +64,7 @@ class TestFilterHandler(BaseTestingClass):
         self.setup_test_values(4)  # creates entries containing the date of today
         year = date.today().year
 
-        filters = FilterObject("", "", str(year), "")
+        filters = FilterObject(year=str(year))
 
         entries = self.filter_handler.filter_for(filters)
         self.assertFalse(entries.empty)
@@ -75,7 +75,7 @@ class TestFilterHandler(BaseTestingClass):
         expected_number_of_entries = 2 if month == 1 and day == 1 else 4
         self.assertEqual(len(entries), expected_number_of_entries)
 
-        filters = FilterObject("", "", str(year + 1), "")
+        filters = FilterObject(year=str(year + 1))
 
         entries = self.filter_handler.filter_for(filters)
         self.assertTrue(entries.empty)  # Cannot find entry of tomorrow

@@ -15,7 +15,7 @@ from .UnifyFilters import UnifyFilters
 
 
 class FilterObject:
-    def __init__(self, day: str, month: str, year: str, message: str) -> None:
+    def __init__(self, day: str = "", month: str = "", year: str = "", message: str = "") -> None:
         self.day, self.month, self.year, self.message = day, month, year, message
 
         # Don't forget to unify the filters to get the right format for them
