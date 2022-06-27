@@ -18,7 +18,7 @@ class FilterObject:
     def __init__(self, day: str, month: str, year: str, message: str) -> None:
         self.day, self.month, self.year, self.message = day, month, year, message
 
-        # Don't forget to unify the filter_dict to get the right format for the filter_dict
+        # Don't forget to unify the filters to get the right format for them
         self.__unify()
 
     def empty(self) -> bool:
