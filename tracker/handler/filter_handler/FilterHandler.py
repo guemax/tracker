@@ -30,7 +30,7 @@ class FilterHandler:
 
         # Necessary to match the right number; not showing entries of 25th when searching for 5 contained by start_date
         # If filter is not used, we simply leave it an empty string
-        day = "" if filters.day == "" else f" {filters.day} "
+        day = "" if filters.day == "" else f" {filters.day.rjust(2, '0')} "     # Need to add leading 0 for numbers < 10
         month = "" if filters.month == "" else f"{filters.month}, "
         year = "" if filters.year == "" else f" {filters.year}"
         message = filters.message
